@@ -63,31 +63,9 @@ UBool collateWithLocaleInCPP(const Locale& locale, UErrorCode& status)
 	return TRUE;
 }
 
-#include <string>
-#include <fstream>
-#include <vector>
-using namespace std;
-
-string readFile2(const string &fileName)
-{
-    ifstream ifs(fileName.c_str(), ios::in | ios::binary | ios::ate);
-
-    ifstream::pos_type fileSize = ifs.tellg();
-    ifs.seekg(0, ios::beg);
-
-    vector<char> bytes(fileSize);
-    ifs.read(bytes.data(), fileSize);
-
-    return string(bytes.data(), fileSize);
-}
-
 
 int main()
 {
-	string data = readFile2("data/icudt66l.dat");
-	UErrorCode err;
-	udata_setCommonData(data.c_str(), &err);
-
 	UErrorCode status = U_ZERO_ERROR;
 	fprintf(stdout, "\n");
 	if (collateWithLocaleInCPP(Locale("en", "US"), status) != TRUE)
