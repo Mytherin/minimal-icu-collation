@@ -16,14 +16,14 @@
 
 U_NAMESPACE_BEGIN
 
-#define DEFAULT_CAPACITY 8
+#define UVECTOR32_DEFAULT_CAPACITY 8
 
 /*
  * Constants for hinting whether a key is an integer
  * or a pointer.  If a hint bit is zero, then the associated
  * token is assumed to be an integer. This is needed for iSeries
  */
- 
+
 UOBJECT_DEFINE_RTTI_IMPLEMENTATION(UVector32)
 
 UVector32::UVector32(UErrorCode &status) :
@@ -32,7 +32,7 @@ UVector32::UVector32(UErrorCode &status) :
     maxCapacity(0),
     elements(NULL)
 {
-    _init(DEFAULT_CAPACITY, status);
+    _init(UVECTOR32_DEFAULT_CAPACITY, status);
 }
 
 UVector32::UVector32(int32_t initialCapacity, UErrorCode &status) :
@@ -49,13 +49,13 @@ UVector32::UVector32(int32_t initialCapacity, UErrorCode &status) :
 void UVector32::_init(int32_t initialCapacity, UErrorCode &status) {
     // Fix bogus initialCapacity values; avoid malloc(0)
     if (initialCapacity < 1) {
-        initialCapacity = DEFAULT_CAPACITY;
+        initialCapacity = UVECTOR32_DEFAULT_CAPACITY;
     }
     if (maxCapacity>0 && maxCapacity<initialCapacity) {
         initialCapacity = maxCapacity;
     }
     if (initialCapacity > (int32_t)(INT32_MAX / sizeof(int32_t))) {
-        initialCapacity = uprv_min(DEFAULT_CAPACITY, maxCapacity);
+        initialCapacity = uprv_min(UVECTOR32_DEFAULT_CAPACITY, maxCapacity);
     }
     elements = (int32_t *)uprv_malloc(sizeof(int32_t)*initialCapacity);
     if (elements == 0) {
@@ -253,7 +253,7 @@ void UVector32::setMaxCapacity(int32_t limit) {
         // Current capacity is within the new limit.
         return;
     }
-    
+
     // New maximum capacity is smaller than the current size.
     // Realloc the storage to the new, smaller size.
     int32_t* newElems = (int32_t *)uprv_realloc(elements, sizeof(int32_t)*maxCapacity);
@@ -288,7 +288,7 @@ void UVector32::setSize(int32_t newSize) {
         for (i=count; i<newSize; ++i) {
             elements[i] = 0;
         }
-    } 
+    }
     count = newSize;
 }
 

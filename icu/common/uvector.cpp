@@ -17,7 +17,7 @@
 
 U_NAMESPACE_BEGIN
 
-#define DEFAULT_CAPACITY 8
+#define UVECTOR_DEFAULT_CAPACITY 8
 
 /*
  * Constants for hinting whether a key is an integer
@@ -26,7 +26,7 @@ U_NAMESPACE_BEGIN
  */
 #define HINT_KEY_POINTER   (1)
 #define HINT_KEY_INTEGER   (0)
- 
+
 UOBJECT_DEFINE_RTTI_IMPLEMENTATION(UVector)
 
 UVector::UVector(UErrorCode &status) :
@@ -36,7 +36,7 @@ UVector::UVector(UErrorCode &status) :
     deleter(0),
     comparer(0)
 {
-    _init(DEFAULT_CAPACITY, status);
+    _init(UVECTOR_DEFAULT_CAPACITY, status);
 }
 
 UVector::UVector(int32_t initialCapacity, UErrorCode &status) :
@@ -56,7 +56,7 @@ UVector::UVector(UObjectDeleter *d, UElementsAreEqual *c, UErrorCode &status) :
     deleter(d),
     comparer(c)
 {
-    _init(DEFAULT_CAPACITY, status);
+    _init(UVECTOR_DEFAULT_CAPACITY, status);
 }
 
 UVector::UVector(UObjectDeleter *d, UElementsAreEqual *c, int32_t initialCapacity, UErrorCode &status) :
@@ -75,7 +75,7 @@ void UVector::_init(int32_t initialCapacity, UErrorCode &status) {
     }
     // Fix bogus initialCapacity values; avoid malloc(0) and integer overflow
     if ((initialCapacity < 1) || (initialCapacity > (int32_t)(INT32_MAX / sizeof(UElement)))) {
-        initialCapacity = DEFAULT_CAPACITY;
+        initialCapacity = UVECTOR_DEFAULT_CAPACITY;
     }
     elements = (UElement *)uprv_malloc(sizeof(UElement)*initialCapacity);
     if (elements == 0) {
@@ -492,7 +492,7 @@ void UVector::sortedInsert(UElement e, UElementComparator *compare, UErrorCode& 
   *
   *  The context pointer to this function is a pointer back
   *  (with some extra indirection) to the user supplied comparator.
-  *  
+  *
   */
 static int32_t U_CALLCONV
 sortComparator(const void *context, const void *left, const void *right) {

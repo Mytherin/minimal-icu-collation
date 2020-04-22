@@ -71,7 +71,7 @@ int32_t BuddhistCalendar::handleGetExtendedYear()
     if (newerField(UCAL_EXTENDED_YEAR, UCAL_YEAR) == UCAL_EXTENDED_YEAR) {
         year = internalGet(UCAL_EXTENDED_YEAR, kGregorianEpoch);
     } else {
-        // extended year is a gregorian year, where 1 = 1AD,  0 = 1BC, -1 = 2BC, etc 
+        // extended year is a gregorian year, where 1 = 1AD,  0 = 1BC, -1 = 2BC, etc
         year = internalGet(UCAL_YEAR, kGregorianEpoch - kBuddhistEraStart)
                 + kBuddhistEraStart;
     }
@@ -131,8 +131,8 @@ void BuddhistCalendar::timeToFields(UDate theTime, UBool quick, UErrorCode& stat
  * the first time it is used. Once the system default century date and year
  * are set, they do not change.
  */
-static UDate     gSystemDefaultCenturyStart       = DBL_MIN;
-static int32_t   gSystemDefaultCenturyStartYear   = -1;
+static UDate     buddhcal_gSystemDefaultCenturyStart       = DBL_MIN;
+static int32_t   buddhcal_gSystemDefaultCenturyStartYear   = -1;
 static icu::UInitOnce gBCInitOnce = U_INITONCE_INITIALIZER;
 
 
@@ -142,7 +142,7 @@ UBool BuddhistCalendar::haveDefaultCentury() const
 }
 
 static void U_CALLCONV
-initializeSystemDefaultCentury()
+initializeBuddhCalSystemDefaultCentury()
 {
     // initialize systemDefaultCentury and systemDefaultCenturyYear based
     // on the current time.  They'll be set to 80 years before
@@ -154,8 +154,8 @@ initializeSystemDefaultCentury()
         calendar.add(UCAL_YEAR, -80, status);
         UDate    newStart =  calendar.getTime(status);
         int32_t  newYear  =  calendar.get(UCAL_YEAR, status);
-        gSystemDefaultCenturyStartYear = newYear;
-        gSystemDefaultCenturyStart = newStart;
+        buddhcal_gSystemDefaultCenturyStartYear = newYear;
+        buddhcal_gSystemDefaultCenturyStart = newStart;
     }
     // We have no recourse upon failure unless we want to propagate the failure
     // out.
@@ -164,15 +164,15 @@ initializeSystemDefaultCentury()
 UDate BuddhistCalendar::defaultCenturyStart() const
 {
     // lazy-evaluate systemDefaultCenturyStart and systemDefaultCenturyStartYear
-    umtx_initOnce(gBCInitOnce, &initializeSystemDefaultCentury);
-    return gSystemDefaultCenturyStart;
+    umtx_initOnce(gBCInitOnce, &initializeBuddhCalSystemDefaultCentury);
+    return buddhcal_gSystemDefaultCenturyStart;
 }
 
 int32_t BuddhistCalendar::defaultCenturyStartYear() const
 {
-    // lazy-evaluate systemDefaultCenturyStartYear and systemDefaultCenturyStart 
-    umtx_initOnce(gBCInitOnce, &initializeSystemDefaultCentury);
-    return gSystemDefaultCenturyStartYear;
+    // lazy-evaluate systemDefaultCenturyStartYear and systemDefaultCenturyStart
+    umtx_initOnce(gBCInitOnce, &initializeBuddhCalSystemDefaultCentury);
+    return buddhcal_gSystemDefaultCenturyStartYear;
 }
 
 

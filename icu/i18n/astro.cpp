@@ -21,42 +21,42 @@
 #include "putilimp.h"
 #include <stdio.h>  // for toString()
 
-#if defined (PI) 
+#if defined (PI)
 #undef PI
 #endif
 
 #ifdef U_DEBUG_ASTRO
-# include "uresimp.h" // for debugging
+// # include "uresimp.h" // for debugging
 
-static void debug_astro_loc(const char *f, int32_t l)
-{
-  fprintf(stderr, "%s:%d: ", f, l);
-}
+// static void debug_astro_loc(const char *f, int32_t l)
+// {
+//   fprintf(stderr, "%s:%d: ", f, l);
+// }
 
-static void debug_astro_msg(const char *pat, ...)
-{
-  va_list ap;
-  va_start(ap, pat);
-  vfprintf(stderr, pat, ap);
-  fflush(stderr);
-}
-#include "unicode/datefmt.h"
-#include "unicode/ustring.h"
-static const char * debug_astro_date(UDate d) {
-  static char gStrBuf[1024];
-  static DateFormat *df = NULL;
-  if(df == NULL) {
-    df = DateFormat::createDateTimeInstance(DateFormat::MEDIUM, DateFormat::MEDIUM, Locale::getUS());
-    df->adoptTimeZone(TimeZone::getGMT()->clone());
-  }
-  UnicodeString str;
-  df->format(d,str);
-  u_austrncpy(gStrBuf,str.getTerminatedBuffer(),sizeof(gStrBuf)-1);
-  return gStrBuf;
-}
+// static void debug_astro_msg(const char *pat, ...)
+// {
+//   va_list ap;
+//   va_start(ap, pat);
+//   vfprintf(stderr, pat, ap);
+//   fflush(stderr);
+// }
+// #include "unicode/datefmt.h"
+// #include "unicode/ustring.h"
+// static const char * debug_astro_date(UDate d) {
+//   static char gStrBuf[1024];
+//   static DateFormat *df = NULL;
+//   if(df == NULL) {
+//     df = DateFormat::createDateTimeInstance(DateFormat::MEDIUM, DateFormat::MEDIUM, Locale::getUS());
+//     df->adoptTimeZone(TimeZone::getGMT()->clone());
+//   }
+//   UnicodeString str;
+//   df->format(d,str);
+//   u_austrncpy(gStrBuf,str.getTerminatedBuffer(),sizeof(gStrBuf)-1);
+//   return gStrBuf;
+// }
 
-// must use double parens, i.e.:  U_DEBUG_ASTRO_MSG(("four is: %d",4));
-#define U_DEBUG_ASTRO_MSG(x) {debug_astro_loc(__FILE__,__LINE__);debug_astro_msg x;}
+// // must use double parens, i.e.:  U_DEBUG_ASTRO_MSG(("four is: %d",4));
+// #define U_DEBUG_ASTRO_MSG(x) {debug_astro_loc(__FILE__,__LINE__);debug_astro_msg x;}
 #else
 #define U_DEBUG_ASTRO_MSG(x)
 #endif

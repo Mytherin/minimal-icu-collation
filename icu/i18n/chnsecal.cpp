@@ -151,7 +151,7 @@ ChineseCalendar::~ChineseCalendar()
 {
 }
 
-const char *ChineseCalendar::getType() const { 
+const char *ChineseCalendar::getType() const {
     return "chinese";
 }
 
@@ -170,7 +170,7 @@ const TimeZone* ChineseCalendar::getChineseCalZoneAstroCalc(void) const {
 //-------------------------------------------------------------------------
 
 
-static const int32_t LIMITS[UCAL_FIELD_COUNT][4] = {
+static const int32_t CHNSECAL_LIMITS[UCAL_FIELD_COUNT][4] = {
     // Minimum  Greatest     Least    Maximum
     //           Minimum   Maximum
     {        1,        1,    83333,    83333}, // ERA
@@ -203,7 +203,7 @@ static const int32_t LIMITS[UCAL_FIELD_COUNT][4] = {
 * @draft ICU 2.4
 */
 int32_t ChineseCalendar::handleGetLimit(UCalendarDateFields field, ELimitType limitType) const {
-    return LIMITS[field][limitType];
+    return CHNSECAL_LIMITS[field][limitType];
 }
 
 
@@ -255,7 +255,7 @@ int32_t ChineseCalendar::handleGetMonthLength(int32_t extendedYear, int32_t mont
  * <li>DAY_OF_MONTH
  * <li>DAY_OF_YEAR
  * <li>EXTENDED_YEAR</ul>
- * 
+ *
  * The DAY_OF_WEEK and DOW_LOCAL fields are already set when this
  * method is called.  The getGregorianXxx() methods return Gregorian
  * calendar equivalents for the given Julian day.
@@ -310,7 +310,7 @@ const UFieldResolutionTable* ChineseCalendar::getFieldResolutionTable() const {
 /**
  * Return the Julian day number of day before the first day of the
  * given month in the given extended year.
- * 
+ *
  * <p>Note: This method reads the IS_LEAP_MONTH field to determine
  * whether the given month is a leap month.
  * @param eyear the extended year
@@ -335,7 +335,7 @@ int32_t ChineseCalendar::handleComputeMonthStart(int32_t eyear, int32_t month, U
     int32_t gyear = eyear + fEpochYear - 1; // Gregorian year
     int32_t theNewYear = newYear(gyear);
     int32_t newMoon = newMoonNear(theNewYear + month * 29, TRUE);
-    
+
     int32_t julianDay = newMoon + kEpochStartAsJulianDay;
 
     // Save fields for later restoration
@@ -349,10 +349,10 @@ int32_t ChineseCalendar::handleComputeMonthStart(int32_t eyear, int32_t month, U
     nonConstThis->computeGregorianFields(julianDay, status);
     if (U_FAILURE(status))
         return 0;
-    
+
     // This will modify the MONTH and IS_LEAP_MONTH fields (only)
     nonConstThis->computeChineseFields(newMoon, getGregorianYear(),
-                         getGregorianMonth(), FALSE);        
+                         getGregorianMonth(), FALSE);
 
     if (month != internalGet(UCAL_MONTH) ||
         isLeapMonth != internalGet(UCAL_IS_LEAP_MONTH)) {
@@ -379,7 +379,7 @@ void ChineseCalendar::add(UCalendarDateFields field, int32_t amount, UErrorCode&
             if (U_FAILURE(status)) break;
             int32_t day = get(UCAL_JULIAN_DAY, status) - kEpochStartAsJulianDay; // Get local day
             if (U_FAILURE(status)) break;
-            int32_t moon = day - dom + 1; // New moon 
+            int32_t moon = day - dom + 1; // New moon
             offsetMonth(moon, dom, amount);
         }
         break;
@@ -470,13 +470,13 @@ void ChineseCalendar::roll(EDateFields field, int32_t amount, UErrorCode& status
 
 /**
  * Convert local days to UTC epoch milliseconds.
- * This is not an accurate conversion in that getTimezoneOffset 
- * takes the milliseconds in GMT (not local time). In theory, more 
- * accurate algorithm can be implemented but practically we do not need 
- * to go through that complication as long as the historical timezone 
- * changes did not happen around the 'tricky' new moon (new moon around 
- * midnight). 
- *  
+ * This is not an accurate conversion in that getTimezoneOffset
+ * takes the milliseconds in GMT (not local time). In theory, more
+ * accurate algorithm can be implemented but practically we do not need
+ * to go through that complication as long as the historical timezone
+ * changes did not happen around the 'tricky' new moon (new moon around
+ * midnight).
+ *
  * @param days days after January 1, 1970 0:00 in the astronomical base zone
  * @return milliseconds after January 1, 1970 0:00 GMT
  */
@@ -564,7 +564,7 @@ int32_t ChineseCalendar::winterSolstice(int32_t gyear) const {
  * new moon after or before <code>days</code>
  */
 int32_t ChineseCalendar::newMoonNear(double days, UBool after) const {
-    
+
     umtx_lock(&astroLock);
     if(gChineseCalendarAstro == NULL) {
         gChineseCalendarAstro = new CalendarAstronomer();
@@ -573,7 +573,7 @@ int32_t ChineseCalendar::newMoonNear(double days, UBool after) const {
     gChineseCalendarAstro->setTime(daysToMillis(days));
     UDate newMoon = gChineseCalendarAstro->getMoonTime(CalendarAstronomer::NEW_MOON(), after);
     umtx_unlock(&astroLock);
-    
+
     return (int32_t) millisToDays(newMoon);
 }
 
@@ -596,7 +596,7 @@ int32_t ChineseCalendar::synodicMonthsBetween(int32_t day1, int32_t day2) const 
  * @param days days after January 1, 1970 0:00 Asia/Shanghai
  */
 int32_t ChineseCalendar::majorSolarTerm(int32_t days) const {
-    
+
     umtx_lock(&astroLock);
     if(gChineseCalendarAstro == NULL) {
         gChineseCalendarAstro = new CalendarAstronomer();
@@ -713,7 +713,7 @@ void ChineseCalendar::computeChineseFields(int32_t days, int32_t gyear, int32_t 
     if (setAllFields) {
 
         // Extended year and cycle year is based on the epoch year
-        
+
         int32_t extended_year = gyear - fEpochYear;
         int cycle_year = gyear - CHINESE_EPOCH_YEAR;
         if (month < 11 ||
@@ -767,7 +767,7 @@ int32_t ChineseCalendar::newYear(int32_t gyear) const {
         int32_t newMoon1 = newMoonNear(solsticeBefore + 1, TRUE);
         int32_t newMoon2 = newMoonNear(newMoon1 + SYNODIC_GAP, TRUE);
         int32_t newMoon11 = newMoonNear(solsticeAfter + 1, FALSE);
-        
+
         if (synodicMonthsBetween(newMoon1, newMoon11) == 12 &&
             (hasNoMajorSolarTerm(newMoon1) || hasNoMajorSolarTerm(newMoon2))) {
             cacheValue = newMoonNear(newMoon2 + SYNODIC_GAP, TRUE);
@@ -830,7 +830,7 @@ UBool
 ChineseCalendar::inDaylightTime(UErrorCode& status) const
 {
     // copied from GregorianCalendar
-    if (U_FAILURE(status) || !getTimeZone().useDaylightTime()) 
+    if (U_FAILURE(status) || !getTimeZone().useDaylightTime())
         return FALSE;
 
     // Force an update of the state of the Calendar.
@@ -841,9 +841,9 @@ ChineseCalendar::inDaylightTime(UErrorCode& status) const
 
 // default century
 
-static UDate     gSystemDefaultCenturyStart       = DBL_MIN;
-static int32_t   gSystemDefaultCenturyStartYear   = -1;
-static icu::UInitOnce gSystemDefaultCenturyInitOnce = U_INITONCE_INITIALIZER;
+static UDate     chnsecal_gSystemDefaultCenturyStart       = DBL_MIN;
+static int32_t   chnsecal_gSystemDefaultCenturyStartYear   = -1;
+static icu::UInitOnce chnsecal_gSystemDefaultCenturyInitOnce = U_INITONCE_INITIALIZER;
 
 
 UBool ChineseCalendar::haveDefaultCentury() const
@@ -861,7 +861,7 @@ int32_t ChineseCalendar::defaultCenturyStartYear() const
     return internalGetDefaultCenturyStartYear();
 }
 
-static void U_CALLCONV initializeSystemDefaultCentury()
+static void U_CALLCONV initializeChnseCalSystemDefaultCentury()
 {
     // initialize systemDefaultCentury and systemDefaultCenturyYear based
     // on the current time.  They'll be set to 80 years before
@@ -871,8 +871,8 @@ static void U_CALLCONV initializeSystemDefaultCentury()
     if (U_SUCCESS(status)) {
         calendar.setTime(Calendar::getNow(), status);
         calendar.add(UCAL_YEAR, -80, status);
-        gSystemDefaultCenturyStart     = calendar.getTime(status);
-        gSystemDefaultCenturyStartYear = calendar.get(UCAL_YEAR, status);
+        chnsecal_gSystemDefaultCenturyStart     = calendar.getTime(status);
+        chnsecal_gSystemDefaultCenturyStartYear = calendar.get(UCAL_YEAR, status);
     }
     // We have no recourse upon failure unless we want to propagate the failure
     // out.
@@ -882,16 +882,16 @@ UDate
 ChineseCalendar::internalGetDefaultCenturyStart() const
 {
     // lazy-evaluate systemDefaultCenturyStart
-    umtx_initOnce(gSystemDefaultCenturyInitOnce, &initializeSystemDefaultCentury);
-    return gSystemDefaultCenturyStart;
+    umtx_initOnce(chnsecal_gSystemDefaultCenturyInitOnce, &initializeChnseCalSystemDefaultCentury);
+    return chnsecal_gSystemDefaultCenturyStart;
 }
 
 int32_t
 ChineseCalendar::internalGetDefaultCenturyStartYear() const
 {
     // lazy-evaluate systemDefaultCenturyStartYear
-    umtx_initOnce(gSystemDefaultCenturyInitOnce, &initializeSystemDefaultCentury);
-    return    gSystemDefaultCenturyStartYear;
+    umtx_initOnce(chnsecal_gSystemDefaultCenturyInitOnce, &initializeChnseCalSystemDefaultCentury);
+    return    chnsecal_gSystemDefaultCenturyStartYear;
 }
 
 UOBJECT_DEFINE_RTTI_IMPLEMENTATION(ChineseCalendar)

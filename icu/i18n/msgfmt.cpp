@@ -55,10 +55,10 @@
 // class MessageFormat
 // *****************************************************************************
 
-#define SINGLE_QUOTE      ((UChar)0x0027)
-#define COMMA             ((UChar)0x002C)
-#define LEFT_CURLY_BRACE  ((UChar)0x007B)
-#define RIGHT_CURLY_BRACE ((UChar)0x007D)
+#define MSGFMT_SINGLE_QUOTE      ((UChar)0x0027)
+#define MSGFMT_COMMA             ((UChar)0x002C)
+#define MSGFMT_LEFT_CURLY_BRACE  ((UChar)0x007B)
+#define MSGFMT_RIGHT_CURLY_BRACE ((UChar)0x007D)
 
 //---------------------------------------
 // static data
@@ -1067,7 +1067,7 @@ void MessageFormat::format(int32_t msgStart, const void *plNumber,
         const Format* formatter = NULL;
         if (noArg) {
             appendTo.append(
-                UnicodeString(LEFT_CURLY_BRACE).append(argName).append(RIGHT_CURLY_BRACE));
+                UnicodeString(MSGFMT_LEFT_CURLY_BRACE).append(argName).append(MSGFMT_RIGHT_CURLY_BRACE));
         } else if (arg == NULL) {
             appendTo.append(NULL_STRING, 4);
         } else if(plNumber!=NULL &&
@@ -1093,8 +1093,8 @@ void MessageFormat::format(int32_t msgStart, const void *plNumber,
                 // handled below according to argType.
                 UnicodeString subMsgString;
                 formatter->format(*arg, subMsgString, success);
-                if (subMsgString.indexOf(LEFT_CURLY_BRACE) >= 0 ||
-                    (subMsgString.indexOf(SINGLE_QUOTE) >= 0 && !MessageImpl::jdkAposMode(msgPattern))
+                if (subMsgString.indexOf(MSGFMT_LEFT_CURLY_BRACE) >= 0 ||
+                    (subMsgString.indexOf(MSGFMT_SINGLE_QUOTE) >= 0 && !MessageImpl::jdkAposMode(msgPattern))
                 ) {
                     MessageFormat subMsgFormat(subMsgString, fLocale, success);
                     subMsgFormat.format(0, NULL, arguments, argumentNames, cnt, appendTo, ignore, success);
@@ -1213,7 +1213,7 @@ void MessageFormat::formatComplexSubMessage(int32_t msgStart,
             prevIndex = index;
         }
     }
-    if (sb.indexOf(LEFT_CURLY_BRACE) >= 0) {
+    if (sb.indexOf(MSGFMT_LEFT_CURLY_BRACE) >= 0) {
         UnicodeString emptyPattern;  // gcc 3.3.3 fails with "UnicodeString()" as the first parameter.
         MessageFormat subMsgFormat(emptyPattern, fLocale, success);
         subMsgFormat.applyPattern(sb, UMSGPAT_APOS_DOUBLE_REQUIRED, NULL, success);
@@ -1459,9 +1459,9 @@ MessageFormat::parse(int32_t msgStart,
             } else {
                 UnicodeString strValue(source.tempSubString(sourceOffset, next - sourceOffset));
                 UnicodeString compValue;
-                compValue.append(LEFT_CURLY_BRACE);
+                compValue.append(MSGFMT_LEFT_CURLY_BRACE);
                 itos(argNumber, compValue);
-                compValue.append(RIGHT_CURLY_BRACE);
+                compValue.append(MSGFMT_RIGHT_CURLY_BRACE);
                 if (0 != strValue.compare(compValue)) {
                     argResult.setString(strValue);
                     haveArgResult = TRUE;

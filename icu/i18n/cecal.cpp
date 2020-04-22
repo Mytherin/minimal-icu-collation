@@ -16,7 +16,7 @@
 
 U_NAMESPACE_BEGIN
 
-static const int32_t LIMITS[UCAL_FIELD_COUNT][4] = {
+static const int32_t CECAL_LIMITS[UCAL_FIELD_COUNT][4] = {
     // Minimum  Greatest    Least  Maximum
     //           Minimum  Maximum
     {        0,        0,        1,        1}, // ERA
@@ -54,7 +54,7 @@ CECalendar::CECalendar(const Locale& aLocale, UErrorCode& success)
     setTimeInMillis(getNow(), success);
 }
 
-CECalendar::CECalendar (const CECalendar& other) 
+CECalendar::CECalendar (const CECalendar& other)
 :   Calendar(other)
 {
 }
@@ -83,7 +83,7 @@ CECalendar::handleComputeMonthStart(int32_t eyear,int32_t emonth, UBool /*useMon
 int32_t
 CECalendar::handleGetLimit(UCalendarDateFields field, ELimitType limitType) const
 {
-    return LIMITS[field][limitType];
+    return CECAL_LIMITS[field][limitType];
 }
 
 UBool

@@ -41,25 +41,24 @@
 
 U_NAMESPACE_BEGIN
 
-using namespace icu::pluralimpl;
 using icu::number::impl::DecimalQuantity;
 
-static const UChar PLURAL_KEYWORD_OTHER[]={LOW_O,LOW_T,LOW_H,LOW_E,LOW_R,0};
-static const UChar PLURAL_DEFAULT_RULE[]={LOW_O,LOW_T,LOW_H,LOW_E,LOW_R,COLON,SPACE,LOW_N,0};
-static const UChar PK_IN[]={LOW_I,LOW_N,0};
-static const UChar PK_NOT[]={LOW_N,LOW_O,LOW_T,0};
-static const UChar PK_IS[]={LOW_I,LOW_S,0};
-static const UChar PK_MOD[]={LOW_M,LOW_O,LOW_D,0};
-static const UChar PK_AND[]={LOW_A,LOW_N,LOW_D,0};
-static const UChar PK_OR[]={LOW_O,LOW_R,0};
-static const UChar PK_VAR_N[]={LOW_N,0};
-static const UChar PK_VAR_I[]={LOW_I,0};
-static const UChar PK_VAR_F[]={LOW_F,0};
-static const UChar PK_VAR_T[]={LOW_T,0};
-static const UChar PK_VAR_V[]={LOW_V,0};
-static const UChar PK_WITHIN[]={LOW_W,LOW_I,LOW_T,LOW_H,LOW_I,LOW_N,0};
-static const UChar PK_DECIMAL[]={LOW_D,LOW_E,LOW_C,LOW_I,LOW_M,LOW_A,LOW_L,0};
-static const UChar PK_INTEGER[]={LOW_I,LOW_N,LOW_T,LOW_E,LOW_G,LOW_E,LOW_R,0};
+static const UChar PLURAL_KEYWORD_OTHER[]={PLURRULE_LOW_O,PLURRULE_LOW_T,PLURRULE_LOW_H,PLURRULE_LOW_E,PLURRULE_LOW_R,0};
+static const UChar PLURAL_DEFAULT_RULE[]={PLURRULE_LOW_O,PLURRULE_LOW_T,PLURRULE_LOW_H,PLURRULE_LOW_E,PLURRULE_LOW_R,PLURRULE_COLON,PLURRULE_SPACE,PLURRULE_LOW_N,0};
+static const UChar PK_IN[]={PLURRULE_LOW_I,PLURRULE_LOW_N,0};
+static const UChar PK_NOT[]={PLURRULE_LOW_N,PLURRULE_LOW_O,PLURRULE_LOW_T,0};
+static const UChar PK_IS[]={PLURRULE_LOW_I,PLURRULE_LOW_S,0};
+static const UChar PK_MOD[]={PLURRULE_LOW_M,PLURRULE_LOW_O,PLURRULE_LOW_D,0};
+static const UChar PK_AND[]={PLURRULE_LOW_A,PLURRULE_LOW_N,PLURRULE_LOW_D,0};
+static const UChar PK_OR[]={PLURRULE_LOW_O,PLURRULE_LOW_R,0};
+static const UChar PK_VAR_N[]={PLURRULE_LOW_N,0};
+static const UChar PK_VAR_I[]={PLURRULE_LOW_I,0};
+static const UChar PK_VAR_F[]={PLURRULE_LOW_F,0};
+static const UChar PK_VAR_T[]={PLURRULE_LOW_T,0};
+static const UChar PK_VAR_V[]={PLURRULE_LOW_V,0};
+static const UChar PK_WITHIN[]={PLURRULE_LOW_W,PLURRULE_LOW_I,PLURRULE_LOW_T,PLURRULE_LOW_H,PLURRULE_LOW_I,PLURRULE_LOW_N,0};
+static const UChar PK_DECIMAL[]={PLURRULE_LOW_D,PLURRULE_LOW_E,PLURRULE_LOW_C,PLURRULE_LOW_I,PLURRULE_LOW_M,PLURRULE_LOW_A,PLURRULE_LOW_L,0};
+static const UChar PK_INTEGER[]={PLURRULE_LOW_I,PLURRULE_LOW_N,PLURRULE_LOW_T,PLURRULE_LOW_E,PLURRULE_LOW_G,PLURRULE_LOW_E,PLURRULE_LOW_R,0};
 
 UOBJECT_DEFINE_RTTI_IMPLEMENTATION(PluralRules)
 UOBJECT_DEFINE_RTTI_IMPLEMENTATION(PluralKeywordEnumeration)
@@ -336,14 +335,14 @@ getSamplesFromString(const UnicodeString &samples, double *dest,
     //std::string ss;  // TODO: debugging.
     // std::cout << "PluralRules::getSamples(), samples = \"" << samples.toUTF8String(ss) << "\"\n";
     for (sampleCount = 0; sampleCount < destCapacity && sampleStartIdx < samples.length(); ) {
-        sampleEndIdx = samples.indexOf(COMMA, sampleStartIdx);
+        sampleEndIdx = samples.indexOf(PLURRULE_COMMA, sampleStartIdx);
         if (sampleEndIdx == -1) {
             sampleEndIdx = samples.length();
         }
         const UnicodeString &sampleRange = samples.tempSubStringBetween(sampleStartIdx, sampleEndIdx);
         // ss.erase();
         // std::cout << "PluralRules::getSamples(), samplesRange = \"" << sampleRange.toUTF8String(ss) << "\"\n";
-        int32_t tildeIndex = sampleRange.indexOf(TILDE);
+        int32_t tildeIndex = sampleRange.indexOf(PLURRULE_TILDE);
         if (tildeIndex < 0) {
             FixedDecimal fixed(sampleRange, status);
             double sampleValue = fixed.source;
@@ -497,11 +496,11 @@ PluralRuleParser::parse(const UnicodeString& ruleData, PluralRules *prules, UErr
             return;
         }
         switch (type) {
-        case tAnd:
+        case plurrule_token_tAnd:
             U_ASSERT(curAndConstraint != nullptr);
             curAndConstraint = curAndConstraint->add(status);
             break;
-        case tOr:
+        case plurrule_token_tOr:
             {
                 U_ASSERT(currentChain != nullptr);
                 OrConstraint *orNode=currentChain->ruleHeader;
@@ -518,22 +517,22 @@ PluralRuleParser::parse(const UnicodeString& ruleData, PluralRules *prules, UErr
                 curAndConstraint = orNode->add(status);
             }
             break;
-        case tIs:
+        case plurrule_token_tIs:
             U_ASSERT(curAndConstraint != nullptr);
             U_ASSERT(curAndConstraint->value == -1);
             U_ASSERT(curAndConstraint->rangeList == nullptr);
             break;
-        case tNot:
+        case plurrule_token_tNot:
             U_ASSERT(curAndConstraint != nullptr);
             curAndConstraint->negated=TRUE;
             break;
 
-        case tNotEqual:
+        case plurrule_token_tNotEqual:
             curAndConstraint->negated=TRUE;
             U_FALLTHROUGH;
-        case tIn:
-        case tWithin:
-        case tEqual:
+        case plurrule_token_tIn:
+        case plurrule_token_tWithin:
+        case plurrule_token_tEqual:
             {
                 U_ASSERT(curAndConstraint != nullptr);
                 LocalPointer<UVector32> newRangeList(new UVector32(status), status);
@@ -546,10 +545,10 @@ PluralRuleParser::parse(const UnicodeString& ruleData, PluralRules *prules, UErr
                 rangeLowIdx = 0;
                 rangeHiIdx  = 1;
                 curAndConstraint->value=PLURAL_RANGE_HIGH;
-                curAndConstraint->integerOnly = (type != tWithin);
+                curAndConstraint->integerOnly = (type != plurrule_token_tWithin);
             }
             break;
-        case tNumber:
+        case plurrule_token_tNumber:
             U_ASSERT(curAndConstraint != nullptr);
             if ( (curAndConstraint->op==AndConstraint::MOD)&&
                  (curAndConstraint->opNum == -1 ) ) {
@@ -579,7 +578,7 @@ PluralRuleParser::parse(const UnicodeString& ruleData, PluralRules *prules, UErr
                 }
             }
             break;
-        case tComma:
+        case plurrule_token_tComma:
             // TODO: rule syntax checking is inadequate, can happen with badly formed rules.
             //       Catch cases like "n mod 10, is 1" here instead.
             if (curAndConstraint == nullptr || curAndConstraint->rangeList == nullptr) {
@@ -592,19 +591,19 @@ PluralRuleParser::parse(const UnicodeString& ruleData, PluralRules *prules, UErr
             rangeHiIdx = curAndConstraint->rangeList->size();
             curAndConstraint->rangeList->addElement(-1, status);  // range Hi
             break;
-        case tMod:
+        case plurrule_token_tMod:
             U_ASSERT(curAndConstraint != nullptr);
             curAndConstraint->op=AndConstraint::MOD;
             break;
-        case tVariableN:
-        case tVariableI:
-        case tVariableF:
-        case tVariableT:
-        case tVariableV:
+        case plurrule_token_tVariableN:
+        case plurrule_token_tVariableI:
+        case plurrule_token_tVariableF:
+        case plurrule_token_tVariableT:
+        case plurrule_token_tVariableV:
             U_ASSERT(curAndConstraint != nullptr);
             curAndConstraint->digitsType = type;
             break;
-        case tKeyword:
+        case plurrule_token_tKeyword:
             {
             RuleChain *newChain = new RuleChain;
             if (newChain == nullptr) {
@@ -636,13 +635,13 @@ PluralRuleParser::parse(const UnicodeString& ruleData, PluralRules *prules, UErr
             }
             break;
 
-        case tInteger:
+        case plurrule_token_tInteger:
             for (;;) {
                 getNextToken(status);
-                if (U_FAILURE(status) || type == tSemiColon || type == tEOF || type == tAt) {
+                if (U_FAILURE(status) || type == plurrule_token_tSemiColon || type == plurrule_token_tEOF || type == plurrule_token_tAt) {
                     break;
                 }
-                if (type == tEllipsis) {
+                if (type == plurrule_token_tEllipsis) {
                     currentChain->fIntegerSamplesUnbounded = TRUE;
                     continue;
                 }
@@ -650,13 +649,13 @@ PluralRuleParser::parse(const UnicodeString& ruleData, PluralRules *prules, UErr
             }
             break;
 
-        case tDecimal:
+        case plurrule_token_tDecimal:
             for (;;) {
                 getNextToken(status);
-                if (U_FAILURE(status) || type == tSemiColon || type == tEOF || type == tAt) {
+                if (U_FAILURE(status) || type == plurrule_token_tSemiColon || type == plurrule_token_tEOF || type == plurrule_token_tAt) {
                     break;
                 }
-                if (type == tEllipsis) {
+                if (type == plurrule_token_tEllipsis) {
                     currentChain->fDecimalSamplesUnbounded = TRUE;
                     continue;
                 }
@@ -748,9 +747,9 @@ PluralRules::getRuleFromResource(const Locale& locale, UPluralType type, UErrorC
         UnicodeString rules = ures_getNextUnicodeString(setRes.getAlias(), &key, &errCode);
         UnicodeString uKey(key, -1, US_INV);
         result.append(uKey);
-        result.append(COLON);
+        result.append(PLURRULE_COLON);
         result.append(rules);
-        result.append(SEMI_COLON);
+        result.append(PLURRULE_SEMI_COLON);
     }
     return result;
 }
@@ -802,7 +801,7 @@ AndConstraint::~AndConstraint() {
 UBool
 AndConstraint::isFulfilled(const IFixedDecimal &number) {
     UBool result = TRUE;
-    if (digitsType == none) {
+    if (digitsType == plurrule_token_none) {
         // An empty AndConstraint, created by a rule with a keyword but no following expression.
         return TRUE;
     }
@@ -929,7 +928,7 @@ RuleChain::RuleChain(const RuleChain& other) :
         fIntegerSamples(other.fIntegerSamples), fDecimalSamplesUnbounded(other.fDecimalSamplesUnbounded),
         fIntegerSamplesUnbounded(other.fIntegerSamplesUnbounded), fInternalStatus(other.fInternalStatus) {
     if (U_FAILURE(this->fInternalStatus)) {
-        return; // stop early if the object we are copying from is invalid. 
+        return; // stop early if the object we are copying from is invalid.
     }
     if (other.ruleHeader != nullptr) {
         this->ruleHeader = new OrConstraint(*(other.ruleHeader));
@@ -974,18 +973,18 @@ RuleChain::select(const IFixedDecimal &number) const {
 static UnicodeString tokenString(tokenType tok) {
     UnicodeString s;
     switch (tok) {
-      case tVariableN:
-        s.append(LOW_N); break;
-      case tVariableI:
-        s.append(LOW_I); break;
-      case tVariableF:
-        s.append(LOW_F); break;
-      case tVariableV:
-        s.append(LOW_V); break;
-      case tVariableT:
-        s.append(LOW_T); break;
+      case plurrule_token_tVariableN:
+        s.append(PLURRULE_LOW_N); break;
+      case plurrule_token_tVariableI:
+        s.append(PLURRULE_LOW_I); break;
+      case plurrule_token_tVariableF:
+        s.append(PLURRULE_LOW_F); break;
+      case plurrule_token_tVariableV:
+        s.append(PLURRULE_LOW_V); break;
+      case plurrule_token_tVariableT:
+        s.append(PLURRULE_LOW_T); break;
       default:
-        s.append(TILDE);
+        s.append(PLURRULE_TILDE);
     }
     return s;
 }
@@ -996,8 +995,8 @@ RuleChain::dumpRules(UnicodeString& result) {
 
     if ( ruleHeader != nullptr ) {
         result +=  fKeyword;
-        result += COLON;
-        result += SPACE;
+        result += PLURRULE_COLON;
+        result += PLURRULE_SPACE;
         OrConstraint* orRule=ruleHeader;
         while ( orRule != nullptr ) {
             AndConstraint* andRule=orRule->childNode;
@@ -1015,7 +1014,7 @@ RuleChain::dumpRules(UnicodeString& result) {
                 }
                 else {
                     result += tokenString(andRule->digitsType);
-                    result += SPACE;
+                    result += PLURRULE_SPACE;
                     if (andRule->op==AndConstraint::MOD) {
                         result += UNICODE_STRING_SIMPLE("mod ");
                         uprv_itou(digitString,16, andRule->opNum,10,0);
@@ -1116,7 +1115,7 @@ RuleChain::isKeyword(const UnicodeString& keywordParam) const {
 
 
 PluralRuleParser::PluralRuleParser() :
-        ruleIndex(0), token(), type(none), prevType(none),
+        ruleIndex(0), token(), type(plurrule_token_none), prevType(plurrule_token_none),
         curAndConstraint(nullptr), currentChain(nullptr), rangeLowIdx(-1), rangeHiIdx(-1)
 {
 }
@@ -1143,92 +1142,92 @@ PluralRuleParser::checkSyntax(UErrorCode &status)
     if (U_FAILURE(status)) {
         return;
     }
-    if (!(prevType==none || prevType==tSemiColon)) {
-        type = getKeyType(token, type);  // Switch token type from tKeyword if we scanned a reserved word,
+    if (!(prevType==plurrule_token_none || prevType==plurrule_token_tSemiColon)) {
+        type = getKeyType(token, type);  // Switch token type from plurrule_token_tKeyword if we scanned a reserved word,
                                                //   and we are not at the start of a rule, where a
                                                //   keyword is expected.
     }
 
     switch(prevType) {
-    case none:
-    case tSemiColon:
-        if (type!=tKeyword && type != tEOF) {
+    case plurrule_token_none:
+    case plurrule_token_tSemiColon:
+        if (type!=plurrule_token_tKeyword && type != plurrule_token_tEOF) {
             status = U_UNEXPECTED_TOKEN;
         }
         break;
-    case tVariableN:
-    case tVariableI:
-    case tVariableF:
-    case tVariableT:
-    case tVariableV:
-        if (type != tIs && type != tMod && type != tIn &&
-            type != tNot && type != tWithin && type != tEqual && type != tNotEqual) {
+    case plurrule_token_tVariableN:
+    case plurrule_token_tVariableI:
+    case plurrule_token_tVariableF:
+    case plurrule_token_tVariableT:
+    case plurrule_token_tVariableV:
+        if (type != plurrule_token_tIs && type != plurrule_token_tMod && type != plurrule_token_tIn &&
+            type != plurrule_token_tNot && type != plurrule_token_tWithin && type != plurrule_token_tEqual && type != plurrule_token_tNotEqual) {
             status = U_UNEXPECTED_TOKEN;
         }
         break;
-    case tKeyword:
-        if (type != tColon) {
+    case plurrule_token_tKeyword:
+        if (type != plurrule_token_tColon) {
             status = U_UNEXPECTED_TOKEN;
         }
         break;
-    case tColon:
-        if (!(type == tVariableN ||
-              type == tVariableI ||
-              type == tVariableF ||
-              type == tVariableT ||
-              type == tVariableV ||
-              type == tAt)) {
+    case plurrule_token_tColon:
+        if (!(type == plurrule_token_tVariableN ||
+              type == plurrule_token_tVariableI ||
+              type == plurrule_token_tVariableF ||
+              type == plurrule_token_tVariableT ||
+              type == plurrule_token_tVariableV ||
+              type == plurrule_token_tAt)) {
             status = U_UNEXPECTED_TOKEN;
         }
         break;
-    case tIs:
-        if ( type != tNumber && type != tNot) {
+    case plurrule_token_tIs:
+        if ( type != plurrule_token_tNumber && type != plurrule_token_tNot) {
             status = U_UNEXPECTED_TOKEN;
         }
         break;
-    case tNot:
-        if (type != tNumber && type != tIn && type != tWithin) {
+    case plurrule_token_tNot:
+        if (type != plurrule_token_tNumber && type != plurrule_token_tIn && type != plurrule_token_tWithin) {
             status = U_UNEXPECTED_TOKEN;
         }
         break;
-    case tMod:
-    case tDot2:
-    case tIn:
-    case tWithin:
-    case tEqual:
-    case tNotEqual:
-        if (type != tNumber) {
+    case plurrule_token_tMod:
+    case plurrule_token_tDot2:
+    case plurrule_token_tIn:
+    case plurrule_token_tWithin:
+    case plurrule_token_tEqual:
+    case plurrule_token_tNotEqual:
+        if (type != plurrule_token_tNumber) {
             status = U_UNEXPECTED_TOKEN;
         }
         break;
-    case tAnd:
-    case tOr:
-        if ( type != tVariableN &&
-             type != tVariableI &&
-             type != tVariableF &&
-             type != tVariableT &&
-             type != tVariableV) {
+    case plurrule_token_tAnd:
+    case plurrule_token_tOr:
+        if ( type != plurrule_token_tVariableN &&
+             type != plurrule_token_tVariableI &&
+             type != plurrule_token_tVariableF &&
+             type != plurrule_token_tVariableT &&
+             type != plurrule_token_tVariableV) {
             status = U_UNEXPECTED_TOKEN;
         }
         break;
-    case tComma:
-        if (type != tNumber) {
+    case plurrule_token_tComma:
+        if (type != plurrule_token_tNumber) {
             status = U_UNEXPECTED_TOKEN;
         }
         break;
-    case tNumber:
-        if (type != tDot2  && type != tSemiColon && type != tIs       && type != tNot    &&
-            type != tIn    && type != tEqual     && type != tNotEqual && type != tWithin &&
-            type != tAnd   && type != tOr        && type != tComma    && type != tAt     &&
-            type != tEOF)
+    case plurrule_token_tNumber:
+        if (type != plurrule_token_tDot2  && type != plurrule_token_tSemiColon && type != plurrule_token_tIs       && type != plurrule_token_tNot    &&
+            type != plurrule_token_tIn    && type != plurrule_token_tEqual     && type != plurrule_token_tNotEqual && type != plurrule_token_tWithin &&
+            type != plurrule_token_tAnd   && type != plurrule_token_tOr        && type != plurrule_token_tComma    && type != plurrule_token_tAt     &&
+            type != plurrule_token_tEOF)
         {
             status = U_UNEXPECTED_TOKEN;
         }
         // TODO: a comma following a number that is not part of a range will be allowed.
         //       It's not the only case of this sort of thing. Parser needs a re-write.
         break;
-    case tAt:
-        if (type != tDecimal && type != tInteger) {
+    case plurrule_token_tAt:
+        if (type != plurrule_token_tDecimal && type != plurrule_token_tInteger) {
             status = U_UNEXPECTED_TOKEN;
         }
         break;
@@ -1254,67 +1253,67 @@ PluralRuleParser::getNextToken(UErrorCode &status)
     while (ruleIndex < ruleSrc->length()) {
         ch = ruleSrc->charAt(ruleIndex);
         type = charType(ch);
-        if (type != tSpace) {
+        if (type != plurrule_token_tSpace) {
             break;
         }
         ++(ruleIndex);
     }
     if (ruleIndex >= ruleSrc->length()) {
-        type = tEOF;
+        type = plurrule_token_tEOF;
         return;
     }
     int32_t curIndex= ruleIndex;
 
     switch (type) {
-      case tColon:
-      case tSemiColon:
-      case tComma:
-      case tEllipsis:
-      case tTilde:   // scanned '~'
-      case tAt:      // scanned '@'
-      case tEqual:   // scanned '='
-      case tMod:     // scanned '%'
+      case plurrule_token_tColon:
+      case plurrule_token_tSemiColon:
+      case plurrule_token_tComma:
+      case plurrule_token_tEllipsis:
+      case plurrule_token_tTilde:   // scanned '~'
+      case plurrule_token_tAt:      // scanned '@'
+      case plurrule_token_tEqual:   // scanned '='
+      case plurrule_token_tMod:     // scanned '%'
         // Single character tokens.
         ++curIndex;
         break;
 
-      case tNotEqual:  // scanned '!'
-        if (ruleSrc->charAt(curIndex+1) == EQUALS) {
+      case plurrule_token_tNotEqual:  // scanned '!'
+        if (ruleSrc->charAt(curIndex+1) == PLURRULE_EQUALS) {
             curIndex += 2;
         } else {
-            type = none;
+            type = plurrule_token_none;
             curIndex += 1;
         }
         break;
 
-      case tKeyword:
-         while (type == tKeyword && ++curIndex < ruleSrc->length()) {
+      case plurrule_token_tKeyword:
+         while (type == plurrule_token_tKeyword && ++curIndex < ruleSrc->length()) {
              ch = ruleSrc->charAt(curIndex);
              type = charType(ch);
          }
-         type = tKeyword;
+         type = plurrule_token_tKeyword;
          break;
 
-      case tNumber:
-         while (type == tNumber && ++curIndex < ruleSrc->length()) {
+      case plurrule_token_tNumber:
+         while (type == plurrule_token_tNumber && ++curIndex < ruleSrc->length()) {
              ch = ruleSrc->charAt(curIndex);
              type = charType(ch);
          }
-         type = tNumber;
+         type = plurrule_token_tNumber;
          break;
 
-       case tDot:
+       case plurrule_token_tDot:
          // We could be looking at either ".." in a range, or "..." at the end of a sample.
-         if (curIndex+1 >= ruleSrc->length() || ruleSrc->charAt(curIndex+1) != DOT) {
+         if (curIndex+1 >= ruleSrc->length() || ruleSrc->charAt(curIndex+1) != PLURRULE_DOT) {
              ++curIndex;
              break; // Single dot
          }
-         if (curIndex+2 >= ruleSrc->length() || ruleSrc->charAt(curIndex+2) != DOT) {
+         if (curIndex+2 >= ruleSrc->length() || ruleSrc->charAt(curIndex+2) != PLURRULE_DOT) {
              curIndex += 2;
-             type = tDot2;
+             type = plurrule_token_tDot2;
              break; // double dot
          }
-         type = tEllipsis;
+         type = plurrule_token_tEllipsis;
          curIndex += 3;
          break;     // triple dot
 
@@ -1332,37 +1331,37 @@ PluralRuleParser::getNextToken(UErrorCode &status)
 
 tokenType
 PluralRuleParser::charType(UChar ch) {
-    if ((ch>=U_ZERO) && (ch<=U_NINE)) {
-        return tNumber;
+    if ((ch>=PLURRULE_U_ZERO) && (ch<=PLURRULE_U_NINE)) {
+        return plurrule_token_tNumber;
     }
-    if (ch>=LOW_A && ch<=LOW_Z) {
-        return tKeyword;
+    if (ch>=PLURRULE_LOW_A && ch<=PLURRULE_LOW_Z) {
+        return plurrule_token_tKeyword;
     }
     switch (ch) {
-    case COLON:
-        return tColon;
-    case SPACE:
-        return tSpace;
-    case SEMI_COLON:
-        return tSemiColon;
-    case DOT:
-        return tDot;
-    case COMMA:
-        return tComma;
-    case EXCLAMATION:
-        return tNotEqual;
-    case EQUALS:
-        return tEqual;
-    case PERCENT_SIGN:
-        return tMod;
-    case AT:
-        return tAt;
-    case ELLIPSIS:
-        return tEllipsis;
-    case TILDE:
-        return tTilde;
+    case PLURRULE_COLON:
+        return plurrule_token_tColon;
+    case PLURRULE_SPACE:
+        return plurrule_token_tSpace;
+    case PLURRULE_SEMI_COLON:
+        return plurrule_token_tSemiColon;
+    case PLURRULE_DOT:
+        return plurrule_token_tDot;
+    case PLURRULE_COMMA:
+        return plurrule_token_tComma;
+    case PLURRULE_EXCLAMATION:
+        return plurrule_token_tNotEqual;
+    case PLURRULE_EQUALS:
+        return plurrule_token_tEqual;
+    case PLURRULE_PERCENT_SIGN:
+        return plurrule_token_tMod;
+    case PLURRULE_AT:
+        return plurrule_token_tAt;
+    case PLURRULE_ELLIPSIS:
+        return plurrule_token_tEllipsis;
+    case PLURRULE_TILDE:
+        return plurrule_token_tTilde;
     default :
-        return none;
+        return plurrule_token_none;
     }
 }
 
@@ -1372,38 +1371,38 @@ PluralRuleParser::charType(UChar ch) {
 tokenType
 PluralRuleParser::getKeyType(const UnicodeString &token, tokenType keyType)
 {
-    if (keyType != tKeyword) {
+    if (keyType != plurrule_token_tKeyword) {
         return keyType;
     }
 
     if (0 == token.compare(PK_VAR_N, 1)) {
-        keyType = tVariableN;
+        keyType = plurrule_token_tVariableN;
     } else if (0 == token.compare(PK_VAR_I, 1)) {
-        keyType = tVariableI;
+        keyType = plurrule_token_tVariableI;
     } else if (0 == token.compare(PK_VAR_F, 1)) {
-        keyType = tVariableF;
+        keyType = plurrule_token_tVariableF;
     } else if (0 == token.compare(PK_VAR_T, 1)) {
-        keyType = tVariableT;
+        keyType = plurrule_token_tVariableT;
     } else if (0 == token.compare(PK_VAR_V, 1)) {
-        keyType = tVariableV;
+        keyType = plurrule_token_tVariableV;
     } else if (0 == token.compare(PK_IS, 2)) {
-        keyType = tIs;
+        keyType = plurrule_token_tIs;
     } else if (0 == token.compare(PK_AND, 3)) {
-        keyType = tAnd;
+        keyType = plurrule_token_tAnd;
     } else if (0 == token.compare(PK_IN, 2)) {
-        keyType = tIn;
+        keyType = plurrule_token_tIn;
     } else if (0 == token.compare(PK_WITHIN, 6)) {
-        keyType = tWithin;
+        keyType = plurrule_token_tWithin;
     } else if (0 == token.compare(PK_NOT, 3)) {
-        keyType = tNot;
+        keyType = plurrule_token_tNot;
     } else if (0 == token.compare(PK_MOD, 3)) {
-        keyType = tMod;
+        keyType = plurrule_token_tMod;
     } else if (0 == token.compare(PK_OR, 2)) {
-        keyType = tOr;
+        keyType = plurrule_token_tOr;
     } else if (0 == token.compare(PK_DECIMAL, 7)) {
-        keyType = tDecimal;
+        keyType = plurrule_token_tDecimal;
     } else if (0 == token.compare(PK_INTEGER, 7)) {
-        keyType = tInteger;
+        keyType = plurrule_token_tInteger;
     }
     return keyType;
 }
@@ -1471,15 +1470,15 @@ PluralKeywordEnumeration::~PluralKeywordEnumeration() {
 
 PluralOperand tokenTypeToPluralOperand(tokenType tt) {
     switch(tt) {
-    case tVariableN:
+    case plurrule_token_tVariableN:
         return PLURAL_OPERAND_N;
-    case tVariableI:
+    case plurrule_token_tVariableI:
         return PLURAL_OPERAND_I;
-    case tVariableF:
+    case plurrule_token_tVariableF:
         return PLURAL_OPERAND_F;
-    case tVariableV:
+    case plurrule_token_tVariableV:
         return PLURAL_OPERAND_V;
-    case tVariableT:
+    case plurrule_token_tVariableT:
         return PLURAL_OPERAND_T;
     default:
         UPRV_UNREACHABLE;  // unexpected.
@@ -1489,7 +1488,7 @@ PluralOperand tokenTypeToPluralOperand(tokenType tt) {
 FixedDecimal::FixedDecimal(double n, int32_t v, int64_t f) {
     init(n, v, f);
     // check values. TODO make into unit test.
-    //            
+    //
     //            long visiblePower = (int) Math.pow(10, v);
     //            if (decimalDigits > visiblePower) {
     //                throw new IllegalArgumentException();
@@ -1529,7 +1528,7 @@ FixedDecimal::FixedDecimal(const UnicodeString &num, UErrorCode &status) {
         init(0, 0, 0);
         return;
     }
-    int32_t decimalPoint = num.indexOf(DOT);
+    int32_t decimalPoint = num.indexOf(PLURRULE_DOT);
     double n = dl.toDouble();
     if (decimalPoint == -1) {
         init(n, 0, 0);
@@ -1646,7 +1645,7 @@ int32_t FixedDecimal::decimals(double n) {
 //    v is the number of visible fraction digits in the displayed form of the number.
 //       Example: n = 1001.234, v = 6, result = 234000
 //    TODO: need to think through how this is used in the plural rule context.
-//          This function can easily encounter integer overflow, 
+//          This function can easily encounter integer overflow,
 //          and can easily return noise digits when the precision of a double is exceeded.
 
 int64_t FixedDecimal::getFractionalDigits(double n, int32_t v) {
