@@ -17,14 +17,14 @@
 
 // Define UChar constants using hex for EBCDIC compatibility
 
-static const UChar BACKSLASH  = 0x005C; /*\*/
-static const UChar UPPER_U    = 0x0055; /*U*/
-static const UChar LOWER_U    = 0x0075; /*u*/
-static const UChar APOSTROPHE = 0x0027; // '\''
-static const UChar SPACE      = 0x0020; // ' '
+static const UChar u_util_BACKSLASH  = 0x005C; /*\*/
+static const UChar u_util_UPPER_U    = 0x0055; /*U*/
+static const UChar u_util_LOWER_U    = 0x0075; /*u*/
+static const UChar u_util_APOSTROPHE = 0x0027; // '\''
+static const UChar u_util_SPACE      = 0x0020; // ' '
 
 // "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-static const UChar DIGITS[] = {
+static const UChar u_util_DIGITS[] = {
     48,49,50,51,52,53,54,55,56,57,
     65,66,67,68,69,70,71,72,73,74,
     75,76,77,78,79,80,81,82,83,84,
@@ -54,11 +54,11 @@ UnicodeString& ICU_Utility::appendNumber(UnicodeString& result, int32_t n,
     }
     // Now generate the digits
     while (--minDigits > 0) {
-        result.append(DIGITS[0]);
+        result.append(u_util_DIGITS[0]);
     }
     while (r > 0) {
         int32_t digit = n / r;
-        result.append(DIGITS[digit]);
+        result.append(u_util_DIGITS[digit]);
         n -= digit * r;
         r /= radix;
     }
@@ -80,20 +80,20 @@ UBool ICU_Utility::isUnprintable(UChar32 c) {
  */
 UBool ICU_Utility::escapeUnprintable(UnicodeString& result, UChar32 c) {
     if (isUnprintable(c)) {
-        result.append(BACKSLASH);
+        result.append(u_util_BACKSLASH);
         if (c & ~0xFFFF) {
-            result.append(UPPER_U);
-            result.append(DIGITS[0xF&(c>>28)]);
-            result.append(DIGITS[0xF&(c>>24)]);
-            result.append(DIGITS[0xF&(c>>20)]);
-            result.append(DIGITS[0xF&(c>>16)]);
+            result.append(u_util_UPPER_U);
+            result.append(u_util_DIGITS[0xF&(c>>28)]);
+            result.append(u_util_DIGITS[0xF&(c>>24)]);
+            result.append(u_util_DIGITS[0xF&(c>>20)]);
+            result.append(u_util_DIGITS[0xF&(c>>16)]);
         } else {
-            result.append(LOWER_U);
+            result.append(u_util_LOWER_U);
         }
-        result.append(DIGITS[0xF&(c>>12)]);
-        result.append(DIGITS[0xF&(c>>8)]);
-        result.append(DIGITS[0xF&(c>>4)]);
-        result.append(DIGITS[0xF&c]);
+        result.append(u_util_DIGITS[0xF&(c>>12)]);
+        result.append(u_util_DIGITS[0xF&(c>>8)]);
+        result.append(u_util_DIGITS[0xF&(c>>4)]);
+        result.append(u_util_DIGITS[0xF&c]);
         return TRUE;
     }
     return FALSE;
@@ -111,11 +111,11 @@ int32_t ICU_Utility::quotedIndexOf(const UnicodeString& text,
                                UChar charToFind) {
     for (int32_t i=start; i<limit; ++i) {
         UChar c = text.charAt(i);
-        if (c == BACKSLASH) {
+        if (c == u_util_BACKSLASH) {
             ++i;
-        } else if (c == APOSTROPHE) {
+        } else if (c == u_util_APOSTROPHE) {
             while (++i < limit
-                   && text.charAt(i) != APOSTROPHE) {}
+                   && text.charAt(i) != u_util_APOSTROPHE) {}
         } else if (c == charToFind) {
             return i;
         }
@@ -169,7 +169,7 @@ int32_t ICU_Utility::skipWhitespace(const UnicodeString& str, int32_t& pos,
 //?    if (!isForward) {
 //?        --pos; // pos is a limit, so back up by one
 //?    }
-//?    
+//?
 //?    while (pos != stop &&
 //?           PatternProps::isWhiteSpace(c = text.char32At(pos))) {
 //?        if (isForward) {
@@ -315,36 +315,36 @@ void ICU_Utility::appendToRule(UnicodeString& rule,
     if (isLiteral ||
         (escapeUnprintable && ICU_Utility::isUnprintable(c))) {
         if (quoteBuf.length() > 0) {
-            // We prefer backslash APOSTROPHE to double APOSTROPHE
+            // We prefer backslash u_util_APOSTROPHE to double u_util_APOSTROPHE
             // (more readable, less similar to ") so if there are
-            // double APOSTROPHEs at the ends, we pull them outside
+            // double u_util_APOSTROPHEs at the ends, we pull them outside
             // of the quote.
 
-            // If the first thing in the quoteBuf is APOSTROPHE
+            // If the first thing in the quoteBuf is u_util_APOSTROPHE
             // (doubled) then pull it out.
             while (quoteBuf.length() >= 2 &&
-                   quoteBuf.charAt(0) == APOSTROPHE &&
-                   quoteBuf.charAt(1) == APOSTROPHE) {
-                rule.append(BACKSLASH).append(APOSTROPHE);
+                   quoteBuf.charAt(0) == u_util_APOSTROPHE &&
+                   quoteBuf.charAt(1) == u_util_APOSTROPHE) {
+                rule.append(u_util_BACKSLASH).append(u_util_APOSTROPHE);
                 quoteBuf.remove(0, 2);
             }
-            // If the last thing in the quoteBuf is APOSTROPHE
+            // If the last thing in the quoteBuf is u_util_APOSTROPHE
             // (doubled) then remove and count it and add it after.
             int32_t trailingCount = 0;
             while (quoteBuf.length() >= 2 &&
-                   quoteBuf.charAt(quoteBuf.length()-2) == APOSTROPHE &&
-                   quoteBuf.charAt(quoteBuf.length()-1) == APOSTROPHE) {
+                   quoteBuf.charAt(quoteBuf.length()-2) == u_util_APOSTROPHE &&
+                   quoteBuf.charAt(quoteBuf.length()-1) == u_util_APOSTROPHE) {
                 quoteBuf.truncate(quoteBuf.length()-2);
                 ++trailingCount;
             }
             if (quoteBuf.length() > 0) {
-                rule.append(APOSTROPHE);
+                rule.append(u_util_APOSTROPHE);
                 rule.append(quoteBuf);
-                rule.append(APOSTROPHE);
+                rule.append(u_util_APOSTROPHE);
                 quoteBuf.truncate(0);
             }
             while (trailingCount-- > 0) {
-                rule.append(BACKSLASH).append(APOSTROPHE);
+                rule.append(u_util_BACKSLASH).append(u_util_APOSTROPHE);
             }
         }
         if (c != (UChar32)-1) {
@@ -353,7 +353,7 @@ void ICU_Utility::appendToRule(UnicodeString& rule,
              * only if there isn't already one at the end of the
              * rule.
              */
-            if (c == SPACE) {
+            if (c == u_util_SPACE) {
                 int32_t len = rule.length();
                 if (len > 0 && rule.charAt(len-1) != c) {
                     rule.append(c);
@@ -366,8 +366,8 @@ void ICU_Utility::appendToRule(UnicodeString& rule,
 
     // Escape ' and '\' and don't begin a quote just for them
     else if (quoteBuf.length() == 0 &&
-             (c == APOSTROPHE || c == BACKSLASH)) {
-        rule.append(BACKSLASH);
+             (c == u_util_APOSTROPHE || c == u_util_BACKSLASH)) {
+        rule.append(u_util_BACKSLASH);
         rule.append(c);
     }
 
@@ -382,11 +382,11 @@ void ICU_Utility::appendToRule(UnicodeString& rule,
              PatternProps::isWhiteSpace(c)) {
         quoteBuf.append(c);
         // Double ' within a quote
-        if (c == APOSTROPHE) {
+        if (c == u_util_APOSTROPHE) {
             quoteBuf.append(c);
         }
     }
-    
+
     // Otherwise just append
     else {
         rule.append(c);

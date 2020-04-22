@@ -701,7 +701,7 @@ utrie2_set32ForLeadSurrogateCodeUnit(UTrie2 *trie,
 }
 
 static void
-writeBlock(uint32_t *block, uint32_t value) {
+utrie2builder_writeBlock(uint32_t *block, uint32_t value) {
     uint32_t *limit=block+UTRIE2_DATA_BLOCK_LENGTH;
     while(block<limit) {
         *block++=value;
@@ -863,7 +863,7 @@ utrie2_setRange32(UTrie2 *trie,
                     *pErrorCode=U_MEMORY_ALLOCATION_ERROR;
                     return;
                 }
-                writeBlock(newTrie->data+repeatBlock, value);
+                utrie2builder_writeBlock(newTrie->data+repeatBlock, value);
             }
         }
 
@@ -887,7 +887,7 @@ utrie2_setRange32(UTrie2 *trie,
 /* compaction --------------------------------------------------------------- */
 
 static inline UBool
-equal_int32(const int32_t *s, const int32_t *t, int32_t length) {
+utrie2_builder_equal_int32(const int32_t *s, const int32_t *t, int32_t length) {
     while(length>0 && *s==*t) {
         ++s;
         ++t;
@@ -897,7 +897,7 @@ equal_int32(const int32_t *s, const int32_t *t, int32_t length) {
 }
 
 static inline UBool
-equal_uint32(const uint32_t *s, const uint32_t *t, int32_t length) {
+utrie2_builder_equal_uint32(const uint32_t *s, const uint32_t *t, int32_t length) {
     while(length>0 && *s==*t) {
         ++s;
         ++t;
@@ -914,7 +914,7 @@ findSameIndex2Block(const int32_t *idx, int32_t index2Length, int32_t otherBlock
     index2Length-=UTRIE2_INDEX_2_BLOCK_LENGTH;
 
     for(block=0; block<=index2Length; ++block) {
-        if(equal_int32(idx+block, idx+otherBlock, UTRIE2_INDEX_2_BLOCK_LENGTH)) {
+        if(utrie2_builder_equal_int32(idx+block, idx+otherBlock, UTRIE2_INDEX_2_BLOCK_LENGTH)) {
             return block;
         }
     }
@@ -929,7 +929,7 @@ findSameDataBlock(const uint32_t *data, int32_t dataLength, int32_t otherBlock, 
     dataLength-=blockLength;
 
     for(block=0; block<=dataLength; block+=UTRIE2_DATA_GRANULARITY) {
-        if(equal_uint32(data+block, data+otherBlock, blockLength)) {
+        if(utrie2_builder_equal_uint32(data+block, data+otherBlock, blockLength)) {
             return block;
         }
     }
@@ -1091,7 +1091,7 @@ compactData(UNewTrie2 *trie) {
         /* see if the beginning of this block can be overlapped with the end of the previous block */
         /* look for maximum overlap (modulo granularity) with the previous, adjacent block */
         for(overlap=blockLength-UTRIE2_DATA_GRANULARITY;
-            overlap>0 && !equal_uint32(trie->data+(newStart-overlap), trie->data+start, overlap);
+            overlap>0 && !utrie2_builder_equal_uint32(trie->data+(newStart-overlap), trie->data+start, overlap);
             overlap-=UTRIE2_DATA_GRANULARITY) {}
 
 #ifdef UTRIE2_DEBUG
@@ -1180,7 +1180,7 @@ compactIndex2(UNewTrie2 *trie) {
         /* see if the beginning of this block can be overlapped with the end of the previous block */
         /* look for maximum overlap with the previous, adjacent block */
         for(overlap=UTRIE2_INDEX_2_BLOCK_LENGTH-1;
-            overlap>0 && !equal_int32(trie->index2+(newStart-overlap), trie->index2+start, overlap);
+            overlap>0 && !utrie2_builder_equal_int32(trie->index2+(newStart-overlap), trie->index2+start, overlap);
             --overlap) {}
 
         if(overlap>0 || newStart<start) {

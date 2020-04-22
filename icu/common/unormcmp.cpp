@@ -127,10 +127,10 @@ U_NAMESPACE_USE
  */
 
 /* stack element for previous-level source/decomposition pointers */
-struct CmpEquivLevel {
+struct unormcmp_CmpEquivLevel {
     const UChar *start, *s, *limit;
 };
-typedef struct CmpEquivLevel CmpEquivLevel;
+typedef struct unormcmp_CmpEquivLevel unormcmp_CmpEquivLevel;
 
 /**
  * Internal option for unorm_cmpEquivFold() for decomposing.
@@ -154,7 +154,7 @@ unorm_cmpEquivFold(const UChar *s1, int32_t length1,
     int32_t length;
 
     /* stacks of previous-level start/current/limit */
-    CmpEquivLevel stack1[2], stack2[2];
+    unormcmp_CmpEquivLevel stack1[2], stack2[2];
 
     /* buffers for algorithmic decompositions */
     UChar decomp1[4], decomp2[4];

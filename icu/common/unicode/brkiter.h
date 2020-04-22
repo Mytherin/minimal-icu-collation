@@ -30,6 +30,14 @@
  */
 
 #include "unicode/utypes.h"
+#include "unicode/uobject.h"
+#include "unicode/unistr.h"
+#include "unicode/chariter.h"
+#include "unicode/locid.h"
+#include "unicode/ubrk.h"
+#include "unicode/strenum.h"
+#include "unicode/utext.h"
+#include "unicode/umisc.h"
 
 #if U_SHOW_CPLUSPLUS_API
 
@@ -46,15 +54,6 @@ class BreakIterator;
 U_NAMESPACE_END
 
 #else
-
-#include "unicode/uobject.h"
-#include "unicode/unistr.h"
-#include "unicode/chariter.h"
-#include "unicode/locid.h"
-#include "unicode/ubrk.h"
-#include "unicode/strenum.h"
-#include "unicode/utext.h"
-#include "unicode/umisc.h"
 
 U_NAMESPACE_BEGIN
 

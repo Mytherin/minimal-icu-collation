@@ -1657,7 +1657,7 @@ ucol_openRules(const UChar *rules, int32_t rulesLength,
     return coll->toUCollator();
 }
 
-static const int32_t internalBufferSize = 512;
+static const int32_t collationbuilder_internalBufferSize = 512;
 
 // The @internal ucol_getUnsafeSet() was moved here from ucol_sit.cpp
 // because it calls UnicodeSet "builder" code that depends on all Unicode properties,
@@ -1670,7 +1670,7 @@ ucol_getUnsafeSet( const UCollator *coll,
                   USet *unsafe,
                   UErrorCode *status)
 {
-    UChar buffer[internalBufferSize];
+    UChar buffer[collationbuilder_internalBufferSize];
     int32_t len = 0;
 
     uset_clear(unsafe);
@@ -1697,7 +1697,7 @@ ucol_getUnsafeSet( const UCollator *coll,
     // to get unsafe code points, we need to
     // break the strings apart and add them to the unsafe set
     for(i = 0; i < contsSize; i++) {
-        len = uset_getItem(contractions, i, NULL, NULL, buffer, internalBufferSize, status);
+        len = uset_getItem(contractions, i, NULL, NULL, buffer, collationbuilder_internalBufferSize, status);
         if(len > 0) {
             j = 0;
             while(j < len) {

@@ -83,7 +83,7 @@ static const int32_t locElementCount = UCOL_SIT_LOCELEMENT_MAX+1;
 static const int32_t locElementCapacity = 32;
 static const int32_t loc3066Capacity = 256;
 static const int32_t locProviderCapacity = 10;
-static const int32_t internalBufferSize = 512;
+static const int32_t ucol_sit_internalBufferSize = 512;
 
 /* structure containing specification of a collator. Initialized
  * from a short string. Also used to construct a short string from a
@@ -140,7 +140,7 @@ ucol_sit_letterToAttributeValue(char letter, UErrorCode *status) {
     *status = U_ILLEGAL_ARGUMENT_ERROR;
 #ifdef UCOL_TRACE_SIT
     fprintf(stderr, "%s:%d: unknown letter %c: %s\n", __FILE__, __LINE__, letter, u_errorName(*status));
-#endif    
+#endif
     return UCOL_DEFAULT;
 }
 
@@ -201,7 +201,7 @@ _processCollatorOption(CollatorSpec *spec, uint32_t option, const char* string,
     if((*(++string) != '_' && *string) || U_FAILURE(*status)) {
 #ifdef UCOL_TRACE_SIT
     fprintf(stderr, "%s:%d: unknown collator option at '%s': %s\n", __FILE__, __LINE__, string, u_errorName(*status));
-#endif    
+#endif
         *status = U_ILLEGAL_ARGUMENT_ERROR;
     }
     return string;
@@ -227,7 +227,7 @@ readHexCodeUnit(const char **string, UErrorCode *status)
             *status = U_ILLEGAL_ARGUMENT_ERROR;
 #ifdef UCOL_TRACE_SIT
             fprintf(stderr, "%s:%d: Bad hex char at '%s': %s\n", __FILE__, __LINE__, *string, u_errorName(*status));
-#endif    
+#endif
             return 0;
         }
         result = (result << 4) | (UChar)value;
@@ -239,7 +239,7 @@ readHexCodeUnit(const char **string, UErrorCode *status)
         *status = U_ILLEGAL_ARGUMENT_ERROR;
 #ifdef UCOL_TRACE_SIT
         fprintf(stderr, "%s:%d: Short (only %d digits, wanted 4) at '%s': %s\n", __FILE__, __LINE__, noDigits,*string, u_errorName(*status));
-#endif    
+#endif
     }
     return result;
 }
@@ -455,9 +455,9 @@ ucol_prepareShortStringOpen( const char *definition,
     ucol_sit_readSpecs(&s, definition, parseError, status);
     ucol_sit_calculateWholeLocale(&s);
 
-    char buffer[internalBufferSize];
-    uprv_memset(buffer, 0, internalBufferSize);
-    uloc_canonicalize(s.locale, buffer, internalBufferSize, status);
+    char buffer[ucol_sit_internalBufferSize];
+    uprv_memset(buffer, 0, ucol_sit_internalBufferSize);
+    uloc_canonicalize(s.locale, buffer, ucol_sit_internalBufferSize, status);
 
     UResourceBundle *b = ures_open(U_ICUDATA_COLL, buffer, status);
     /* we try to find stuff from keyword */
@@ -526,9 +526,9 @@ ucol_openFromShortString( const char *definition,
     string = ucol_sit_readSpecs(&s, definition, parseError, status);
     ucol_sit_calculateWholeLocale(&s);
 
-    char buffer[internalBufferSize];
-    uprv_memset(buffer, 0, internalBufferSize);
-    uloc_canonicalize(s.locale, buffer, internalBufferSize, status);
+    char buffer[ucol_sit_internalBufferSize];
+    uprv_memset(buffer, 0, ucol_sit_internalBufferSize);
+    uloc_canonicalize(s.locale, buffer, ucol_sit_internalBufferSize, status);
 
     UCollator *result = ucol_open(buffer, status);
     int32_t i = 0;

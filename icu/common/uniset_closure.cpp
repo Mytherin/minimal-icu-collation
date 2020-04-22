@@ -36,7 +36,9 @@ U_NAMESPACE_BEGIN
 // TODO memory debugging provided inside uniset.cpp
 // could be made available here but probably obsolete with use of modern
 // memory leak checker tools
+#ifndef _dbgct
 #define _dbgct(me)
+#endif
 
 //----------------------------------------------------------------
 // Constructors &c

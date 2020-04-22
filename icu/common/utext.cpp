@@ -1302,7 +1302,7 @@ fillReverse:
         //   If index is at the end, there is no character there to look at.
         if (ix != ut->b) {
             // Note: this function will only move the index back if it is on a trail byte
-            //       and there is a preceding lead byte and the sequence from the lead 
+            //       and there is a preceding lead byte and the sequence from the lead
             //       through this trail could be part of a valid UTF-8 sequence
             //       Otherwise the index remains unchanged.
             U8_SET_CP_START(s8, 0, ix);
@@ -1623,7 +1623,7 @@ static const struct UTextFuncs utf8Funcs =
 };
 
 
-static const char gEmptyString[] = {0};
+static const char utext_gEmptyString[] = {0};
 
 U_CAPI UText * U_EXPORT2
 utext_openUTF8(UText *ut, const char *s, int64_t length, UErrorCode *status) {
@@ -1631,7 +1631,7 @@ utext_openUTF8(UText *ut, const char *s, int64_t length, UErrorCode *status) {
         return NULL;
     }
     if(s==NULL && length==0) {
-        s = gEmptyString;
+        s = utext_gEmptyString;
     }
 
     if(s==NULL || length<-1 || length>INT32_MAX) {

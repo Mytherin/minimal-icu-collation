@@ -373,7 +373,7 @@ UChar32 MutableCodePointTrie::getRange(
 }
 
 void
-writeBlock(uint32_t *block, uint32_t value) {
+umutablecptrie_writeBlock(uint32_t *block, uint32_t value) {
     uint32_t *limit = block + UCPTRIE_SMALL_DATA_BLOCK_LENGTH;
     while (block < limit) {
         *block++ = value;
@@ -448,7 +448,7 @@ int32_t MutableCodePointTrie::getDataBlock(int32_t i) {
         int32_t iLimit = iStart + SMALL_DATA_BLOCKS_PER_BMP_BLOCK;
         do {
             U_ASSERT(flags[iStart] == ALL_SAME);
-            writeBlock(data + newBlock, index[iStart]);
+            umutablecptrie_writeBlock(data + newBlock, index[iStart]);
             flags[iStart] = MIXED;
             index[iStart++] = newBlock;
             newBlock += UCPTRIE_SMALL_DATA_BLOCK_LENGTH;
@@ -457,7 +457,7 @@ int32_t MutableCodePointTrie::getDataBlock(int32_t i) {
     } else {
         int32_t newBlock = allocDataBlock(UCPTRIE_SMALL_DATA_BLOCK_LENGTH);
         if (newBlock < 0) { return newBlock; }
-        writeBlock(data + newBlock, index[i]);
+        umutablecptrie_writeBlock(data + newBlock, index[i]);
         flags[i] = MIXED;
         index[i] = newBlock;
         return newBlock;

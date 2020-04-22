@@ -32,21 +32,21 @@
 
 // Define UChar constants using hex for EBCDIC compatibility
 // Used #define to reduce private static exports and memory access time.
-#define SET_OPEN        ((UChar)0x005B) /*[*/
-#define SET_CLOSE       ((UChar)0x005D) /*]*/
-#define HYPHEN          ((UChar)0x002D) /*-*/
-#define COMPLEMENT      ((UChar)0x005E) /*^*/
-#define COLON           ((UChar)0x003A) /*:*/
-#define BACKSLASH       ((UChar)0x005C) /*\*/
-#define INTERSECTION    ((UChar)0x0026) /*&*/
-#define UPPER_U         ((UChar)0x0055) /*U*/
-#define LOWER_U         ((UChar)0x0075) /*u*/
-#define OPEN_BRACE      ((UChar)123)    /*{*/
-#define CLOSE_BRACE     ((UChar)125)    /*}*/
-#define UPPER_P         ((UChar)0x0050) /*P*/
-#define LOWER_P         ((UChar)0x0070) /*p*/
-#define UPPER_N         ((UChar)78)     /*N*/
-#define EQUALS          ((UChar)0x003D) /*=*/
+#define uniset_SET_OPEN        ((UChar)0x005B) /*[*/
+#define uniset_SET_CLOSE       ((UChar)0x005D) /*]*/
+#define uniset_HYPHEN          ((UChar)0x002D) /*-*/
+#define uniset_COMPLEMENT      ((UChar)0x005E) /*^*/
+#define uniset_COLON           ((UChar)0x003A) /*:*/
+#define uniset_BACKSLASH       ((UChar)0x005C) /*\*/
+#define uniset_INTERSECTION    ((UChar)0x0026) /*&*/
+#define uniset_UPPER_U         ((UChar)0x0055) /*U*/
+#define uniset_LOWER_U         ((UChar)0x0075) /*u*/
+#define uniset_OPEN_BRACE      ((UChar)123)    /*{*/
+#define uniset_CLOSE_BRACE     ((UChar)125)    /*}*/
+#define uniset_UPPER_P         ((UChar)0x0050) /*P*/
+#define uniset_LOWER_P         ((UChar)0x0070) /*p*/
+#define uniset_UPPER_N         ((UChar)78)     /*N*/
+#define uniset_EQUALS          ((UChar)0x003D) /*=*/
 
 // HIGH_VALUE > all valid values. 110000 for codepoints
 #define UNICODESET_HIGH 0x0110000
@@ -55,7 +55,7 @@
 #define UNICODESET_LOW 0x000000
 
 /** Max list [0, 1, 2, ..., max code point, HIGH] */
-constexpr int32_t MAX_LENGTH = UNICODESET_HIGH + 1;
+constexpr int32_t uniset_MAX_LENGTH = UNICODESET_HIGH + 1;
 
 U_NAMESPACE_BEGIN
 
@@ -116,8 +116,12 @@ static inline void _dbgdt(UnicodeSet* set) {
 
 #else
 
-#define _dbgct(set)
-#define _dbgdt(set)
+#ifndef _dbgct
+#define _dbgct(me)
+#endif
+#ifndef _dbgdt
+#define _dbgdt(me)
+#endif
 
 #endif
 
@@ -1630,7 +1634,7 @@ UBool UnicodeSet::allocateStrings(UErrorCode &status) {
         delete strings;
         strings = NULL;
         return FALSE;
-    } 
+    }
     return TRUE;
 }
 
@@ -1642,16 +1646,16 @@ int32_t UnicodeSet::nextCapacity(int32_t minCapacity) {
         return 5 * minCapacity;
     } else {
         int32_t newCapacity = 2 * minCapacity;
-        if (newCapacity > MAX_LENGTH) {
-            newCapacity = MAX_LENGTH;
+        if (newCapacity > uniset_MAX_LENGTH) {
+            newCapacity = uniset_MAX_LENGTH;
         }
         return newCapacity;
     }
 }
 
 bool UnicodeSet::ensureCapacity(int32_t newLen) {
-    if (newLen > MAX_LENGTH) {
-        newLen = MAX_LENGTH;
+    if (newLen > uniset_MAX_LENGTH) {
+        newLen = uniset_MAX_LENGTH;
     }
     if (newLen <= capacity) {
         return true;
@@ -1673,8 +1677,8 @@ bool UnicodeSet::ensureCapacity(int32_t newLen) {
 }
 
 bool UnicodeSet::ensureBufferCapacity(int32_t newLen) {
-    if (newLen > MAX_LENGTH) {
-        newLen = MAX_LENGTH;
+    if (newLen > uniset_MAX_LENGTH) {
+        newLen = uniset_MAX_LENGTH;
     }
     if (newLen <= bufferCapacity) {
         return true;
@@ -2001,22 +2005,22 @@ escapeUnprintable) {
     }
     // Okay to let ':' pass through
     switch (c) {
-    case SET_OPEN:
-    case SET_CLOSE:
-    case HYPHEN:
-    case COMPLEMENT:
-    case INTERSECTION:
-    case BACKSLASH:
-    case OPEN_BRACE:
-    case CLOSE_BRACE:
-    case COLON:
+    case uniset_SET_OPEN:
+    case uniset_SET_CLOSE:
+    case uniset_HYPHEN:
+    case uniset_COMPLEMENT:
+    case uniset_INTERSECTION:
+    case uniset_BACKSLASH:
+    case uniset_OPEN_BRACE:
+    case uniset_CLOSE_BRACE:
+    case uniset_COLON:
     case SymbolTable::SYMBOL_REF:
-        buf.append(BACKSLASH);
+        buf.append(uniset_BACKSLASH);
         break;
     default:
         // Escape whitespace
         if (PatternProps::isWhiteSpace(c)) {
-            buf.append(BACKSLASH);
+            buf.append(uniset_BACKSLASH);
         }
         break;
     }
@@ -2049,7 +2053,7 @@ UnicodeString& UnicodeSet::_toPattern(UnicodeString& result,
                 backslashCount = 0;
             } else {
                 result.append(c);
-                if (c == BACKSLASH) {
+                if (c == uniset_BACKSLASH) {
                     ++backslashCount;
                 } else {
                     backslashCount = 0;
@@ -2082,13 +2086,13 @@ UnicodeString& UnicodeSet::toPattern(UnicodeString& result,
 UnicodeString& UnicodeSet::_generatePattern(UnicodeString& result,
                                             UBool escapeUnprintable) const
 {
-    result.append(SET_OPEN);
+    result.append(uniset_SET_OPEN);
 
 //  // Check against the predefined categories.  We implicitly build
 //  // up ALL category sets the first time toPattern() is called.
 //  for (int8_t cat=0; cat<Unicode::GENERAL_TYPES_COUNT; ++cat) {
 //      if (*this == getCategorySet(cat)) {
-//          result.append(COLON);
+//          result.append(uniset_COLON);
 //          result.append(CATEGORY_NAMES, cat*2, 2);
 //          return result.append(CATEGORY_CLOSE);
 //      }
@@ -2104,7 +2108,7 @@ UnicodeString& UnicodeSet::_generatePattern(UnicodeString& result,
         getRangeEnd(count-1) == MAX_VALUE) {
 
         // Emit the inverse
-        result.append(COMPLEMENT);
+        result.append(uniset_COMPLEMENT);
 
         for (int32_t i = 1; i < count; ++i) {
             UChar32 start = getRangeEnd(i-1)+1;
@@ -2112,7 +2116,7 @@ UnicodeString& UnicodeSet::_generatePattern(UnicodeString& result,
             _appendToPat(result, start, escapeUnprintable);
             if (start != end) {
                 if ((start+1) != end) {
-                    result.append(HYPHEN);
+                    result.append(uniset_HYPHEN);
                 }
                 _appendToPat(result, end, escapeUnprintable);
             }
@@ -2127,7 +2131,7 @@ UnicodeString& UnicodeSet::_generatePattern(UnicodeString& result,
             _appendToPat(result, start, escapeUnprintable);
             if (start != end) {
                 if ((start+1) != end) {
-                    result.append(HYPHEN);
+                    result.append(uniset_HYPHEN);
                 }
                 _appendToPat(result, end, escapeUnprintable);
             }
@@ -2136,14 +2140,14 @@ UnicodeString& UnicodeSet::_generatePattern(UnicodeString& result,
 
     if (strings != nullptr) {
         for (int32_t i = 0; i<strings->size(); ++i) {
-            result.append(OPEN_BRACE);
+            result.append(uniset_OPEN_BRACE);
             _appendToPat(result,
                          *(const UnicodeString*) strings->elementAt(i),
                          escapeUnprintable);
-            result.append(CLOSE_BRACE);
+            result.append(uniset_CLOSE_BRACE);
         }
     }
-    return result.append(SET_CLOSE);
+    return result.append(uniset_SET_CLOSE);
 }
 
 /**

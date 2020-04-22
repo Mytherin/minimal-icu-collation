@@ -589,9 +589,6 @@ public:
             LocalPointerBase<Type>::ptr=other.ptr; \
             other.ptr=temp; \
         } \
-        friend inline void swap(LocalPointerClassName &p1, LocalPointerClassName &p2) U_NOEXCEPT { \
-            p1.swap(p2); \
-        } \
         void adoptInstead(Type *p) { \
             if (ptr != NULL) { closeFunction(ptr); } \
             ptr=p; \
