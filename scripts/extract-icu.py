@@ -8,10 +8,11 @@ target_dir = os.path.join(os.getcwd(), 'icu')
 directories = ['common', 'i18n']
 extensions = ['.cpp', '.h']
 include_paths = [os.path.join(icu_dir, 'i18n'), os.path.join(icu_dir, 'common')]
-ignored_includes = ['uconfig_local.h', 'ucln_local_hook.c', 'stdio.h']
+ignored_includes = ['uconfig_local.h', 'ucln_local_hook.c', 'stdio.h', 'unistrm.h', 'udbgutil.h']
+always_included = ['locdspnm.cpp', 'rbnf.cpp', 'nfrs.cpp', 'nfsubs.cpp', 'decContext.cpp', 'decNumber.cpp']
 extra_files = ['i18n/ucln_in.cpp', 'stubdata/stubdata.cpp']
-ignored_files = ['dictbe.cpp', 'ucnvsel.cpp', 'ucnv_set.cpp', 'ucnvscsu.cpp', 'wintz.cpp', 'dictionarydata.cpp', 'icuplug.cpp', 'ucnv_ext.cpp', 'ustr_cnv.cpp', 'ucnv_u32.cpp', 'punycode.cpp', 'rbbi.cpp', 'ucnvdisp.cpp', 'ucnv_err.cpp', 'unistr_titlecase_brkiter.cpp', 'rbbisetb.cpp', 'filteredbrk.cpp', 'ubrk.cpp', 'ucnv_bld.cpp', 'brkeng.cpp', 'ucnv_ct.cpp', 'ucnv_u8.cpp', 'ucnv_cb.cpp', 'ustr_titlecase_brkiter.cpp', 'static_unicode_sets.cpp', 'locdspnm.cpp', 'rbbi_cache.cpp', 'ucnv.cpp', 'ucnvlat1.cpp', 'uts46.cpp', 'ucnvmbcs.cpp', 'rbbistbl.cpp', 'messagepattern.cpp', 'cwchar.cpp', 'rbbiscan.cpp', 'ucnvbocu.cpp', 'ucnv_lmb.cpp', 'ucurr.cpp', 'restrace.cpp', 'ucnvhz.cpp', 'uidna.cpp', 'ucnv_u7.cpp', 'rbbidata.cpp', 'ucnvisci.cpp', 'unistr_cnv.cpp', 'rbbirb.cpp', 'ucasemap_titlecase_brkiter.cpp', 'usprep.cpp', 'rbbitblb.cpp', 'ucnv_u16.cpp', 'ucnv_io.cpp', 'ucnv_cnv.cpp', 'ucnv2022.cpp', 'rbbinode.cpp', 'brkiter.cpp', 'usearch.cpp', 'stsearch.cpp', 'search.cpp', 'rbnf.cpp', 'nfrule.cpp', 'dictbe.cpp', 'ucnvsel.cpp', 'ucnv_set.cpp', 'ucnvscsu.cpp', 'wintz.cpp', 'dictionarydata.cpp', 'icuplug.cpp', 'ucnv_ext.cpp', 'ustr_cnv.cpp', 'ucnv_u32.cpp', 'punycode.cpp', 'rbbi.cpp', 'ucnvdisp.cpp', 'ucnv_err.cpp', 'unistr_titlecase_brkiter.cpp', 'rbbisetb.cpp', 'filteredbrk.cpp', 'ubrk.cpp', 'ucnv_bld.cpp', 'brkeng.cpp', 'ucnv_ct.cpp', 'ucnv_u8.cpp', 'ucnv_cb.cpp', 'ustr_titlecase_brkiter.cpp', 'static_unicode_sets.cpp', 'locdspnm.cpp', 'rbbi_cache.cpp', 'ucnv.cpp', 'ucnvlat1.cpp', 'uts46.cpp', 'ucnvmbcs.cpp', 'rbbistbl.cpp', 'messagepattern.cpp', 'cwchar.cpp', 'rbbiscan.cpp', 'ucnvbocu.cpp', 'ucnv_lmb.cpp', 'ucurr.cpp', 'restrace.cpp', 'ucnvhz.cpp', 'uidna.cpp', 'ucnv_u7.cpp', 'rbbidata.cpp', 'ucnvisci.cpp', 'unistr_cnv.cpp', 'rbbirb.cpp', 'ucasemap_titlecase_brkiter.cpp', 'usprep.cpp', 'rbbitblb.cpp', 'ucnv_u16.cpp', 'ucnv_io.cpp', 'ucnv_cnv.cpp', 'ucnv2022.cpp', 'rbbinode.cpp', 'brkiter.cpp', 'usearch.cpp', 'stsearch.cpp', 'search.cpp', 'rbnf.cpp', 'nfrule.cpp', 'servnotf.cpp', 'locutil.cpp', 'servls.cpp', 'servlkf.cpp', 'servlk.cpp', 'serv.cpp', 'servrbf.cpp', 'servslkf.cpp', 'servnotf.cpp', 'locutil.cpp', 'servls.cpp', 'servlkf.cpp', 'servlk.cpp', 'serv.cpp', 'servrbf.cpp', 'servslkf.cpp']
-
+ignored_files = []
+# ignored_files = ['dictbe.cpp', 'ucnvsel.cpp', 'ucnv_set.cpp', 'ucnvscsu.cpp', 'wintz.cpp', 'dictionarydata.cpp', 'icuplug.cpp', 'ucnv_ext.cpp', 'ustr_cnv.cpp', 'ucnv_u32.cpp', 'punycode.cpp', 'rbbi.cpp', 'ucnvdisp.cpp', 'ucnv_err.cpp', 'unistr_titlecase_brkiter.cpp', 'rbbisetb.cpp', 'filteredbrk.cpp', 'ubrk.cpp', 'ucnv_bld.cpp', 'brkeng.cpp', 'ucnv_ct.cpp', 'ucnv_u8.cpp', 'ucnv_cb.cpp', 'ustr_titlecase_brkiter.cpp', 'static_unicode_sets.cpp', 'locdspnm.cpp', 'rbbi_cache.cpp', 'ucnv.cpp', 'ucnvlat1.cpp', 'uts46.cpp', 'ucnvmbcs.cpp', 'rbbistbl.cpp', 'messagepattern.cpp', 'cwchar.cpp', 'rbbiscan.cpp', 'ucnvbocu.cpp', 'ucnv_lmb.cpp', 'ucurr.cpp', 'restrace.cpp', 'ucnvhz.cpp', 'uidna.cpp', 'ucnv_u7.cpp', 'rbbidata.cpp', 'ucnvisci.cpp', 'unistr_cnv.cpp', 'rbbirb.cpp', 'ucasemap_titlecase_brkiter.cpp', 'usprep.cpp', 'rbbitblb.cpp', 'ucnv_u16.cpp', 'ucnv_io.cpp', 'ucnv_cnv.cpp', 'ucnv2022.cpp', 'rbbinode.cpp', 'brkiter.cpp', 'usearch.cpp', 'stsearch.cpp', 'search.cpp', 'rbnf.cpp', 'nfrule.cpp', 'dictbe.cpp', 'ucnvsel.cpp', 'ucnv_set.cpp', 'ucnvscsu.cpp', 'wintz.cpp', 'dictionarydata.cpp', 'icuplug.cpp', 'ucnv_ext.cpp', 'ustr_cnv.cpp', 'ucnv_u32.cpp', 'punycode.cpp', 'rbbi.cpp', 'ucnvdisp.cpp', 'ucnv_err.cpp', 'unistr_titlecase_brkiter.cpp', 'rbbisetb.cpp', 'filteredbrk.cpp', 'ubrk.cpp', 'ucnv_bld.cpp', 'brkeng.cpp', 'ucnv_ct.cpp', 'ucnv_u8.cpp', 'ucnv_cb.cpp', 'ustr_titlecase_brkiter.cpp', 'static_unicode_sets.cpp', 'locdspnm.cpp', 'rbbi_cache.cpp', 'ucnv.cpp', 'ucnvlat1.cpp', 'uts46.cpp', 'ucnvmbcs.cpp', 'rbbistbl.cpp', 'messagepattern.cpp', 'cwchar.cpp', 'rbbiscan.cpp', 'ucnvbocu.cpp', 'ucnv_lmb.cpp', 'ucurr.cpp', 'restrace.cpp', 'ucnvhz.cpp', 'uidna.cpp', 'ucnv_u7.cpp', 'rbbidata.cpp', 'ucnvisci.cpp', 'unistr_cnv.cpp', 'rbbirb.cpp', 'ucasemap_titlecase_brkiter.cpp', 'usprep.cpp', 'rbbitblb.cpp', 'ucnv_u16.cpp', 'ucnv_io.cpp', 'ucnv_cnv.cpp', 'ucnv2022.cpp', 'rbbinode.cpp', 'brkiter.cpp', 'usearch.cpp', 'stsearch.cpp', 'search.cpp', 'rbnf.cpp', 'nfrule.cpp', 'servnotf.cpp', 'locutil.cpp', 'servls.cpp', 'servlkf.cpp', 'servlk.cpp', 'serv.cpp', 'servrbf.cpp', 'servslkf.cpp', 'servnotf.cpp', 'locutil.cpp', 'servls.cpp', 'servlkf.cpp', 'servlk.cpp', 'serv.cpp', 'servrbf.cpp', 'servslkf.cpp']
 # in/coll/ucadata-*.icu
 # coll/*.txt
 
@@ -44,6 +45,12 @@ def get_includes(text, include_dir):
         copied_file_set[full_path] = True
         get_includes(open(full_path).read(), include_dir)
 
+def file_always_included(full_path):
+    for fname in always_included:
+        if fname in full_path:
+            return True
+    return False
+
 def get_files_to_copy(dirname):
     source_path = os.path.join(icu_dir, dirname)
     file_list = os.listdir(source_path)
@@ -63,7 +70,7 @@ def get_files_to_copy(dirname):
                 continue
             with open(full_path, 'r') as f:
                 contents = f.read()
-            if dirname == 'common' or '!UCONFIG_NO_COLLATION' in contents or 'coll' in fname.lower():
+            if dirname == 'common' or file_always_included(full_path) or '!UCONFIG_NO_FORMATTING' in contents or '!UCONFIG_NO_COLLATION' in contents or 'coll' in fname.lower():
                 copied_file_set[full_path] = True
                 get_includes(contents, source_path)
 
@@ -104,7 +111,9 @@ for fname in copied_file_set:
     # copy the file
     base_path = fname.replace(icu_dir + '/', '')
     target_path = os.path.join(target_dir, base_path)
-    shutil.copy(fname, target_path)
+    if not os.path.isfile(target_path):
+        print(target_path)
+        shutil.copy(fname, target_path)
     if fname.endswith('.cpp'):
         to_be_compiled.append(base_path)
 
@@ -118,7 +127,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_definitions(-DU_COMMON_IMPLEMENTATION -DU_STATIC_IMPLEMENTATION -DUCONFIG_NO_BREAK_ITERATION=1 -DUCONFIG_NO_IDNA=1 -DUCONFIG_NO_CONVERSION=1 -DUCONFIG_NO_FORMATTING=1 -DUCONFIG_NO_TRANSLITERATION=1 -DUCONFIG_NO_REGULAR_EXPRESSIONS=1 -DUCONFIG_NO_SERVICE=1)
+add_definitions(-DU_COMMON_IMPLEMENTATION -DU_STATIC_IMPLEMENTATION -DUCONFIG_NO_BREAK_ITERATION=1 -DUCONFIG_NO_IDNA=1 -DUCONFIG_NO_CONVERSION=1 -DUCONFIG_NO_TRANSLITERATION=1 -DUCONFIG_NO_REGULAR_EXPRESSIONS=1 -DUCONFIG_NO_SERVICE=1)
 
 option(FORCE_COLORED_OUTPUT
        "Always produce ANSI-colored output (GNU/Clang only)." FALSE)

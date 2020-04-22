@@ -7,7 +7,7 @@ source_file = os.path.join(amal_dir, "icu-collate.cpp")
 src_dir = 'icu'
 
 # files included in the amalgamated "icu-collate.hpp" file
-main_header_files = [os.path.join(src_dir, 'i18n', 'unicode', 'coll.h'), 'icu/i18n/unicode/sortkey.h']
+main_header_files = [os.path.join(src_dir, 'i18n', 'unicode', 'coll.h'), 'icu/i18n/unicode/sortkey.h', 'icu/i18n/unicode/timezone.h']
 
 # include paths for where to search for include files during amalgamation
 include_paths = [os.path.join(src_dir, 'common'), os.path.join(src_dir, 'common', 'unicode'), os.path.join(src_dir, 'i18n'), os.path.join(src_dir, 'i18n', 'unicode')]
@@ -150,10 +150,6 @@ with open(header_file, 'w+') as hfile:
 
 #ifndef UCONFIG_NO_CONVERSION
 #define UCONFIG_NO_CONVERSION 1
-#endif
-
-#ifndef UCONFIG_NO_FORMATTING
-#define UCONFIG_NO_FORMATTING 1
 #endif
 
 #ifndef UCONFIG_NO_TRANSLITERATION
