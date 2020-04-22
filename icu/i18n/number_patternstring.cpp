@@ -7,8 +7,13 @@
 
 // Allow implicit conversion from char16_t* to UnicodeString for this file:
 // Helpful in toString methods and elsewhere.
+#ifndef UNISTR_FROM_STRING_EXPLICIT
 #define UNISTR_FROM_STRING_EXPLICIT
+#endif
+
+#ifndef UNISTR_FROM_CHAR_EXPLICIT
 #define UNISTR_FROM_CHAR_EXPLICIT
+#endif
 
 #include "uassert.h"
 #include "number_patternstring.h"

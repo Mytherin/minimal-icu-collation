@@ -152,13 +152,13 @@ UnicodeString &ScientificNumberFormatter::SuperscriptStyle::format(
                 int32_t beginIndex = fp.getBeginIndex();
                 int32_t endIndex = fp.getEndIndex();
                 UChar32 aChar = original.char32At(beginIndex);
-                if (unisets::get(unisets::MINUS_SIGN)->contains(aChar)) {
+                if (unisets::get(unisets::UNISET_KEY_MINUS_SIGN)->contains(aChar)) {
                     appendTo.append(
                             original,
                             copyFromOffset,
                             beginIndex - copyFromOffset);
                     appendTo.append(kSuperscriptMinusSign);
-                } else if (unisets::get(unisets::PLUS_SIGN)->contains(aChar)) {
+                } else if (unisets::get(unisets::UNISET_KEY_PLUS_SIGN)->contains(aChar)) {
                     appendTo.append(
                            original,
                            copyFromOffset,

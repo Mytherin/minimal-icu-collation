@@ -195,14 +195,14 @@ bool FormattedValueStringBuilderImpl::isNumericField(Field field) {
 }
 
 int32_t FormattedValueStringBuilderImpl::trimBack(int32_t limit) const {
-    return unisets::get(unisets::DEFAULT_IGNORABLES)->spanBack(
+    return unisets::get(unisets::UNISET_KEY_DEFAULT_IGNORABLES)->spanBack(
         fString.getCharPtr() + fString.fZero,
         limit,
         USET_SPAN_CONTAINED);
 }
 
 int32_t FormattedValueStringBuilderImpl::trimFront(int32_t start) const {
-    return start + unisets::get(unisets::DEFAULT_IGNORABLES)->span(
+    return start + unisets::get(unisets::UNISET_KEY_DEFAULT_IGNORABLES)->span(
         fString.getCharPtr() + fString.fZero + start,
         fString.fLength - start,
         USET_SPAN_CONTAINED);

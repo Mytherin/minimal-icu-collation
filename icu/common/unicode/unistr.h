@@ -163,7 +163,7 @@ class UnicodeStringAppendable;  // unicode/appendable.h
 #ifndef UNISTR_FROM_STRING_EXPLICIT
 # if defined(U_COMBINED_IMPLEMENTATION) || defined(U_COMMON_IMPLEMENTATION) || defined(U_I18N_IMPLEMENTATION) || defined(U_IO_IMPLEMENTATION)
     // Auto-"explicit" in ICU library code.
-#   define UNISTR_FROM_STRING_EXPLICIT explicit
+#   define UNISTR_FROM_STRING_EXPLICIT
 # else
     // Empty by default for source code compatibility.
 #   define UNISTR_FROM_STRING_EXPLICIT
