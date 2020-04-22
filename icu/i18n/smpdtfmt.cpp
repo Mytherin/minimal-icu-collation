@@ -52,7 +52,7 @@
 #include "unicode/utf16.h"
 #include "unicode/vtzone.h"
 #include "unicode/udisplaycontext.h"
-#include "unicode/brkiter.h"
+// #include "unicode/brkiter.h"
 #include "unicode/rbnf.h"
 #include "uresimp.h"
 #include "olsontz.h"

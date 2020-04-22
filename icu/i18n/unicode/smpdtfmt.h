@@ -40,7 +40,7 @@
 #include "unicode/datefmt.h"
 #include "unicode/udisplaycontext.h"
 #include "unicode/tzfmt.h"  /* for UTimeZoneFormatTimeType */
-#include "unicode/brkiter.h"
+// #include "unicode/brkiter.h"
 
 U_NAMESPACE_BEGIN
 

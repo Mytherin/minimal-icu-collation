@@ -37,7 +37,7 @@
 #include "unicode/numfmt.h"
 #include "unicode/unistr.h"
 #include "unicode/strenum.h"
-#include "unicode/brkiter.h"
+// #include "unicode/brkiter.h"
 #include "unicode/upluralrules.h"
 
 U_NAMESPACE_BEGIN

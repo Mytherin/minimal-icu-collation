@@ -11,11 +11,11 @@
 * created by: Markus W. Scherer & Maxime Serrano
 */
 
-#include "dictionarydata.h"
-#include "unicode/ucharstrie.h"
-#include "unicode/bytestrie.h"
-#include "unicode/udata.h"
-#include "cmemory.h"
+// #include "dictionarydata.h"
+// #include "unicode/ucharstrie.h"
+// #include "unicode/bytestrie.h"
+// #include "unicode/udata.h"
+// #include "cmemory.h"
 
 // #if !UCONFIG_NO_BREAK_ITERATION
 

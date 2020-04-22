@@ -26,7 +26,7 @@
 #include "unicode/simpleformatter.h"
 #include "unicode/decimfmt.h"
 #include "unicode/numfmt.h"
-#include "unicode/brkiter.h"
+// #include "unicode/brkiter.h"
 #include "unicode/simpleformatter.h"
 #include "uresimp.h"
 #include "unicode/ures.h"
