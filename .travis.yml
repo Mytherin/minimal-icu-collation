@@ -1,0 +1,17 @@
+language: cpp
+script: make unit
+dist: trusty
+
+before_install:
+  - eval "${MATRIX_EVAL}"
+
+matrix:
+  include:
+    - os: linux
+      name: Linux
+      dist: xenial
+
+    - os: osx
+      osx_image: xcode11
+      name: OSX
+
