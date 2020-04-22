@@ -38,16 +38,16 @@ U_NAMESPACE_BEGIN
 // Useful constants
 
 #define DEFAULT_DIGITS UNICODE_STRING_SIMPLE("0123456789")
-static const char gNumberingSystems[] = "numberingSystems";
-static const char gNumberElements[] = "NumberElements";
-static const char gDefault[] = "default";
-static const char gNative[] = "native";
-static const char gTraditional[] = "traditional";
-static const char gFinance[] = "finance";
-static const char gDesc[] = "desc";
-static const char gRadix[] = "radix";
-static const char gAlgorithmic[] = "algorithmic";
-static const char gLatn[] = "latn";
+static const char numsys_gNumberingSystems[] = "numberingSystems";
+static const char numsys_gNumberElements[] = "NumberElements";
+static const char numsys_gDefault[] = "default";
+static const char numsys_gNative[] = "native";
+static const char numsys_gTraditional[] = "traditional";
+static const char numsys_gFinance[] = "finance";
+static const char numsys_gDesc[] = "desc";
+static const char numsys_gRadix[] = "radix";
+static const char numsys_gAlgorithmic[] = "algorithmic";
+static const char numsys_gLatn[] = "latn";
 
 
 UOBJECT_DEFINE_RTTI_IMPLEMENTATION(NumberingSystem)
@@ -64,7 +64,7 @@ NumberingSystem::NumberingSystem() {
      algorithmic = FALSE;
      UnicodeString defaultDigits = DEFAULT_DIGITS;
      desc.setTo(defaultDigits);
-     uprv_strcpy(name,gLatn);
+     uprv_strcpy(name,numsys_gLatn);
 }
 
     /**
@@ -72,7 +72,7 @@ NumberingSystem::NumberingSystem() {
      * @draft ICU 4.2
      */
 
-NumberingSystem::NumberingSystem(const NumberingSystem& other) 
+NumberingSystem::NumberingSystem(const NumberingSystem& other)
 :  UObject(other) {
     *this=other;
 }
@@ -128,19 +128,19 @@ NumberingSystem::createInstance(const Locale & inLocale, UErrorCode& status) {
     if ( count > 0 ) { // @numbers keyword was specified in the locale
         U_ASSERT(count < ULOC_KEYWORDS_CAPACITY);
         buffer[count] = '\0'; // Make sure it is null terminated.
-        if ( !uprv_strcmp(buffer,gDefault) || !uprv_strcmp(buffer,gNative) || 
-             !uprv_strcmp(buffer,gTraditional) || !uprv_strcmp(buffer,gFinance)) {
+        if ( !uprv_strcmp(buffer,numsys_gDefault) || !uprv_strcmp(buffer,numsys_gNative) ||
+             !uprv_strcmp(buffer,numsys_gTraditional) || !uprv_strcmp(buffer,numsys_gFinance)) {
             nsResolved = FALSE;
         }
     } else {
-        uprv_strcpy(buffer, gDefault);
+        uprv_strcpy(buffer, numsys_gDefault);
         nsResolved = FALSE;
     }
 
     if (!nsResolved) { // Resolve the numbering system ( default, native, traditional or finance ) into a "real" numbering system
         UErrorCode localStatus = U_ZERO_ERROR;
         LocalUResourceBundlePointer resource(ures_open(nullptr, inLocale.getName(), &localStatus));
-        LocalUResourceBundlePointer numberElementsRes(ures_getByKey(resource.getAlias(), gNumberElements, nullptr, &localStatus));
+        LocalUResourceBundlePointer numberElementsRes(ures_getByKey(resource.getAlias(), numsys_gNumberElements, nullptr, &localStatus));
         // Don't stomp on the catastrophic failure of OOM.
         if (localStatus == U_MEMORY_ALLOCATION_ERROR) {
             status = U_MEMORY_ALLOCATION_ERROR;
@@ -159,13 +159,13 @@ NumberingSystem::createInstance(const Locale & inLocale, UErrorCode& status) {
                 u_UCharsToChars(nsName, buffer, count);
                 buffer[count] = '\0'; // Make sure it is null terminated.
                 nsResolved = TRUE;
-            } 
+            }
 
             if (!nsResolved) { // Fallback behavior per TR35 - traditional falls back to native, finance and native fall back to default
-                if (!uprv_strcmp(buffer,gNative) || !uprv_strcmp(buffer,gFinance)) { 
-                    uprv_strcpy(buffer,gDefault);
-                } else if (!uprv_strcmp(buffer,gTraditional)) {
-                    uprv_strcpy(buffer,gNative);
+                if (!uprv_strcmp(buffer,numsys_gNative) || !uprv_strcmp(buffer,numsys_gFinance)) {
+                    uprv_strcpy(buffer,numsys_gDefault);
+                } else if (!uprv_strcmp(buffer,numsys_gTraditional)) {
+                    uprv_strcpy(buffer,numsys_gNative);
                 } else { // If we get here we couldn't find even the default numbering system
                     usingFallback = TRUE;
                     nsResolved = TRUE;
@@ -196,16 +196,16 @@ NumberingSystem::createInstanceByName(const char *name, UErrorCode& status) {
     int32_t radix = 10;
     int32_t algorithmic = 0;
 
-    LocalUResourceBundlePointer numberingSystemsInfo(ures_openDirect(nullptr, gNumberingSystems, &status));
-    LocalUResourceBundlePointer nsCurrent(ures_getByKey(numberingSystemsInfo.getAlias(), gNumberingSystems, nullptr, &status));
+    LocalUResourceBundlePointer numberingSystemsInfo(ures_openDirect(nullptr, numsys_gNumberingSystems, &status));
+    LocalUResourceBundlePointer nsCurrent(ures_getByKey(numberingSystemsInfo.getAlias(), numsys_gNumberingSystems, nullptr, &status));
     LocalUResourceBundlePointer nsTop(ures_getByKey(nsCurrent.getAlias(), name, nullptr, &status));
 
-    UnicodeString nsd = ures_getUnicodeStringByKey(nsTop.getAlias(), gDesc, &status);
+    UnicodeString nsd = ures_getUnicodeStringByKey(nsTop.getAlias(), numsys_gDesc, &status);
 
-    ures_getByKey(nsTop.getAlias(), gRadix, nsCurrent.getAlias(), &status);
+    ures_getByKey(nsTop.getAlias(), numsys_gRadix, nsCurrent.getAlias(), &status);
     radix = ures_getInt(nsCurrent.getAlias(), &status);
 
-    ures_getByKey(nsTop.getAlias(), gAlgorithmic, nsCurrent.getAlias(), &status);
+    ures_getByKey(nsTop.getAlias(), numsys_gAlgorithmic, nsCurrent.getAlias(), &status);
     algorithmic = ures_getInt(nsCurrent.getAlias(), &status);
 
     UBool isAlgorithmic = ( algorithmic == 1 );

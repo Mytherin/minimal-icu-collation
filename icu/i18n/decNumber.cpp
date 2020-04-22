@@ -305,21 +305,21 @@ static decNumber * decRoundOperand(const decNumber *, decContext *, uInt *);
 #define SPECIALARG  (rhs->bits & DECSPECIAL)
 #define SPECIALARGS ((lhs->bits | rhs->bits) & DECSPECIAL)
 
-/* For use in ICU */
-#define malloc(a) uprv_malloc(a)
-#define free(a) uprv_free(a)
+// /* For use in ICU */
+// #define malloc(a) uprv_malloc(a)
+// #define free(a) uprv_free(a)
 
 /* Diagnostic macros, etc. */
 #if DECALLOC
 /* Handle malloc/free accounting.  If enabled, our accountable routines  */
 /* are used; otherwise the code just goes straight to the system malloc  */
-/* and free routines.  */
-#define malloc(a) decMalloc(a)
-#define free(a) decFree(a)
+// /* and free routines.  */
+// #define malloc(a) decMalloc(a)
+// #define free(a) decFree(a)
 #define DECFENCE 0x5a              /* corruption detector  */
 /* 'Our' malloc and free:  */
-static void *decMalloc(size_t);
-static void  decFree(void *);
+// static void *decMalloc(size_t);
+// static void  decFree(void *);
 uInt decAllocBytes=0;              /* count of bytes allocated  */
 /* Note that DECALLOC code only checks for storage buffer overflow.  */
 /* To check for memory leaks, the decAllocBytes variable must be  */

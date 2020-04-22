@@ -604,7 +604,7 @@ ucol_getKeywordValues(const char *keyword, UErrorCode *status) {
     return ures_getKeywordValues(U_ICUDATA_COLL, RESOURCE_NAME, status);
 }
 
-static const UEnumeration defaultKeywordValues = {
+static const UEnumeration ucol_res_defaultKeywordValues = {
     NULL,
     NULL,
     ulist_close_keyword_values_iterator,
@@ -680,7 +680,7 @@ ucol_getKeywordValuesForLocale(const char* /*key*/, const char* locale,
         *status = U_MEMORY_ALLOCATION_ERROR;
         return NULL;
     }
-    memcpy(en, &defaultKeywordValues, sizeof(UEnumeration));
+    memcpy(en, &ucol_res_defaultKeywordValues, sizeof(UEnumeration));
     ulist_resetList(sink.values);  // Initialize the iterator.
     en->context = sink.values;
     sink.values = NULL;  // Avoid deletion in the sink destructor.

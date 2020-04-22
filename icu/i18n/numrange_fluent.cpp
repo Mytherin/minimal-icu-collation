@@ -192,68 +192,68 @@ LocalizedNumberRangeFormatter NumberRangeFormatter::withLocale(const Locale& loc
 }
 
 
-template<typename T> using NFS = NumberRangeFormatterSettings<T>;
-using LNF = LocalizedNumberRangeFormatter;
-using UNF = UnlocalizedNumberRangeFormatter;
+template<typename T> using numrange_fluent_NFS = NumberRangeFormatterSettings<T>;
+using numrange_fluent_LNF = LocalizedNumberRangeFormatter;
+using numrange_fluent_UNF = UnlocalizedNumberRangeFormatter;
 
-UnlocalizedNumberRangeFormatter::UnlocalizedNumberRangeFormatter(const UNF& other)
-        : UNF(static_cast<const NFS<UNF>&>(other)) {}
+UnlocalizedNumberRangeFormatter::UnlocalizedNumberRangeFormatter(const numrange_fluent_UNF& other)
+        : numrange_fluent_UNF(static_cast<const numrange_fluent_NFS<numrange_fluent_UNF>&>(other)) {}
 
-UnlocalizedNumberRangeFormatter::UnlocalizedNumberRangeFormatter(const NFS<UNF>& other)
-        : NFS<UNF>(other) {
+UnlocalizedNumberRangeFormatter::UnlocalizedNumberRangeFormatter(const numrange_fluent_NFS<numrange_fluent_UNF>& other)
+        : numrange_fluent_NFS<numrange_fluent_UNF>(other) {
     // No additional fields to assign
 }
 
 // Make default copy constructor call the NumberRangeFormatterSettings copy constructor.
-UnlocalizedNumberRangeFormatter::UnlocalizedNumberRangeFormatter(UNF&& src) U_NOEXCEPT
-        : UNF(static_cast<NFS<UNF>&&>(src)) {}
+UnlocalizedNumberRangeFormatter::UnlocalizedNumberRangeFormatter(numrange_fluent_UNF&& src) U_NOEXCEPT
+        : numrange_fluent_UNF(static_cast<numrange_fluent_NFS<numrange_fluent_UNF>&&>(src)) {}
 
-UnlocalizedNumberRangeFormatter::UnlocalizedNumberRangeFormatter(NFS<UNF>&& src) U_NOEXCEPT
-        : NFS<UNF>(std::move(src)) {
+UnlocalizedNumberRangeFormatter::UnlocalizedNumberRangeFormatter(numrange_fluent_NFS<numrange_fluent_UNF>&& src) U_NOEXCEPT
+        : numrange_fluent_NFS<numrange_fluent_UNF>(std::move(src)) {
     // No additional fields to assign
 }
 
-UnlocalizedNumberRangeFormatter& UnlocalizedNumberRangeFormatter::operator=(const UNF& other) {
-    NFS<UNF>::operator=(static_cast<const NFS<UNF>&>(other));
+UnlocalizedNumberRangeFormatter& UnlocalizedNumberRangeFormatter::operator=(const numrange_fluent_UNF& other) {
+    numrange_fluent_NFS<numrange_fluent_UNF>::operator=(static_cast<const numrange_fluent_NFS<numrange_fluent_UNF>&>(other));
     // No additional fields to assign
     return *this;
 }
 
-UnlocalizedNumberRangeFormatter& UnlocalizedNumberRangeFormatter::operator=(UNF&& src) U_NOEXCEPT {
-    NFS<UNF>::operator=(static_cast<NFS<UNF>&&>(src));
+UnlocalizedNumberRangeFormatter& UnlocalizedNumberRangeFormatter::operator=(numrange_fluent_UNF&& src) U_NOEXCEPT {
+    numrange_fluent_NFS<numrange_fluent_UNF>::operator=(static_cast<numrange_fluent_NFS<numrange_fluent_UNF>&&>(src));
     // No additional fields to assign
     return *this;
 }
 
 // Make default copy constructor call the NumberRangeFormatterSettings copy constructor.
-LocalizedNumberRangeFormatter::LocalizedNumberRangeFormatter(const LNF& other)
-        : LNF(static_cast<const NFS<LNF>&>(other)) {}
+LocalizedNumberRangeFormatter::LocalizedNumberRangeFormatter(const numrange_fluent_LNF& other)
+        : numrange_fluent_LNF(static_cast<const numrange_fluent_NFS<numrange_fluent_LNF>&>(other)) {}
 
-LocalizedNumberRangeFormatter::LocalizedNumberRangeFormatter(const NFS<LNF>& other)
-        : NFS<LNF>(other) {
+LocalizedNumberRangeFormatter::LocalizedNumberRangeFormatter(const numrange_fluent_NFS<numrange_fluent_LNF>& other)
+        : numrange_fluent_NFS<numrange_fluent_LNF>(other) {
     // No additional fields to assign
 }
 
 LocalizedNumberRangeFormatter::LocalizedNumberRangeFormatter(LocalizedNumberRangeFormatter&& src) U_NOEXCEPT
-        : LNF(static_cast<NFS<LNF>&&>(src)) {}
+        : numrange_fluent_LNF(static_cast<numrange_fluent_NFS<numrange_fluent_LNF>&&>(src)) {}
 
-LocalizedNumberRangeFormatter::LocalizedNumberRangeFormatter(NFS<LNF>&& src) U_NOEXCEPT
-        : NFS<LNF>(std::move(src)) {
+LocalizedNumberRangeFormatter::LocalizedNumberRangeFormatter(numrange_fluent_NFS<numrange_fluent_LNF>&& src) U_NOEXCEPT
+        : numrange_fluent_NFS<numrange_fluent_LNF>(std::move(src)) {
     // Steal the compiled formatter
-    LNF&& _src = static_cast<LNF&&>(src);
+    numrange_fluent_LNF&& _src = static_cast<numrange_fluent_LNF&&>(src);
     auto* stolen = _src.fAtomicFormatter.exchange(nullptr);
     delete fAtomicFormatter.exchange(stolen);
 }
 
-LocalizedNumberRangeFormatter& LocalizedNumberRangeFormatter::operator=(const LNF& other) {
-    NFS<LNF>::operator=(static_cast<const NFS<LNF>&>(other));
+LocalizedNumberRangeFormatter& LocalizedNumberRangeFormatter::operator=(const numrange_fluent_LNF& other) {
+    numrange_fluent_NFS<numrange_fluent_LNF>::operator=(static_cast<const numrange_fluent_NFS<numrange_fluent_LNF>&>(other));
     // Do not steal; just clear
     delete fAtomicFormatter.exchange(nullptr);
     return *this;
 }
 
-LocalizedNumberRangeFormatter& LocalizedNumberRangeFormatter::operator=(LNF&& src) U_NOEXCEPT {
-    NFS<LNF>::operator=(static_cast<NFS<LNF>&&>(src));
+LocalizedNumberRangeFormatter& LocalizedNumberRangeFormatter::operator=(numrange_fluent_LNF&& src) U_NOEXCEPT {
+    numrange_fluent_NFS<numrange_fluent_LNF>::operator=(static_cast<numrange_fluent_NFS<numrange_fluent_LNF>&&>(src));
     // Steal the compiled formatter
     auto* stolen = src.fAtomicFormatter.exchange(nullptr);
     delete fAtomicFormatter.exchange(stolen);

@@ -137,85 +137,85 @@ U_NAMESPACE_BEGIN
 // *****************************************************************************
 static const UChar Canonical_Items[] = {
     // GyQMwWEDFdaHmsSv
-    CAP_G, LOW_Y, CAP_Q, CAP_M, LOW_W, CAP_W, CAP_E,
-    CAP_D, CAP_F, LOW_D, LOW_A, // The UDATPG_x_FIELD constants and these fields have a different order than in ICU4J
-    CAP_H, LOW_M, LOW_S, CAP_S, LOW_V, 0
+    dtptngen_CAP_G, dtptngen_LOW_Y, dtptngen_CAP_Q, dtptngen_CAP_M, dtptngen_LOW_W, dtptngen_CAP_W, dtptngen_CAP_E,
+    dtptngen_CAP_D, dtptngen_CAP_F, dtptngen_LOW_D, dtptngen_LOW_A, // The UDATPG_x_FIELD constants and these fields have a different order than in ICU4J
+    dtptngen_CAP_H, dtptngen_LOW_M, dtptngen_LOW_S, dtptngen_CAP_S, dtptngen_LOW_V, 0
 };
 
 static const dtTypeElem dtTypes[] = {
     // patternChar, field, type, minLen, weight
-    {CAP_G, UDATPG_ERA_FIELD, DT_SHORT, 1, 3,},
-    {CAP_G, UDATPG_ERA_FIELD, DT_LONG,  4, 0},
-    {CAP_G, UDATPG_ERA_FIELD, DT_NARROW, 5, 0},
+    {dtptngen_CAP_G, UDATPG_ERA_FIELD, dtptngen_DT_SHORT, 1, 3,},
+    {dtptngen_CAP_G, UDATPG_ERA_FIELD, dtptngen_DT_LONG,  4, 0},
+    {dtptngen_CAP_G, UDATPG_ERA_FIELD, dtptngen_DT_NARROW, 5, 0},
 
-    {LOW_Y, UDATPG_YEAR_FIELD, DT_NUMERIC, 1, 20},
-    {CAP_Y, UDATPG_YEAR_FIELD, DT_NUMERIC + DT_DELTA, 1, 20},
-    {LOW_U, UDATPG_YEAR_FIELD, DT_NUMERIC + 2*DT_DELTA, 1, 20},
-    {LOW_R, UDATPG_YEAR_FIELD, DT_NUMERIC + 3*DT_DELTA, 1, 20},
-    {CAP_U, UDATPG_YEAR_FIELD, DT_SHORT, 1, 3},
-    {CAP_U, UDATPG_YEAR_FIELD, DT_LONG, 4, 0},
-    {CAP_U, UDATPG_YEAR_FIELD, DT_NARROW, 5, 0},
+    {dtptngen_LOW_Y, UDATPG_YEAR_FIELD, dtptngen_DT_NUMERIC, 1, 20},
+    {dtptngen_CAP_Y, UDATPG_YEAR_FIELD, dtptngen_DT_NUMERIC + dtptngen_DT_DELTA, 1, 20},
+    {dtptngen_LOW_U, UDATPG_YEAR_FIELD, dtptngen_DT_NUMERIC + 2*dtptngen_DT_DELTA, 1, 20},
+    {dtptngen_LOW_R, UDATPG_YEAR_FIELD, dtptngen_DT_NUMERIC + 3*dtptngen_DT_DELTA, 1, 20},
+    {dtptngen_CAP_U, UDATPG_YEAR_FIELD, dtptngen_DT_SHORT, 1, 3},
+    {dtptngen_CAP_U, UDATPG_YEAR_FIELD, dtptngen_DT_LONG, 4, 0},
+    {dtptngen_CAP_U, UDATPG_YEAR_FIELD, dtptngen_DT_NARROW, 5, 0},
 
-    {CAP_Q, UDATPG_QUARTER_FIELD, DT_NUMERIC, 1, 2},
-    {CAP_Q, UDATPG_QUARTER_FIELD, DT_SHORT, 3, 0},
-    {CAP_Q, UDATPG_QUARTER_FIELD, DT_LONG, 4, 0},
-    {CAP_Q, UDATPG_QUARTER_FIELD, DT_NARROW, 5, 0},
-    {LOW_Q, UDATPG_QUARTER_FIELD, DT_NUMERIC + DT_DELTA, 1, 2},
-    {LOW_Q, UDATPG_QUARTER_FIELD, DT_SHORT - DT_DELTA, 3, 0},
-    {LOW_Q, UDATPG_QUARTER_FIELD, DT_LONG - DT_DELTA, 4, 0},
-    {LOW_Q, UDATPG_QUARTER_FIELD, DT_NARROW - DT_DELTA, 5, 0},
+    {dtptngen_CAP_Q, UDATPG_QUARTER_FIELD, dtptngen_DT_NUMERIC, 1, 2},
+    {dtptngen_CAP_Q, UDATPG_QUARTER_FIELD, dtptngen_DT_SHORT, 3, 0},
+    {dtptngen_CAP_Q, UDATPG_QUARTER_FIELD, dtptngen_DT_LONG, 4, 0},
+    {dtptngen_CAP_Q, UDATPG_QUARTER_FIELD, dtptngen_DT_NARROW, 5, 0},
+    {dtptngen_LOW_Q, UDATPG_QUARTER_FIELD, dtptngen_DT_NUMERIC + dtptngen_DT_DELTA, 1, 2},
+    {dtptngen_LOW_Q, UDATPG_QUARTER_FIELD, dtptngen_DT_SHORT - dtptngen_DT_DELTA, 3, 0},
+    {dtptngen_LOW_Q, UDATPG_QUARTER_FIELD, dtptngen_DT_LONG - dtptngen_DT_DELTA, 4, 0},
+    {dtptngen_LOW_Q, UDATPG_QUARTER_FIELD, dtptngen_DT_NARROW - dtptngen_DT_DELTA, 5, 0},
 
-    {CAP_M, UDATPG_MONTH_FIELD, DT_NUMERIC, 1, 2},
-    {CAP_M, UDATPG_MONTH_FIELD, DT_SHORT, 3, 0},
-    {CAP_M, UDATPG_MONTH_FIELD, DT_LONG, 4, 0},
-    {CAP_M, UDATPG_MONTH_FIELD, DT_NARROW, 5, 0},
-    {CAP_L, UDATPG_MONTH_FIELD, DT_NUMERIC + DT_DELTA, 1, 2},
-    {CAP_L, UDATPG_MONTH_FIELD, DT_SHORT - DT_DELTA, 3, 0},
-    {CAP_L, UDATPG_MONTH_FIELD, DT_LONG - DT_DELTA, 4, 0},
-    {CAP_L, UDATPG_MONTH_FIELD, DT_NARROW - DT_DELTA, 5, 0},
-    {LOW_L, UDATPG_MONTH_FIELD, DT_NUMERIC + DT_DELTA, 1, 1},
+    {dtptngen_CAP_M, UDATPG_MONTH_FIELD, dtptngen_DT_NUMERIC, 1, 2},
+    {dtptngen_CAP_M, UDATPG_MONTH_FIELD, dtptngen_DT_SHORT, 3, 0},
+    {dtptngen_CAP_M, UDATPG_MONTH_FIELD, dtptngen_DT_LONG, 4, 0},
+    {dtptngen_CAP_M, UDATPG_MONTH_FIELD, dtptngen_DT_NARROW, 5, 0},
+    {dtptngen_CAP_L, UDATPG_MONTH_FIELD, dtptngen_DT_NUMERIC + dtptngen_DT_DELTA, 1, 2},
+    {dtptngen_CAP_L, UDATPG_MONTH_FIELD, dtptngen_DT_SHORT - dtptngen_DT_DELTA, 3, 0},
+    {dtptngen_CAP_L, UDATPG_MONTH_FIELD, dtptngen_DT_LONG - dtptngen_DT_DELTA, 4, 0},
+    {dtptngen_CAP_L, UDATPG_MONTH_FIELD, dtptngen_DT_NARROW - dtptngen_DT_DELTA, 5, 0},
+    {dtptngen_LOW_L, UDATPG_MONTH_FIELD, dtptngen_DT_NUMERIC + dtptngen_DT_DELTA, 1, 1},
 
-    {LOW_W, UDATPG_WEEK_OF_YEAR_FIELD, DT_NUMERIC, 1, 2},
+    {dtptngen_LOW_W, UDATPG_WEEK_OF_YEAR_FIELD, dtptngen_DT_NUMERIC, 1, 2},
 
-    {CAP_W, UDATPG_WEEK_OF_MONTH_FIELD, DT_NUMERIC, 1, 0},
+    {dtptngen_CAP_W, UDATPG_WEEK_OF_MONTH_FIELD, dtptngen_DT_NUMERIC, 1, 0},
 
-    {CAP_E, UDATPG_WEEKDAY_FIELD, DT_SHORT, 1, 3},
-    {CAP_E, UDATPG_WEEKDAY_FIELD, DT_LONG, 4, 0},
-    {CAP_E, UDATPG_WEEKDAY_FIELD, DT_NARROW, 5, 0},
-    {CAP_E, UDATPG_WEEKDAY_FIELD, DT_SHORTER, 6, 0},
-    {LOW_C, UDATPG_WEEKDAY_FIELD, DT_NUMERIC + 2*DT_DELTA, 1, 2},
-    {LOW_C, UDATPG_WEEKDAY_FIELD, DT_SHORT - 2*DT_DELTA, 3, 0},
-    {LOW_C, UDATPG_WEEKDAY_FIELD, DT_LONG - 2*DT_DELTA, 4, 0},
-    {LOW_C, UDATPG_WEEKDAY_FIELD, DT_NARROW - 2*DT_DELTA, 5, 0},
-    {LOW_C, UDATPG_WEEKDAY_FIELD, DT_SHORTER - 2*DT_DELTA, 6, 0},
-    {LOW_E, UDATPG_WEEKDAY_FIELD, DT_NUMERIC + DT_DELTA, 1, 2}, // LOW_E is currently not used in CLDR data, should not be canonical
-    {LOW_E, UDATPG_WEEKDAY_FIELD, DT_SHORT - DT_DELTA, 3, 0},
-    {LOW_E, UDATPG_WEEKDAY_FIELD, DT_LONG - DT_DELTA, 4, 0},
-    {LOW_E, UDATPG_WEEKDAY_FIELD, DT_NARROW - DT_DELTA, 5, 0},
-    {LOW_E, UDATPG_WEEKDAY_FIELD, DT_SHORTER - DT_DELTA, 6, 0},
+    {dtptngen_CAP_E, UDATPG_WEEKDAY_FIELD, dtptngen_DT_SHORT, 1, 3},
+    {dtptngen_CAP_E, UDATPG_WEEKDAY_FIELD, dtptngen_DT_LONG, 4, 0},
+    {dtptngen_CAP_E, UDATPG_WEEKDAY_FIELD, dtptngen_DT_NARROW, 5, 0},
+    {dtptngen_CAP_E, UDATPG_WEEKDAY_FIELD, dtptngen_DT_SHORTER, 6, 0},
+    {dtptngen_LOW_C, UDATPG_WEEKDAY_FIELD, dtptngen_DT_NUMERIC + 2*dtptngen_DT_DELTA, 1, 2},
+    {dtptngen_LOW_C, UDATPG_WEEKDAY_FIELD, dtptngen_DT_SHORT - 2*dtptngen_DT_DELTA, 3, 0},
+    {dtptngen_LOW_C, UDATPG_WEEKDAY_FIELD, dtptngen_DT_LONG - 2*dtptngen_DT_DELTA, 4, 0},
+    {dtptngen_LOW_C, UDATPG_WEEKDAY_FIELD, dtptngen_DT_NARROW - 2*dtptngen_DT_DELTA, 5, 0},
+    {dtptngen_LOW_C, UDATPG_WEEKDAY_FIELD, dtptngen_DT_SHORTER - 2*dtptngen_DT_DELTA, 6, 0},
+    {dtptngen_LOW_E, UDATPG_WEEKDAY_FIELD, dtptngen_DT_NUMERIC + dtptngen_DT_DELTA, 1, 2}, // dtptngen_LOW_E is currently not used in CLDR data, should not be canonical
+    {dtptngen_LOW_E, UDATPG_WEEKDAY_FIELD, dtptngen_DT_SHORT - dtptngen_DT_DELTA, 3, 0},
+    {dtptngen_LOW_E, UDATPG_WEEKDAY_FIELD, dtptngen_DT_LONG - dtptngen_DT_DELTA, 4, 0},
+    {dtptngen_LOW_E, UDATPG_WEEKDAY_FIELD, dtptngen_DT_NARROW - dtptngen_DT_DELTA, 5, 0},
+    {dtptngen_LOW_E, UDATPG_WEEKDAY_FIELD, dtptngen_DT_SHORTER - dtptngen_DT_DELTA, 6, 0},
 
-    {LOW_D, UDATPG_DAY_FIELD, DT_NUMERIC, 1, 2},
-    {LOW_G, UDATPG_DAY_FIELD, DT_NUMERIC + DT_DELTA, 1, 20}, // really internal use, so we don't care
+    {dtptngen_LOW_D, UDATPG_DAY_FIELD, dtptngen_DT_NUMERIC, 1, 2},
+    {dtptngen_LOW_G, UDATPG_DAY_FIELD, dtptngen_DT_NUMERIC + dtptngen_DT_DELTA, 1, 20}, // really internal use, so we don't care
 
-    {CAP_D, UDATPG_DAY_OF_YEAR_FIELD, DT_NUMERIC, 1, 3},
+    {dtptngen_CAP_D, UDATPG_DAY_OF_YEAR_FIELD, dtptngen_DT_NUMERIC, 1, 3},
 
-    {CAP_F, UDATPG_DAY_OF_WEEK_IN_MONTH_FIELD, DT_NUMERIC, 1, 0},
+    {dtptngen_CAP_F, UDATPG_DAY_OF_WEEK_IN_MONTH_FIELD, dtptngen_DT_NUMERIC, 1, 0},
 
-    {LOW_A, UDATPG_DAYPERIOD_FIELD, DT_SHORT, 1, 3},
-    {LOW_A, UDATPG_DAYPERIOD_FIELD, DT_LONG, 4, 0},
-    {LOW_A, UDATPG_DAYPERIOD_FIELD, DT_NARROW, 5, 0},
-    {LOW_B, UDATPG_DAYPERIOD_FIELD, DT_SHORT - DT_DELTA, 1, 3},
-    {LOW_B, UDATPG_DAYPERIOD_FIELD, DT_LONG - DT_DELTA, 4, 0},
-    {LOW_B, UDATPG_DAYPERIOD_FIELD, DT_NARROW - DT_DELTA, 5, 0},
-    // b needs to be closer to a than to B, so we make this 3*DT_DELTA
-    {CAP_B, UDATPG_DAYPERIOD_FIELD, DT_SHORT - 3*DT_DELTA, 1, 3},
-    {CAP_B, UDATPG_DAYPERIOD_FIELD, DT_LONG - 3*DT_DELTA, 4, 0},
-    {CAP_B, UDATPG_DAYPERIOD_FIELD, DT_NARROW - 3*DT_DELTA, 5, 0},
+    {dtptngen_LOW_A, UDATPG_DAYPERIOD_FIELD, dtptngen_DT_SHORT, 1, 3},
+    {dtptngen_LOW_A, UDATPG_DAYPERIOD_FIELD, dtptngen_DT_LONG, 4, 0},
+    {dtptngen_LOW_A, UDATPG_DAYPERIOD_FIELD, dtptngen_DT_NARROW, 5, 0},
+    {dtptngen_LOW_B, UDATPG_DAYPERIOD_FIELD, dtptngen_DT_SHORT - dtptngen_DT_DELTA, 1, 3},
+    {dtptngen_LOW_B, UDATPG_DAYPERIOD_FIELD, dtptngen_DT_LONG - dtptngen_DT_DELTA, 4, 0},
+    {dtptngen_LOW_B, UDATPG_DAYPERIOD_FIELD, dtptngen_DT_NARROW - dtptngen_DT_DELTA, 5, 0},
+    // b needs to be closer to a than to B, so we make this 3*dtptngen_DT_DELTA
+    {dtptngen_CAP_B, UDATPG_DAYPERIOD_FIELD, dtptngen_DT_SHORT - 3*dtptngen_DT_DELTA, 1, 3},
+    {dtptngen_CAP_B, UDATPG_DAYPERIOD_FIELD, dtptngen_DT_LONG - 3*dtptngen_DT_DELTA, 4, 0},
+    {dtptngen_CAP_B, UDATPG_DAYPERIOD_FIELD, dtptngen_DT_NARROW - 3*dtptngen_DT_DELTA, 5, 0},
 
-    {CAP_H, UDATPG_HOUR_FIELD, DT_NUMERIC + 10*DT_DELTA, 1, 2}, // 24 hour
-    {LOW_K, UDATPG_HOUR_FIELD, DT_NUMERIC + 11*DT_DELTA, 1, 2}, // 24 hour
-    {LOW_H, UDATPG_HOUR_FIELD, DT_NUMERIC, 1, 2}, // 12 hour
-    {CAP_K, UDATPG_HOUR_FIELD, DT_NUMERIC + DT_DELTA, 1, 2}, // 12 hour
+    {dtptngen_CAP_H, UDATPG_HOUR_FIELD, dtptngen_DT_NUMERIC + 10*dtptngen_DT_DELTA, 1, 2}, // 24 hour
+    {dtptngen_LOW_K, UDATPG_HOUR_FIELD, dtptngen_DT_NUMERIC + 11*dtptngen_DT_DELTA, 1, 2}, // 24 hour
+    {dtptngen_LOW_H, UDATPG_HOUR_FIELD, dtptngen_DT_NUMERIC, 1, 2}, // 12 hour
+    {dtptngen_CAP_K, UDATPG_HOUR_FIELD, dtptngen_DT_NUMERIC + dtptngen_DT_DELTA, 1, 2}, // 12 hour
     // The C code has had versions of the following 3, keep & update. Should not need these, but...
     // Without these, certain tests using e.g. staticGetSkeleton fail because j/J in patterns
     // get skipped instead of mapped to the right hour chars, for example in
@@ -223,36 +223,36 @@ static const dtTypeElem dtTypes[] = {
     //   IntlTestDateTimePatternGeneratorAPI:: testStaticGetSkeleton
     //   DateIntervalFormatTest::testTicket11985
     // Need to investigate better handling of jJC replacement e.g. in staticGetSkeleton.
-    {CAP_J, UDATPG_HOUR_FIELD, DT_NUMERIC + 5*DT_DELTA, 1, 2}, // 12/24 hour no AM/PM
-    {LOW_J, UDATPG_HOUR_FIELD, DT_NUMERIC + 6*DT_DELTA, 1, 6}, // 12/24 hour
-    {CAP_C, UDATPG_HOUR_FIELD, DT_NUMERIC + 7*DT_DELTA, 1, 6}, // 12/24 hour with preferred dayPeriods for 12
+    {dtptngen_CAP_J, UDATPG_HOUR_FIELD, dtptngen_DT_NUMERIC + 5*dtptngen_DT_DELTA, 1, 2}, // 12/24 hour no AM/PM
+    {dtptngen_LOW_J, UDATPG_HOUR_FIELD, dtptngen_DT_NUMERIC + 6*dtptngen_DT_DELTA, 1, 6}, // 12/24 hour
+    {dtptngen_CAP_C, UDATPG_HOUR_FIELD, dtptngen_DT_NUMERIC + 7*dtptngen_DT_DELTA, 1, 6}, // 12/24 hour with preferred dayPeriods for 12
 
-    {LOW_M, UDATPG_MINUTE_FIELD, DT_NUMERIC, 1, 2},
+    {dtptngen_LOW_M, UDATPG_MINUTE_FIELD, dtptngen_DT_NUMERIC, 1, 2},
 
-    {LOW_S, UDATPG_SECOND_FIELD, DT_NUMERIC, 1, 2},
-    {CAP_A, UDATPG_SECOND_FIELD, DT_NUMERIC + DT_DELTA, 1, 1000},
+    {dtptngen_LOW_S, UDATPG_SECOND_FIELD, dtptngen_DT_NUMERIC, 1, 2},
+    {dtptngen_CAP_A, UDATPG_SECOND_FIELD, dtptngen_DT_NUMERIC + dtptngen_DT_DELTA, 1, 1000},
 
-    {CAP_S, UDATPG_FRACTIONAL_SECOND_FIELD, DT_NUMERIC, 1, 1000},
+    {dtptngen_CAP_S, UDATPG_FRACTIONAL_SECOND_FIELD, dtptngen_DT_NUMERIC, 1, 1000},
 
-    {LOW_V, UDATPG_ZONE_FIELD, DT_SHORT - 2*DT_DELTA, 1, 0},
-    {LOW_V, UDATPG_ZONE_FIELD, DT_LONG - 2*DT_DELTA, 4, 0},
-    {LOW_Z, UDATPG_ZONE_FIELD, DT_SHORT, 1, 3},
-    {LOW_Z, UDATPG_ZONE_FIELD, DT_LONG, 4, 0},
-    {CAP_Z, UDATPG_ZONE_FIELD, DT_NARROW - DT_DELTA, 1, 3},
-    {CAP_Z, UDATPG_ZONE_FIELD, DT_LONG - DT_DELTA, 4, 0},
-    {CAP_Z, UDATPG_ZONE_FIELD, DT_SHORT - DT_DELTA, 5, 0},
-    {CAP_O, UDATPG_ZONE_FIELD, DT_SHORT - DT_DELTA, 1, 0},
-    {CAP_O, UDATPG_ZONE_FIELD, DT_LONG - DT_DELTA, 4, 0},
-    {CAP_V, UDATPG_ZONE_FIELD, DT_SHORT - DT_DELTA, 1, 0},
-    {CAP_V, UDATPG_ZONE_FIELD, DT_LONG - DT_DELTA, 2, 0},
-    {CAP_V, UDATPG_ZONE_FIELD, DT_LONG-1 - DT_DELTA, 3, 0},
-    {CAP_V, UDATPG_ZONE_FIELD, DT_LONG-2 - DT_DELTA, 4, 0},
-    {CAP_X, UDATPG_ZONE_FIELD, DT_NARROW - DT_DELTA, 1, 0},
-    {CAP_X, UDATPG_ZONE_FIELD, DT_SHORT - DT_DELTA, 2, 0},
-    {CAP_X, UDATPG_ZONE_FIELD, DT_LONG - DT_DELTA, 4, 0},
-    {LOW_X, UDATPG_ZONE_FIELD, DT_NARROW - DT_DELTA, 1, 0},
-    {LOW_X, UDATPG_ZONE_FIELD, DT_SHORT - DT_DELTA, 2, 0},
-    {LOW_X, UDATPG_ZONE_FIELD, DT_LONG - DT_DELTA, 4, 0},
+    {dtptngen_LOW_V, UDATPG_ZONE_FIELD, dtptngen_DT_SHORT - 2*dtptngen_DT_DELTA, 1, 0},
+    {dtptngen_LOW_V, UDATPG_ZONE_FIELD, dtptngen_DT_LONG - 2*dtptngen_DT_DELTA, 4, 0},
+    {dtptngen_LOW_Z, UDATPG_ZONE_FIELD, dtptngen_DT_SHORT, 1, 3},
+    {dtptngen_LOW_Z, UDATPG_ZONE_FIELD, dtptngen_DT_LONG, 4, 0},
+    {dtptngen_CAP_Z, UDATPG_ZONE_FIELD, dtptngen_DT_NARROW - dtptngen_DT_DELTA, 1, 3},
+    {dtptngen_CAP_Z, UDATPG_ZONE_FIELD, dtptngen_DT_LONG - dtptngen_DT_DELTA, 4, 0},
+    {dtptngen_CAP_Z, UDATPG_ZONE_FIELD, dtptngen_DT_SHORT - dtptngen_DT_DELTA, 5, 0},
+    {dtptngen_CAP_O, UDATPG_ZONE_FIELD, dtptngen_DT_SHORT - dtptngen_DT_DELTA, 1, 0},
+    {dtptngen_CAP_O, UDATPG_ZONE_FIELD, dtptngen_DT_LONG - dtptngen_DT_DELTA, 4, 0},
+    {dtptngen_CAP_V, UDATPG_ZONE_FIELD, dtptngen_DT_SHORT - dtptngen_DT_DELTA, 1, 0},
+    {dtptngen_CAP_V, UDATPG_ZONE_FIELD, dtptngen_DT_LONG - dtptngen_DT_DELTA, 2, 0},
+    {dtptngen_CAP_V, UDATPG_ZONE_FIELD, dtptngen_DT_LONG-1 - dtptngen_DT_DELTA, 3, 0},
+    {dtptngen_CAP_V, UDATPG_ZONE_FIELD, dtptngen_DT_LONG-2 - dtptngen_DT_DELTA, 4, 0},
+    {dtptngen_CAP_X, UDATPG_ZONE_FIELD, dtptngen_DT_NARROW - dtptngen_DT_DELTA, 1, 0},
+    {dtptngen_CAP_X, UDATPG_ZONE_FIELD, dtptngen_DT_SHORT - dtptngen_DT_DELTA, 2, 0},
+    {dtptngen_CAP_X, UDATPG_ZONE_FIELD, dtptngen_DT_LONG - dtptngen_DT_DELTA, 4, 0},
+    {dtptngen_LOW_X, UDATPG_ZONE_FIELD, dtptngen_DT_NARROW - dtptngen_DT_DELTA, 1, 0},
+    {dtptngen_LOW_X, UDATPG_ZONE_FIELD, dtptngen_DT_SHORT - dtptngen_DT_DELTA, 2, 0},
+    {dtptngen_LOW_X, UDATPG_ZONE_FIELD, dtptngen_DT_LONG - dtptngen_DT_DELTA, 4, 0},
 
     {0, UDATPG_FIELD_COUNT, 0, 0, 0} , // last row of dtTypes[]
  };
@@ -282,7 +282,7 @@ static constexpr int32_t UDATPG_FIELD_KEY_MAX = 24; // max length of CLDR field 
 static const UChar UDATPG_ItemFormat[]= {0x7B, 0x30, 0x7D, 0x20, 0x251C, 0x7B, 0x32, 0x7D, 0x3A,
     0x20, 0x7B, 0x31, 0x7D, 0x2524, 0};  // {0} \u251C{2}: {1}\u2524
 
-//static const UChar repeatedPatterns[6]={CAP_G, CAP_E, LOW_Z, LOW_V, CAP_Q, 0}; // "GEzvQ"
+//static const UChar repeatedPatterns[6]={dtptngen_CAP_G, dtptngen_CAP_E, dtptngen_LOW_Z, dtptngen_LOW_V, dtptngen_CAP_Q, 0}; // "GEzvQ"
 
 static const char DT_DateTimePatternsTag[]="DateTimePatterns";
 static const char DT_DateTimeCalendarTag[]="calendar";
@@ -571,17 +571,17 @@ struct AllowedHourFormatsSink : public ResourceSink {
 
     AllowedHourFormat getHourFormatFromUnicodeString(const UnicodeString &s) {
         if (s.length() == 1) {
-            if (s[0] == LOW_H) { return ALLOWED_HOUR_FORMAT_h; }
-            if (s[0] == CAP_H) { return ALLOWED_HOUR_FORMAT_H; }
-            if (s[0] == CAP_K) { return ALLOWED_HOUR_FORMAT_K; }
-            if (s[0] == LOW_K) { return ALLOWED_HOUR_FORMAT_k; }
+            if (s[0] == dtptngen_LOW_H) { return ALLOWED_HOUR_FORMAT_h; }
+            if (s[0] == dtptngen_CAP_H) { return ALLOWED_HOUR_FORMAT_H; }
+            if (s[0] == dtptngen_CAP_K) { return ALLOWED_HOUR_FORMAT_K; }
+            if (s[0] == dtptngen_LOW_K) { return ALLOWED_HOUR_FORMAT_k; }
         } else if (s.length() == 2) {
-            if (s[0] == LOW_H && s[1] == LOW_B) { return ALLOWED_HOUR_FORMAT_hb; }
-            if (s[0] == LOW_H && s[1] == CAP_B) { return ALLOWED_HOUR_FORMAT_hB; }
-            if (s[0] == CAP_K && s[1] == LOW_B) { return ALLOWED_HOUR_FORMAT_Kb; }
-            if (s[0] == CAP_K && s[1] == CAP_B) { return ALLOWED_HOUR_FORMAT_KB; }
-            if (s[0] == CAP_H && s[1] == LOW_B) { return ALLOWED_HOUR_FORMAT_Hb; }
-            if (s[0] == CAP_H && s[1] == CAP_B) { return ALLOWED_HOUR_FORMAT_HB; }
+            if (s[0] == dtptngen_LOW_H && s[1] == dtptngen_LOW_B) { return ALLOWED_HOUR_FORMAT_hb; }
+            if (s[0] == dtptngen_LOW_H && s[1] == dtptngen_CAP_B) { return ALLOWED_HOUR_FORMAT_hB; }
+            if (s[0] == dtptngen_CAP_K && s[1] == dtptngen_LOW_B) { return ALLOWED_HOUR_FORMAT_Kb; }
+            if (s[0] == dtptngen_CAP_K && s[1] == dtptngen_CAP_B) { return ALLOWED_HOUR_FORMAT_KB; }
+            if (s[0] == dtptngen_CAP_H && s[1] == dtptngen_LOW_B) { return ALLOWED_HOUR_FORMAT_Hb; }
+            if (s[0] == dtptngen_CAP_H && s[1] == dtptngen_CAP_B) { return ALLOWED_HOUR_FORMAT_HB; }
         }
 
         return ALLOWED_HOUR_FORMAT_UNKNOWN;
@@ -668,11 +668,11 @@ void DateTimePatternGenerator::getAllowedHourFormats(const Locale &locale, UErro
         // Here allowedFormats points to a list consisting of key for preferredFormat,
         // followed by one or more keys for allowedFormats, then followed by ALLOWED_HOUR_FORMAT_UNKNOWN.
         switch (allowedFormats[0]) {
-            case ALLOWED_HOUR_FORMAT_h: fDefaultHourFormatChar = LOW_H; break;
-            case ALLOWED_HOUR_FORMAT_H: fDefaultHourFormatChar = CAP_H; break;
-            case ALLOWED_HOUR_FORMAT_K: fDefaultHourFormatChar = CAP_K; break;
-            case ALLOWED_HOUR_FORMAT_k: fDefaultHourFormatChar = LOW_K; break;
-            default: fDefaultHourFormatChar = CAP_H; break;
+            case ALLOWED_HOUR_FORMAT_h: fDefaultHourFormatChar = dtptngen_LOW_H; break;
+            case ALLOWED_HOUR_FORMAT_H: fDefaultHourFormatChar = dtptngen_CAP_H; break;
+            case ALLOWED_HOUR_FORMAT_K: fDefaultHourFormatChar = dtptngen_CAP_K; break;
+            case ALLOWED_HOUR_FORMAT_k: fDefaultHourFormatChar = dtptngen_LOW_K; break;
+            default: fDefaultHourFormatChar = dtptngen_CAP_H; break;
         }
         for (int32_t i = 0; i < UPRV_LENGTHOF(fAllowedHourFormats); ++i) {
             fAllowedHourFormats[i] = allowedFormats[i + 1];
@@ -681,7 +681,7 @@ void DateTimePatternGenerator::getAllowedHourFormats(const Locale &locale, UErro
             }
         }
     } else {  // Lookup failed, twice
-        fDefaultHourFormatChar = CAP_H;
+        fDefaultHourFormatChar = dtptngen_CAP_H;
         fAllowedHourFormats[0] = ALLOWED_HOUR_FORMAT_H;
         fAllowedHourFormats[1] = ALLOWED_HOUR_FORMAT_UNKNOWN;
     }
@@ -785,12 +785,12 @@ DateTimePatternGenerator::hackTimes(const UnicodeString& hackPattern, UErrorCode
             }
             else {
                 UChar ch=field.charAt(0);
-                if (ch==LOW_M) {
+                if (ch==dtptngen_LOW_M) {
                     gotMm=TRUE;
                     mmss+=field;
                 }
                 else {
-                    if (ch==LOW_S) {
+                    if (ch==dtptngen_LOW_S) {
                         if (!gotMm) {
                             break;
                         }
@@ -799,7 +799,7 @@ DateTimePatternGenerator::hackTimes(const UnicodeString& hackPattern, UErrorCode
                         break;
                     }
                     else {
-                        if (gotMm || ch==LOW_Z || ch==CAP_Z || ch==LOW_V || ch==CAP_V) {
+                        if (gotMm || ch==dtptngen_LOW_Z || ch==dtptngen_CAP_Z || ch==dtptngen_LOW_V || ch==dtptngen_CAP_V) {
                             break;
                         }
                     }
@@ -928,7 +928,7 @@ struct DateTimePatternGenerator::AppendItemNamesSink : public ResourceSink {
         for (int32_t i = 0; i < UDATPG_FIELD_COUNT; i++) {
             UnicodeString& valueStr = dtpg.getMutableFieldDisplayName((UDateTimePatternField)i, UDATPG_WIDE);
             if (valueStr.isEmpty()) {
-                valueStr = CAP_F;
+                valueStr = dtptngen_CAP_F;
                 U_ASSERT(i < 20);
                 if (i < 10) {
                     // F0, F1, ..., F9
@@ -1087,9 +1087,9 @@ DateTimePatternGenerator::getMutableFieldDisplayName(UDateTimePatternField field
 
 void
 DateTimePatternGenerator::getAppendName(UDateTimePatternField field, UnicodeString& value) {
-    value = SINGLE_QUOTE;
+    value = dtptngen_SINGLE_QUOTE;
     value += fieldDisplayNames[field][UDATPG_WIDTH_APPENDITEM];
-    value += SINGLE_QUOTE;
+    value += dtptngen_SINGLE_QUOTE;
 }
 
 UnicodeString
@@ -1172,7 +1172,7 @@ DateTimePatternGenerator::mapSkeletonMetacharacters(const UnicodeString& pattern
     int32_t patPos, patLen = patternForm.length();
     for (patPos = 0; patPos < patLen; patPos++) {
         UChar patChr = patternForm.charAt(patPos);
-        if (patChr == SINGLE_QUOTE) {
+        if (patChr == dtptngen_SINGLE_QUOTE) {
             inQuoted = !inQuoted;
         } else if (!inQuoted) {
             // Handle special mappings for 'j' and 'C' in which fields lengths
@@ -1181,7 +1181,7 @@ DateTimePatternGenerator::mapSkeletonMetacharacters(const UnicodeString& pattern
             // 1,2 => abbreviated dayPeriod (field length 1..3)
             // 3,4 => long dayPeriod (field length 4)
             // 5,6 => narrow dayPeriod (field length 5)
-            if (patChr == LOW_J || patChr == CAP_C) {
+            if (patChr == dtptngen_LOW_J || patChr == dtptngen_CAP_C) {
                 int32_t extraLen = 0; // 1 less than total field length
                 while (patPos+1 < patLen && patternForm.charAt(patPos+1)==patChr) {
                     extraLen++;
@@ -1189,9 +1189,9 @@ DateTimePatternGenerator::mapSkeletonMetacharacters(const UnicodeString& pattern
                 }
                 int32_t hourLen = 1 + (extraLen & 1);
                 int32_t dayPeriodLen = (extraLen < 2)? 1: 3 + (extraLen >> 1);
-                UChar hourChar = LOW_H;
-                UChar dayPeriodChar = LOW_A;
-                if (patChr == LOW_J) {
+                UChar hourChar = dtptngen_LOW_H;
+                UChar dayPeriodChar = dtptngen_LOW_A;
+                if (patChr == dtptngen_LOW_J) {
                     hourChar = fDefaultHourFormatChar;
                 } else {
                     AllowedHourFormat bestAllowed;
@@ -1202,20 +1202,20 @@ DateTimePatternGenerator::mapSkeletonMetacharacters(const UnicodeString& pattern
                         return UnicodeString();
                     }
                     if (bestAllowed == ALLOWED_HOUR_FORMAT_H || bestAllowed == ALLOWED_HOUR_FORMAT_HB || bestAllowed == ALLOWED_HOUR_FORMAT_Hb) {
-                        hourChar = CAP_H;
+                        hourChar = dtptngen_CAP_H;
                     } else if (bestAllowed == ALLOWED_HOUR_FORMAT_K || bestAllowed == ALLOWED_HOUR_FORMAT_KB || bestAllowed == ALLOWED_HOUR_FORMAT_Kb) {
-                        hourChar = CAP_K;
+                        hourChar = dtptngen_CAP_K;
                     } else if (bestAllowed == ALLOWED_HOUR_FORMAT_k) {
-                        hourChar = LOW_K;
+                        hourChar = dtptngen_LOW_K;
                     }
                     // in #13183 just add b/B to skeleton, no longer need to set special flags
                     if (bestAllowed == ALLOWED_HOUR_FORMAT_HB || bestAllowed == ALLOWED_HOUR_FORMAT_hB || bestAllowed == ALLOWED_HOUR_FORMAT_KB) {
-                        dayPeriodChar = CAP_B;
+                        dayPeriodChar = dtptngen_CAP_B;
                     } else if (bestAllowed == ALLOWED_HOUR_FORMAT_Hb || bestAllowed == ALLOWED_HOUR_FORMAT_hb || bestAllowed == ALLOWED_HOUR_FORMAT_Kb) {
-                        dayPeriodChar = LOW_B;
+                        dayPeriodChar = dtptngen_LOW_B;
                     }
                 }
-                if (hourChar==CAP_H || hourChar==LOW_K) {
+                if (hourChar==dtptngen_CAP_H || hourChar==dtptngen_LOW_K) {
                     dayPeriodLen = 0;
                 }
                 while (dayPeriodLen-- > 0) {
@@ -1224,10 +1224,10 @@ DateTimePatternGenerator::mapSkeletonMetacharacters(const UnicodeString& pattern
                 while (hourLen-- > 0) {
                     patternFormMapped.append(hourChar);
                 }
-            } else if (patChr == CAP_J) {
+            } else if (patChr == dtptngen_CAP_J) {
                 // Get pattern for skeleton with H, then replace H or k
                 // with fDefaultHourFormatChar (if different)
-                patternFormMapped.append(CAP_H);
+                patternFormMapped.append(dtptngen_CAP_H);
                 *flags |= kDTPGSkeletonUsesCapJ;
             } else {
                 patternFormMapped.append(patChr);
@@ -1569,7 +1569,7 @@ DateTimePatternGenerator::adjustFieldTypes(const UnicodeString& pattern,
 
                     UChar reqFieldChar = dtMatcher->skeleton.original.getFieldChar(typeValue);
                     int32_t reqFieldLen = dtMatcher->skeleton.original.getFieldLength(typeValue);
-                    if (reqFieldChar == CAP_E && reqFieldLen < 3)
+                    if (reqFieldChar == dtptngen_CAP_E && reqFieldLen < 3)
                         reqFieldLen = 3; // 1-3 for E are equivalent to 3 for c,e
                     int32_t adjFieldLen = reqFieldLen;
                     if ( (typeValue==UDATPG_HOUR_FIELD && (options & UDATPG_MATCH_HOUR_FIELD_LENGTH)==0) ||
@@ -1588,7 +1588,7 @@ DateTimePatternGenerator::adjustFieldTypes(const UnicodeString& pattern,
                     UChar c = (typeValue!= UDATPG_HOUR_FIELD
                             && typeValue!= UDATPG_MONTH_FIELD
                             && typeValue!= UDATPG_WEEKDAY_FIELD
-                            && (typeValue!= UDATPG_YEAR_FIELD || reqFieldChar==CAP_Y))
+                            && (typeValue!= UDATPG_YEAR_FIELD || reqFieldChar==dtptngen_CAP_Y))
                             ? reqFieldChar
                             : field.charAt(0);
                     if (typeValue == UDATPG_HOUR_FIELD && (flags & kDTPGSkeletonUsesCapJ) != 0) {
@@ -1825,7 +1825,7 @@ DateTimePatternGenerator::clone() const {
 }
 
 PatternMap::PatternMap() {
-   for (int32_t i=0; i < MAX_PATTERN_ENTRIES; ++i ) {
+   for (int32_t i=0; i < dtptngen_MAX_PATTERN_ENTRIES; ++i ) {
        boot[i] = nullptr;
    }
    isDupAllowed = TRUE;
@@ -1837,7 +1837,7 @@ PatternMap::copyFrom(const PatternMap& other, UErrorCode& status) {
         return;
     }
     this->isDupAllowed = other.isDupAllowed;
-    for (int32_t bootIndex = 0; bootIndex < MAX_PATTERN_ENTRIES; ++bootIndex) {
+    for (int32_t bootIndex = 0; bootIndex < dtptngen_MAX_PATTERN_ENTRIES; ++bootIndex) {
         PtnElem *curElem, *otherElem, *prevElem=nullptr;
         otherElem = other.boot[bootIndex];
         while (otherElem != nullptr) {
@@ -1876,12 +1876,12 @@ PtnElem*
 PatternMap::getHeader(UChar baseChar) const {
     PtnElem* curElem;
 
-    if ( (baseChar >= CAP_A) && (baseChar <= CAP_Z) ) {
-         curElem = boot[baseChar-CAP_A];
+    if ( (baseChar >= dtptngen_CAP_A) && (baseChar <= dtptngen_CAP_Z) ) {
+         curElem = boot[baseChar-dtptngen_CAP_A];
     }
     else {
-        if ( (baseChar >=LOW_A) && (baseChar <= LOW_Z) ) {
-            curElem = boot[26+baseChar-LOW_A];
+        if ( (baseChar >=dtptngen_LOW_A) && (baseChar <= dtptngen_LOW_Z) ) {
+            curElem = boot[26+baseChar-dtptngen_LOW_A];
         }
         else {
             return nullptr;
@@ -1891,7 +1891,7 @@ PatternMap::getHeader(UChar baseChar) const {
 }
 
 PatternMap::~PatternMap() {
-   for (int32_t i=0; i < MAX_PATTERN_ENTRIES; ++i ) {
+   for (int32_t i=0; i < dtptngen_MAX_PATTERN_ENTRIES; ++i ) {
        if (boot[i] != nullptr ) {
            delete boot[i];
            boot[i] = nullptr;
@@ -1910,12 +1910,12 @@ PatternMap::add(const UnicodeString& basePattern,
     status = U_ZERO_ERROR;
 
     // the baseChar must be A-Z or a-z
-    if ((baseChar >= CAP_A) && (baseChar <= CAP_Z)) {
-        baseElem = boot[baseChar-CAP_A];
+    if ((baseChar >= dtptngen_CAP_A) && (baseChar <= dtptngen_CAP_Z)) {
+        baseElem = boot[baseChar-dtptngen_CAP_A];
     }
     else {
-        if ((baseChar >=LOW_A) && (baseChar <= LOW_Z)) {
-            baseElem = boot[26+baseChar-LOW_A];
+        if ((baseChar >=dtptngen_LOW_A) && (baseChar <= dtptngen_LOW_Z)) {
+            baseElem = boot[26+baseChar-dtptngen_LOW_A];
          }
          else {
              status = U_ILLEGAL_CHARACTER;
@@ -1933,11 +1933,11 @@ PatternMap::add(const UnicodeString& basePattern,
             return; // out of memory
         }
         newElem->skeletonWasSpecified = skeletonWasSpecified;
-        if (baseChar >= LOW_A) {
-            boot[26 + (baseChar - LOW_A)] = newElem.orphan(); // the boot array now owns the PtnElem.
+        if (baseChar >= dtptngen_LOW_A) {
+            boot[26 + (baseChar - dtptngen_LOW_A)] = newElem.orphan(); // the boot array now owns the PtnElem.
         }
         else {
-            boot[baseChar - CAP_A] = newElem.orphan(); // the boot array now owns the PtnElem.
+            boot[baseChar - dtptngen_CAP_A] = newElem.orphan(); // the boot array now owns the PtnElem.
         }
     }
     if ( baseElem != nullptr ) {
@@ -2042,7 +2042,7 @@ PatternMap::equals(const PatternMap& other) const {
     if ( this==&other ) {
         return TRUE;
     }
-    for (int32_t bootIndex = 0; bootIndex < MAX_PATTERN_ENTRIES; ++bootIndex) {
+    for (int32_t bootIndex = 0; bootIndex < dtptngen_MAX_PATTERN_ENTRIES; ++bootIndex) {
         if (boot[bootIndex] == other.boot[bootIndex]) {
             continue;
         }
@@ -2129,7 +2129,7 @@ void
 DateTimeMatcher::set(const UnicodeString& pattern, FormatParser* fp, PtnSkeleton& skeletonResult) {
     int32_t i;
     for (i=0; i<UDATPG_FIELD_COUNT; ++i) {
-        skeletonResult.type[i] = NONE;
+        skeletonResult.type[i] = dtptngen_NONE;
     }
     skeletonResult.original.clear();
     skeletonResult.baseOriginal.clear();
@@ -2164,7 +2164,7 @@ DateTimeMatcher::set(const UnicodeString& pattern, FormatParser* fp, PtnSkeleton
     }
     // #13183, handle special behavior for day period characters (a, b, B)
     if (!skeletonResult.original.isFieldEmpty(UDATPG_HOUR_FIELD)) {
-        if (skeletonResult.original.getFieldChar(UDATPG_HOUR_FIELD)==LOW_H || skeletonResult.original.getFieldChar(UDATPG_HOUR_FIELD)==CAP_K) {
+        if (skeletonResult.original.getFieldChar(UDATPG_HOUR_FIELD)==dtptngen_LOW_H || skeletonResult.original.getFieldChar(UDATPG_HOUR_FIELD)==dtptngen_CAP_K) {
             // We have a skeleton with 12-hour-cycle format
             if (skeletonResult.original.isFieldEmpty(UDATPG_DAYPERIOD_FIELD)) {
                 // But we do not have a day period in the skeleton; add the default DAYPERIOD (currently "a")
@@ -2183,7 +2183,7 @@ DateTimeMatcher::set(const UnicodeString& pattern, FormatParser* fp, PtnSkeleton
             // Skeleton has 24-hour-cycle hour format and has dayPeriod, delete dayPeriod (i.e. ignore it)
             skeletonResult.original.clearField(UDATPG_DAYPERIOD_FIELD);
             skeletonResult.baseOriginal.clearField(UDATPG_DAYPERIOD_FIELD);
-            skeletonResult.type[UDATPG_DAYPERIOD_FIELD] = NONE;
+            skeletonResult.type[UDATPG_DAYPERIOD_FIELD] = dtptngen_NONE;
         }
     }
     copyFrom(skeletonResult);
@@ -2212,12 +2212,12 @@ DateTimeMatcher::getDistance(const DateTimeMatcher& other, int32_t includeMask, 
             continue;
         }
         if (myType==0) {// and other is not
-            result += EXTRA_FIELD;
+            result += dtptngen_EXTRA_FIELD;
             distanceInfo.addExtra(i);
         }
         else {
             if (otherType==0) {
-                result += MISSING_FIELD;
+                result += dtptngen_MISSING_FIELD;
                 distanceInfo.addMissing(i);
             }
             else {
@@ -2284,7 +2284,7 @@ FormatParser::setTokens(const UnicodeString& pattern, int32_t startPos, int32_t 
     // check the current char is between A-Z or a-z
     do {
         UChar c=pattern.charAt(curLoc);
-        if ( (c>=CAP_A && c<=CAP_Z) || (c>=LOW_A && c<=LOW_Z) ) {
+        if ( (c>=dtptngen_CAP_A && c<=dtptngen_CAP_Z) || (c>=dtptngen_LOW_A && c<=dtptngen_LOW_Z) ) {
            curLoc++;
         }
         else {
@@ -2318,7 +2318,7 @@ FormatParser::set(const UnicodeString& pattern) {
         else {
             break;
         }
-    } while (result==ADD_TOKEN && itemNumber < MAX_DT_TOKEN);
+    } while (result==ADD_TOKEN && itemNumber < dtptngen_MAX_DT_TOKEN);
 }
 
 int32_t
@@ -2357,7 +2357,7 @@ FormatParser::getCanonicalIndex(const UnicodeString& s, UBool strict) {
 
 UBool
 FormatParser::isQuoteLiteral(const UnicodeString& s) {
-    return (UBool)(s.charAt(0) == SINGLE_QUOTE);
+    return (UBool)(s.charAt(0) == dtptngen_SINGLE_QUOTE);
 }
 
 // This function assumes the current itemIndex points to the quote literal.
@@ -2367,13 +2367,13 @@ FormatParser::getQuoteLiteral(UnicodeString& quote, int32_t *itemIndex) {
     int32_t i = *itemIndex;
 
     quote.remove();
-    if (items[i].charAt(0)==SINGLE_QUOTE) {
+    if (items[i].charAt(0)==dtptngen_SINGLE_QUOTE) {
         quote += items[i];
         ++i;
     }
     while ( i < itemNumber ) {
-        if ( items[i].charAt(0)==SINGLE_QUOTE ) {
-            if ( (i+1<itemNumber) && (items[i+1].charAt(0)==SINGLE_QUOTE)) {
+        if ( items[i].charAt(0)==dtptngen_SINGLE_QUOTE ) {
+            if ( (i+1<itemNumber) && (items[i+1].charAt(0)==dtptngen_SINGLE_QUOTE)) {
                 // two single quotes e.g. 'o''clock'
                 quote += items[i++];
                 quote += items[i++];
@@ -2396,8 +2396,8 @@ UBool
 FormatParser::isPatternSeparator(const UnicodeString& field) const {
     for (int32_t i=0; i<field.length(); ++i ) {
         UChar c= field.charAt(i);
-        if ( (c==SINGLE_QUOTE) || (c==BACKSLASH) || (c==SPACE) || (c==COLON) ||
-             (c==QUOTATION_MARK) || (c==COMMA) || (c==HYPHEN) ||(items[i].charAt(0)==DOT) ) {
+        if ( (c==dtptngen_SINGLE_QUOTE) || (c==dtptngen_BACKSLASH) || (c==dtptngen_SPACE) || (c==dtptngen_COLON) ||
+             (c==dtptngen_QUOTATION_MARK) || (c==dtptngen_COMMA) || (c==dtptngen_HYPHEN) ||(items[i].charAt(0)==dtptngen_DOT) ) {
             continue;
         }
         else {
@@ -2448,7 +2448,7 @@ PatternMapIterator::hasNext() const {
     if (patternMap==nullptr) {
         return FALSE;
     }
-    while ( headIndex < MAX_PATTERN_ENTRIES ) {
+    while ( headIndex < dtptngen_MAX_PATTERN_ENTRIES ) {
         if ( curPtr != nullptr ) {
             if ( curPtr->next != nullptr ) {
                 return TRUE;
@@ -2474,7 +2474,7 @@ PatternMapIterator::hasNext() const {
 
 DateTimeMatcher&
 PatternMapIterator::next() {
-    while ( bootIndex < MAX_PATTERN_ENTRIES ) {
+    while ( bootIndex < dtptngen_MAX_PATTERN_ENTRIES ) {
         if ( nodePtr != nullptr ) {
             if ( nodePtr->next != nullptr ) {
                 nodePtr = nodePtr->next.getAlias();
@@ -2608,7 +2608,7 @@ PtnSkeleton::getSkeleton() const {
     UnicodeString result;
     result = original.appendTo(result);
     int32_t pos;
-    if (addedDefaultDayPeriod && (pos = result.indexOf(LOW_A)) >= 0) {
+    if (addedDefaultDayPeriod && (pos = result.indexOf(dtptngen_LOW_A)) >= 0) {
         // for backward compatibility: if DateTimeMatcher.set added a single 'a' that
         // was not in the provided skeleton, remove it here before returning skeleton.
         result.remove(pos, 1);
@@ -2621,7 +2621,7 @@ PtnSkeleton::getBaseSkeleton() const {
     UnicodeString result;
     result = baseOriginal.appendTo(result);
     int32_t pos;
-    if (addedDefaultDayPeriod && (pos = result.indexOf(LOW_A)) >= 0) {
+    if (addedDefaultDayPeriod && (pos = result.indexOf(dtptngen_LOW_A)) >= 0) {
         // for backward compatibility: if DateTimeMatcher.set added a single 'a' that
         // was not in the provided skeleton, remove it here before returning skeleton.
         result.remove(pos, 1);
@@ -2657,7 +2657,7 @@ DTSkeletonEnumeration::DTSkeletonEnumeration(PatternMap& patternMap, dtStrEnum t
         return;
     }
 
-    for (bootIndex=0; bootIndex<MAX_PATTERN_ENTRIES; ++bootIndex ) {
+    for (bootIndex=0; bootIndex<dtptngen_MAX_PATTERN_ENTRIES; ++bootIndex ) {
         curElem = patternMap.boot[bootIndex];
         while (curElem!=nullptr) {
             switch(type) {
@@ -2687,7 +2687,7 @@ DTSkeletonEnumeration::DTSkeletonEnumeration(PatternMap& patternMap, dtStrEnum t
             curElem = curElem->next.getAlias();
         }
     }
-    if ((bootIndex==MAX_PATTERN_ENTRIES) && (curElem!=nullptr) ) {
+    if ((bootIndex==dtptngen_MAX_PATTERN_ENTRIES) && (curElem!=nullptr) ) {
         status = U_BUFFER_OVERFLOW_ERROR;
     }
 }

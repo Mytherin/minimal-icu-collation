@@ -34,7 +34,7 @@ void getResourceBundleKey(const char *nsName, CompactStyle compactStyle, Compact
     sb.append(compactType == CompactType::TYPE_DECIMAL ? "/decimalFormat" : "/currencyFormat", status);
 }
 
-int32_t getIndex(int32_t magnitude, StandardPlural::Form plural) {
+int32_t number_compact_getIndex(int32_t magnitude, StandardPlural::Form plural) {
     return magnitude * StandardPlural::COUNT + plural;
 }
 
@@ -111,10 +111,10 @@ const UChar *CompactData::getPattern(int32_t magnitude, StandardPlural::Form plu
     if (magnitude > largestMagnitude) {
         magnitude = largestMagnitude;
     }
-    const UChar *patternString = patterns[getIndex(magnitude, plural)];
+    const UChar *patternString = patterns[number_compact_getIndex(magnitude, plural)];
     if (patternString == nullptr && plural != StandardPlural::OTHER) {
         // Fall back to "other" plural variant
-        patternString = patterns[getIndex(magnitude, StandardPlural::OTHER)];
+        patternString = patterns[number_compact_getIndex(magnitude, StandardPlural::OTHER)];
     }
     if (patternString == USE_FALLBACK) { // == is intended
         // Return null if USE_FALLBACK is present
@@ -171,7 +171,7 @@ void CompactData::CompactDataSink::put(const char *key, ResourceValue &value, UB
             // Note: This also skips USE_FALLBACK entries.
             StandardPlural::Form plural = StandardPlural::fromString(key, status);
             if (U_FAILURE(status)) { return; }
-            if (data.patterns[getIndex(magnitude, plural)] != nullptr) {
+            if (data.patterns[number_compact_getIndex(magnitude, plural)] != nullptr) {
                 continue;
             }
 
@@ -186,7 +186,7 @@ void CompactData::CompactDataSink::put(const char *key, ResourceValue &value, UB
             }
 
             // Save the pattern string. We will parse it lazily.
-            data.patterns[getIndex(magnitude, plural)] = patternString;
+            data.patterns[number_compact_getIndex(magnitude, plural)] = patternString;
 
             // If necessary, compute the multiplier: the difference between the magnitude
             // and the number of zeros in the pattern.

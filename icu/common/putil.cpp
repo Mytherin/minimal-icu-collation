@@ -713,7 +713,7 @@ extern U_IMPORT char *U_TZNAME[];
 /* Some Linux distributions have 'localtime' in /usr/share/zoneinfo
    symlinked to /etc/localtime, which makes searchForTZFile return
    'localtime' when it's the first match. */
-#define TZFILE_SKIP2    "localtime"
+#define TZFILE_putil_SKIP2    "localtime"
 #define SEARCH_TZFILE
 #include <dirent.h>  /* Needed to search through system timezone files */
 #endif
@@ -949,8 +949,8 @@ static UBool compareBinaryFiles(const char* defaultTZFileName, const char* TZFil
 
 
 /* dirent also lists two entries: "." and ".." that we can safely ignore. */
-#define SKIP1 "."
-#define SKIP2 ".."
+#define putil_SKIP1 "."
+#define putil_SKIP2 ".."
 static UBool U_CALLCONV putil_cleanup(void);
 static CharString *gSearchTZFileResult = NULL;
 
@@ -986,8 +986,8 @@ static char* searchForTZFile(const char* path, DefaultTZInfo* tzInfo) {
     /* Check each entry in the directory. */
     while((dirEntry = readdir(dirp)) != NULL) {
         const char* dirName = dirEntry->d_name;
-        if (uprv_strcmp(dirName, SKIP1) != 0 && uprv_strcmp(dirName, SKIP2) != 0
-            && uprv_strcmp(TZFILE_SKIP, dirName) != 0 && uprv_strcmp(TZFILE_SKIP2, dirName) != 0) {
+        if (uprv_strcmp(dirName, putil_SKIP1) != 0 && uprv_strcmp(dirName, putil_SKIP2) != 0
+            && uprv_strcmp(TZFILE_SKIP, dirName) != 0 && uprv_strcmp(TZFILE_putil_SKIP2, dirName) != 0) {
             /* Create a newpath with the new entry to test each entry in the directory. */
             CharString newpath(curpath, status);
             newpath.append(dirName, -1, status);
@@ -1445,8 +1445,8 @@ static void setTimeZoneFilesDir(const char *path, UErrorCode &status) {
 #endif
 }
 
-#define TO_STRING(x) TO_STRING_2(x)
-#define TO_STRING_2(x) #x
+#define PUTIL_TO_STRING(x) PUTIL_TO_STRING_2(x)
+#define PUTIL_TO_STRING_2(x) #x
 
 static void U_CALLCONV TimeZoneDataDirInitFn(UErrorCode &status) {
     U_ASSERT(gTimeZoneFilesDirectory == NULL);
@@ -1477,7 +1477,7 @@ static void U_CALLCONV TimeZoneDataDirInitFn(UErrorCode &status) {
 #if defined(U_TIMEZONE_FILES_DIR)
     if (dir == NULL) {
         // Build time configuration setting.
-        dir = TO_STRING(U_TIMEZONE_FILES_DIR);
+        dir = PUTIL_TO_STRING(U_TIMEZONE_FILES_DIR);
     }
 #endif
 

@@ -22,16 +22,16 @@ using namespace icu::number::impl;
 
 namespace {
 
-constexpr int32_t DNAM_INDEX = StandardPlural::Form::COUNT;
-constexpr int32_t PER_INDEX = StandardPlural::Form::COUNT + 1;
-constexpr int32_t ARRAY_LENGTH = StandardPlural::Form::COUNT + 2;
+constexpr int32_t number_longnames_DNAM_INDEX = StandardPlural::Form::COUNT;
+constexpr int32_t number_longnames_PER_INDEX = StandardPlural::Form::COUNT + 1;
+constexpr int32_t number_longnames_ARRAY_LENGTH = StandardPlural::Form::COUNT + 2;
 
-static int32_t getIndex(const char* pluralKeyword, UErrorCode& status) {
+static int32_t number_longnames_getIndex(const char* pluralKeyword, UErrorCode& status) {
     // pluralKeyword can also be "dnam" or "per"
     if (uprv_strcmp(pluralKeyword, "dnam") == 0) {
-        return DNAM_INDEX;
+        return number_longnames_DNAM_INDEX;
     } else if (uprv_strcmp(pluralKeyword, "per") == 0) {
-        return PER_INDEX;
+        return number_longnames_PER_INDEX;
     } else {
         StandardPlural::Form plural = StandardPlural::fromString(pluralKeyword, status);
         return plural;
@@ -62,7 +62,7 @@ class PluralTableSink : public ResourceSink {
   public:
     explicit PluralTableSink(UnicodeString *outArray) : outArray(outArray) {
         // Initialize the array to bogus strings.
-        for (int32_t i = 0; i < ARRAY_LENGTH; i++) {
+        for (int32_t i = 0; i < number_longnames_ARRAY_LENGTH; i++) {
             outArray[i].setToBogus();
         }
     }
@@ -71,7 +71,7 @@ class PluralTableSink : public ResourceSink {
         ResourceTable pluralsTable = value.getTable(status);
         if (U_FAILURE(status)) { return; }
         for (int32_t i = 0; pluralsTable.getKeyAndValue(i, key, value); ++i) {
-            int32_t index = getIndex(key, status);
+            int32_t index = number_longnames_getIndex(key, status);
             if (U_FAILURE(status)) { return; }
             if (!outArray[index].isBogus()) {
                 continue;
@@ -206,7 +206,7 @@ LongNameHandler::forMeasureUnit(const Locale &loc, const MeasureUnit &unitRef, c
         status = U_MEMORY_ALLOCATION_ERROR;
         return nullptr;
     }
-    UnicodeString simpleFormats[ARRAY_LENGTH];
+    UnicodeString simpleFormats[number_longnames_ARRAY_LENGTH];
     getMeasureData(loc, unit, width, simpleFormats, status);
     if (U_FAILURE(status)) { return result; }
     result->simpleFormatsToModifiers(simpleFormats, UNUM_MEASURE_UNIT_FIELD, status);
@@ -222,16 +222,16 @@ LongNameHandler::forCompoundUnit(const Locale &loc, const MeasureUnit &unit, con
         status = U_MEMORY_ALLOCATION_ERROR;
         return nullptr;
     }
-    UnicodeString primaryData[ARRAY_LENGTH];
+    UnicodeString primaryData[number_longnames_ARRAY_LENGTH];
     getMeasureData(loc, unit, width, primaryData, status);
     if (U_FAILURE(status)) { return result; }
-    UnicodeString secondaryData[ARRAY_LENGTH];
+    UnicodeString secondaryData[number_longnames_ARRAY_LENGTH];
     getMeasureData(loc, perUnit, width, secondaryData, status);
     if (U_FAILURE(status)) { return result; }
 
     UnicodeString perUnitFormat;
-    if (!secondaryData[PER_INDEX].isBogus()) {
-        perUnitFormat = secondaryData[PER_INDEX];
+    if (!secondaryData[number_longnames_PER_INDEX].isBogus()) {
+        perUnitFormat = secondaryData[number_longnames_PER_INDEX];
     } else {
         UnicodeString rawPerUnitFormat = getPerUnitFormat(loc, width, status);
         if (U_FAILURE(status)) { return result; }
@@ -259,9 +259,9 @@ UnicodeString LongNameHandler::getUnitDisplayName(
     if (U_FAILURE(status)) {
         return ICU_Utility::makeBogusString();
     }
-    UnicodeString simpleFormats[ARRAY_LENGTH];
+    UnicodeString simpleFormats[number_longnames_ARRAY_LENGTH];
     getMeasureData(loc, unit, width, simpleFormats, status);
-    return simpleFormats[DNAM_INDEX];
+    return simpleFormats[number_longnames_DNAM_INDEX];
 }
 
 UnicodeString LongNameHandler::getUnitPattern(
@@ -273,7 +273,7 @@ UnicodeString LongNameHandler::getUnitPattern(
     if (U_FAILURE(status)) {
         return ICU_Utility::makeBogusString();
     }
-    UnicodeString simpleFormats[ARRAY_LENGTH];
+    UnicodeString simpleFormats[number_longnames_ARRAY_LENGTH];
     getMeasureData(loc, unit, width, simpleFormats, status);
     // The above already handles fallback from other widths to short
     if (U_FAILURE(status)) {
@@ -293,7 +293,7 @@ LongNameHandler* LongNameHandler::forCurrencyLongNames(const Locale &loc, const 
         status = U_MEMORY_ALLOCATION_ERROR;
         return nullptr;
     }
-    UnicodeString simpleFormats[ARRAY_LENGTH];
+    UnicodeString simpleFormats[number_longnames_ARRAY_LENGTH];
     getCurrencyLongNameData(loc, currency, simpleFormats, status);
     if (U_FAILURE(status)) { return nullptr; }
     result->simpleFormatsToModifiers(simpleFormats, UNUM_CURRENCY_FIELD, status);

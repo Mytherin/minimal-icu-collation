@@ -369,74 +369,74 @@ NumberFormatter::forSkeleton(const UnicodeString& skeleton, UParseError& perror,
 }
 
 
-template<typename T> using NFS = NumberFormatterSettings<T>;
-using LNF = LocalizedNumberFormatter;
-using UNF = UnlocalizedNumberFormatter;
+template<typename T> using fluent_NFS = NumberFormatterSettings<T>;
+using fluent_LNF = LocalizedNumberFormatter;
+using fluent_UNF = UnlocalizedNumberFormatter;
 
-UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(const UNF& other)
-        : UNF(static_cast<const NFS<UNF>&>(other)) {}
+UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(const fluent_UNF& other)
+        : fluent_UNF(static_cast<const fluent_NFS<fluent_UNF>&>(other)) {}
 
-UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(const NFS<UNF>& other)
-        : NFS<UNF>(other) {
+UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(const fluent_NFS<fluent_UNF>& other)
+        : fluent_NFS<fluent_UNF>(other) {
     // No additional fields to assign
 }
 
 // Make default copy constructor call the NumberFormatterSettings copy constructor.
-UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(UNF&& src) U_NOEXCEPT
-        : UNF(static_cast<NFS<UNF>&&>(src)) {}
+UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(fluent_UNF&& src) U_NOEXCEPT
+        : fluent_UNF(static_cast<fluent_NFS<fluent_UNF>&&>(src)) {}
 
-UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(NFS<UNF>&& src) U_NOEXCEPT
-        : NFS<UNF>(std::move(src)) {
+UnlocalizedNumberFormatter::UnlocalizedNumberFormatter(fluent_NFS<fluent_UNF>&& src) U_NOEXCEPT
+        : fluent_NFS<fluent_UNF>(std::move(src)) {
     // No additional fields to assign
 }
 
-UnlocalizedNumberFormatter& UnlocalizedNumberFormatter::operator=(const UNF& other) {
-    NFS<UNF>::operator=(static_cast<const NFS<UNF>&>(other));
+UnlocalizedNumberFormatter& UnlocalizedNumberFormatter::operator=(const fluent_UNF& other) {
+    fluent_NFS<fluent_UNF>::operator=(static_cast<const fluent_NFS<fluent_UNF>&>(other));
     // No additional fields to assign
     return *this;
 }
 
-UnlocalizedNumberFormatter& UnlocalizedNumberFormatter::operator=(UNF&& src) U_NOEXCEPT {
-    NFS<UNF>::operator=(static_cast<NFS<UNF>&&>(src));
+UnlocalizedNumberFormatter& UnlocalizedNumberFormatter::operator=(fluent_UNF&& src) U_NOEXCEPT {
+    fluent_NFS<fluent_UNF>::operator=(static_cast<fluent_NFS<fluent_UNF>&&>(src));
     // No additional fields to assign
     return *this;
 }
 
 // Make default copy constructor call the NumberFormatterSettings copy constructor.
-LocalizedNumberFormatter::LocalizedNumberFormatter(const LNF& other)
-        : LNF(static_cast<const NFS<LNF>&>(other)) {}
+LocalizedNumberFormatter::LocalizedNumberFormatter(const fluent_LNF& other)
+        : fluent_LNF(static_cast<const fluent_NFS<fluent_LNF>&>(other)) {}
 
-LocalizedNumberFormatter::LocalizedNumberFormatter(const NFS<LNF>& other)
-        : NFS<LNF>(other) {
+LocalizedNumberFormatter::LocalizedNumberFormatter(const fluent_NFS<fluent_LNF>& other)
+        : fluent_NFS<fluent_LNF>(other) {
     // No additional fields to assign (let call count and compiled formatter reset to defaults)
 }
 
 LocalizedNumberFormatter::LocalizedNumberFormatter(LocalizedNumberFormatter&& src) U_NOEXCEPT
-        : LNF(static_cast<NFS<LNF>&&>(src)) {}
+        : fluent_LNF(static_cast<fluent_NFS<fluent_LNF>&&>(src)) {}
 
-LocalizedNumberFormatter::LocalizedNumberFormatter(NFS<LNF>&& src) U_NOEXCEPT
-        : NFS<LNF>(std::move(src)) {
+LocalizedNumberFormatter::LocalizedNumberFormatter(fluent_NFS<fluent_LNF>&& src) U_NOEXCEPT
+        : fluent_NFS<fluent_LNF>(std::move(src)) {
     // For the move operators, copy over the compiled formatter.
     // Note: if the formatter is not compiled, call count information is lost.
-    if (static_cast<LNF&&>(src).fCompiled != nullptr) {
-        lnfMoveHelper(static_cast<LNF&&>(src));
+    if (static_cast<fluent_LNF&&>(src).fCompiled != nullptr) {
+        lnfMoveHelper(static_cast<fluent_LNF&&>(src));
     }
 }
 
-LocalizedNumberFormatter& LocalizedNumberFormatter::operator=(const LNF& other) {
-    NFS<LNF>::operator=(static_cast<const NFS<LNF>&>(other));
+LocalizedNumberFormatter& LocalizedNumberFormatter::operator=(const fluent_LNF& other) {
+    fluent_NFS<fluent_LNF>::operator=(static_cast<const fluent_NFS<fluent_LNF>&>(other));
     // Reset to default values.
     clear();
     return *this;
 }
 
-LocalizedNumberFormatter& LocalizedNumberFormatter::operator=(LNF&& src) U_NOEXCEPT {
-    NFS<LNF>::operator=(static_cast<NFS<LNF>&&>(src));
+LocalizedNumberFormatter& LocalizedNumberFormatter::operator=(fluent_LNF&& src) U_NOEXCEPT {
+    fluent_NFS<fluent_LNF>::operator=(static_cast<fluent_NFS<fluent_LNF>&&>(src));
     // For the move operators, copy over the compiled formatter.
     // Note: if the formatter is not compiled, call count information is lost.
-    if (static_cast<LNF&&>(src).fCompiled != nullptr) {
+    if (static_cast<fluent_LNF&&>(src).fCompiled != nullptr) {
         // Formatter is compiled
-        lnfMoveHelper(static_cast<LNF&&>(src));
+        lnfMoveHelper(static_cast<fluent_LNF&&>(src));
     } else {
         clear();
     }
@@ -451,7 +451,7 @@ void LocalizedNumberFormatter::clear() {
     fCompiled = nullptr;
 }
 
-void LocalizedNumberFormatter::lnfMoveHelper(LNF&& src) {
+void LocalizedNumberFormatter::lnfMoveHelper(fluent_LNF&& src) {
     // Copy over the compiled formatter and set call count to INT32_MIN as in computeCompiled().
     // Don't copy the call count directly because doing so requires a loadAcquire/storeRelease.
     // The bits themselves appear to be platform-dependent, so copying them might not be safe.

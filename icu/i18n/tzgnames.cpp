@@ -41,17 +41,17 @@ U_NAMESPACE_BEGIN
 
 #define ZID_KEY_MAX  128
 
-static const char gZoneStrings[]                = "zoneStrings";
+static const char tzgnames_gZoneStrings[]                = "zoneStrings";
 
-static const char gRegionFormatTag[]            = "regionFormat";
-static const char gFallbackFormatTag[]          = "fallbackFormat";
+static const char tzgnames_gRegionFormatTag[]            = "regionFormat";
+static const char tzgnames_gFallbackFormatTag[]          = "fallbackFormat";
 
-static const UChar gEmpty[]                     = {0x00};
+static const UChar tzgnames_gEmpty[]                     = {0x00};
 
-static const UChar gDefRegionPattern[]          = {0x7B, 0x30, 0x7D, 0x00}; // "{0}"
-static const UChar gDefFallbackPattern[]        = {0x7B, 0x31, 0x7D, 0x20, 0x28, 0x7B, 0x30, 0x7D, 0x29, 0x00}; // "{1} ({0})"
+static const UChar tzgnames_gDefRegionPattern[]          = {0x7B, 0x30, 0x7D, 0x00}; // "{0}"
+static const UChar tzgnames_gDefFallbackPattern[]        = {0x7B, 0x31, 0x7D, 0x20, 0x28, 0x7B, 0x30, 0x7D, 0x29, 0x00}; // "{1} ({0})"
 
-static const double kDstCheckRange      = (double)184*U_MILLIS_PER_DAY;
+static const double tzgnames_kDstCheckRange      = (double)184*U_MILLIS_PER_DAY;
 
 
 
@@ -363,20 +363,20 @@ TZGNCore::initialize(const Locale& locale, UErrorCode& status) {
     }
 
     // Initialize format patterns
-    UnicodeString rpat(TRUE, gDefRegionPattern, -1);
-    UnicodeString fpat(TRUE, gDefFallbackPattern, -1);
+    UnicodeString rpat(TRUE, tzgnames_gDefRegionPattern, -1);
+    UnicodeString fpat(TRUE, tzgnames_gDefFallbackPattern, -1);
 
     UErrorCode tmpsts = U_ZERO_ERROR;   // OK with fallback warning..
     UResourceBundle *zoneStrings = ures_open(U_ICUDATA_ZONE, locale.getName(), &tmpsts);
-    zoneStrings = ures_getByKeyWithFallback(zoneStrings, gZoneStrings, zoneStrings, &tmpsts);
+    zoneStrings = ures_getByKeyWithFallback(zoneStrings, tzgnames_gZoneStrings, zoneStrings, &tmpsts);
 
     if (U_SUCCESS(tmpsts)) {
-        const UChar *regionPattern = ures_getStringByKeyWithFallback(zoneStrings, gRegionFormatTag, NULL, &tmpsts);
+        const UChar *regionPattern = ures_getStringByKeyWithFallback(zoneStrings, tzgnames_gRegionFormatTag, NULL, &tmpsts);
         if (U_SUCCESS(tmpsts) && u_strlen(regionPattern) > 0) {
             rpat.setTo(regionPattern, -1);
         }
         tmpsts = U_ZERO_ERROR;
-        const UChar *fallbackPattern = ures_getStringByKeyWithFallback(zoneStrings, gFallbackFormatTag, NULL, &tmpsts);
+        const UChar *fallbackPattern = ures_getStringByKeyWithFallback(zoneStrings, tzgnames_gFallbackFormatTag, NULL, &tmpsts);
         if (U_SUCCESS(tmpsts) && u_strlen(fallbackPattern) > 0) {
             fpat.setTo(fallbackPattern, -1);
         }
@@ -525,8 +525,8 @@ TZGNCore::getGenericLocationName(const UnicodeString& tzCanonicalID) {
     const UChar *locname = (const UChar *)uhash_get(fLocationNamesMap, tzIDKey);
 
     if (locname != NULL) {
-        // gEmpty indicate the name is not available
-        if (locname == gEmpty) {
+        // tzgnames_gEmpty indicate the name is not available
+        if (locname == tzgnames_gEmpty) {
             return NULL;
         }
         return locname;
@@ -572,8 +572,8 @@ TZGNCore::getGenericLocationName(const UnicodeString& tzCanonicalID) {
         const UChar* cacheID = ZoneMeta::findTimeZoneID(tzCanonicalID);
         U_ASSERT(cacheID != NULL);
         if (locname == NULL) {
-            // gEmpty to indicate - no location name available
-            uhash_put(fLocationNamesMap, (void *)cacheID, (void *)gEmpty, &status);
+            // tzgnames_gEmpty to indicate - no location name available
+            uhash_put(fLocationNamesMap, (void *)cacheID, (void *)tzgnames_gEmpty, &status);
         } else {
             uhash_put(fLocationNamesMap, (void *)cacheID, (void *)locname, &status);
             if (U_FAILURE(status)) {
@@ -645,14 +645,14 @@ TZGNCore::formatGenericNonLocationName(const TimeZone& tz, UTimeZoneGenericNameT
                 TimeZoneTransition before;
                 UBool beforTrs = btz->getPreviousTransition(date, TRUE, before);
                 if (beforTrs
-                        && (date - before.getTime() < kDstCheckRange)
+                        && (date - before.getTime() < tzgnames_kDstCheckRange)
                         && before.getFrom()->getDSTSavings() != 0) {
                     useStandard = FALSE;
                 } else {
                     TimeZoneTransition after;
                     UBool afterTrs = btz->getNextTransition(date, FALSE, after);
                     if (afterTrs
-                            && (after.getTime() - date < kDstCheckRange)
+                            && (after.getTime() - date < tzgnames_kDstCheckRange)
                             && after.getTo()->getDSTSavings() != 0) {
                         useStandard = FALSE;
                     }
@@ -660,11 +660,11 @@ TZGNCore::formatGenericNonLocationName(const TimeZone& tz, UTimeZoneGenericNameT
             } else {
                 // If not BasicTimeZone... only if the instance is not an ICU's implementation.
                 // We may get a wrong answer in edge case, but it should practically work OK.
-                tmptz->getOffset(date - kDstCheckRange, FALSE, raw, sav, status);
+                tmptz->getOffset(date - tzgnames_kDstCheckRange, FALSE, raw, sav, status);
                 if (sav != 0) {
                     useStandard = FALSE;
                 } else {
-                    tmptz->getOffset(date + kDstCheckRange, FALSE, raw, sav, status);
+                    tmptz->getOffset(date + tzgnames_kDstCheckRange, FALSE, raw, sav, status);
                     if (sav != 0){
                         useStandard = FALSE;
                     }
@@ -1165,7 +1165,7 @@ U_CDECL_END
  * the expiration time. This function must be called with in the mutex
  * block.
  */
-static void sweepCache() {
+static void tzgnames_sweepCache() {
     int32_t pos = UHASH_FIRST;
     const UHashElement* elem;
     double now = (double)uprv_getUTCtime();
@@ -1273,7 +1273,7 @@ TimeZoneGenericNames::createInstance(const Locale& locale, UErrorCode& status) {
         gAccessCount++;
         if (gAccessCount >= SWEEP_INTERVAL) {
             // sweep
-            sweepCache();
+            tzgnames_sweepCache();
             gAccessCount = 0;
         }
     }  // End of mutex locked block

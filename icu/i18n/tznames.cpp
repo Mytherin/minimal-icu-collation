@@ -82,7 +82,7 @@ U_CDECL_END
  * the expiration time. This function must be called with in the mutex
  * block.
  */
-static void sweepCache() {
+static void tznames_sweepCache() {
     int32_t pos = UHASH_FIRST;
     const UHashElement* elem;
     double now = (double)uprv_getUTCtime();
@@ -201,7 +201,7 @@ TimeZoneNamesDelegate::TimeZoneNamesDelegate(const Locale& locale, UErrorCode& s
     gAccessCount++;
     if (gAccessCount >= SWEEP_INTERVAL) {
         // sweep
-        sweepCache();
+        tznames_sweepCache();
         gAccessCount = 0;
     }
     fTZnamesCacheEntry = cacheEntry;
