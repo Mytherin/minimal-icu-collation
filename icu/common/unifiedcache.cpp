@@ -67,7 +67,7 @@ ucache_deleteKey(void *obj) {
 CacheKeyBase::~CacheKeyBase() {
 }
 
-static void U_CALLCONV cacheInit(UErrorCode &status) {
+static void U_CALLCONV unified_cache_cacheInit(UErrorCode &status) {
     U_ASSERT(unifiedcache_gCache == NULL);
     ucln_common_registerCleanup(
             UCLN_COMMON_UNIFIED_CACHE, unifiedcache_cleanup);
@@ -86,7 +86,7 @@ static void U_CALLCONV cacheInit(UErrorCode &status) {
 }
 
 UnifiedCache *UnifiedCache::getInstance(UErrorCode &status) {
-    umtx_initOnce(unifiedcache_gCacheInitOnce, &cacheInit, status);
+    umtx_initOnce(unifiedcache_gCacheInitOnce, &unified_cache_cacheInit, status);
     if (U_FAILURE(status)) {
         return NULL;
     }

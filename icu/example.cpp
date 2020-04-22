@@ -100,43 +100,27 @@ int main()
 	printf("%s\n", (calendar->inDaylightTime(success))?"Yes":"No");
 
 
-	StringEnumeration *timeZoneIds = TimeZone::createEnumeration();
+// 	StringEnumeration *timeZoneIds = TimeZone::createEnumeration();
 
 	UErrorCode status = U_ZERO_ERROR;
-	const UnicodeString *zoneId = timeZoneIds->snext(status);
+// 	const UnicodeString *zoneId = timeZoneIds->snext(status);
 
-	while (zoneId != NULL && status == U_ZERO_ERROR) {
-	  std::string zoneIdString;
-	  zoneId->toUTF8String(zoneIdString);
+// 	while (zoneId != NULL && status == U_ZERO_ERROR) {
+// 	  std::string zoneIdString;
+// 	  zoneId->toUTF8String(zoneIdString);
 
-	  std::cout << zoneIdString << std::endl;
+// 	  std::cout << zoneIdString << std::endl;
 
-	  zoneId = timeZoneIds->snext(status);
-   }
+// 	  zoneId = timeZoneIds->snext(status);
+//    }
 
-	// // Create a Calendar to get current date
-	// Calendar* calendar = Calendar::createInstance(success);
-	// curDate = calendar->getNow();
-
-
-	// Print out the Current Date/Time in the given time zone
-	// DateFormat *dt = DateFormat::createDateInstance();
-	// dateReturned = dt->format(curDate,dateReturned,success);
-	// u_printf("%s\n", "Current Time:");
-	// u_printf("%S\n", dateReturned.getTerminatedBuffer());
-
-	// curTZNameFr = tzWest->getDisplayName(Locale::getCanadaFrench(),curTZNameFr);
-	// u_printf("%s\n","Current Time Zone Name in French:");
-	// u_printf("%S\n", curTZNameFr.getTerminatedBuffer());
-
-
-	status = U_ZERO_ERROR;
-	int32_t count;
-	auto locales = Collator::getAvailableLocales(count);
-	fprintf(stdout, "Available collation locales:\n");
-	for(int32_t i = 0; i < count; i++) {
-			fprintf(stdout, "Language: %s, Country: %s\n", locales[i].getLanguage(), locales[i].getCountry());
-	}
+// 	status = U_ZERO_ERROR;
+// 	int32_t count;
+// 	auto locales = Collator::getAvailableLocales(count);
+// 	fprintf(stdout, "Available collation locales:\n");
+// 	for(int32_t i = 0; i < count; i++) {
+// 			fprintf(stdout, "Language: %s, Country: %s\n", locales[i].getLanguage(), locales[i].getCountry());
+// 	}
 
 	auto lt_collator = std::unique_ptr<icu::Collator>(Collator::createInstance(Locale("lt"), status));
 	if (!lt_collator) {

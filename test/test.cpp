@@ -29,6 +29,16 @@ static string sort_strings(vector<string> &strings, icu::Collator &collator) {
 	return res_concat;
 }
 
+TEST_CASE("List supported collations", "[collation]") {
+	int32_t count;
+	auto locales = Collator::getAvailableLocales(count);
+	REQUIRE(count > 100);
+	// fprintf(stdout, "Available collation locales:\n");
+	// for(int32_t i = 0; i < count; i++) {
+	// 		fprintf(stdout, "Language: %s, Country: %s\n", locales[i].getLanguage(), locales[i].getCountry());
+	// }
+}
+
 TEST_CASE("Collation sort test", "[collation]") {
 	vector<string> alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
 
