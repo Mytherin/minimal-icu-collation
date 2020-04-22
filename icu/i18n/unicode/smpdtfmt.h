@@ -1645,7 +1645,7 @@ private:
 
     UBool fHaveDefaultCentury;
 
-    const BreakIterator* fCapitalizationBrkIter;
+    void* fCapitalizationBrkIter;
 };
 
 inline UDate

@@ -11,8 +11,8 @@
 ********************************************************************************
 */
 
-#ifndef __WINDTFMT
-#define __WINDTFMT
+#ifndef __WINDTFMT_H
+#define __WINDTFMT_H
 
 #include "unicode/utypes.h"
 
@@ -27,7 +27,7 @@
 #include "unicode/locid.h"
 
 /**
- * \file 
+ * \file
  * \brief C++ API: Format dates using Windows API.
  */
 

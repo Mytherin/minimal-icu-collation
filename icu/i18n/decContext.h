@@ -19,8 +19,10 @@
 /*   IBM UK, PO Box 31, Birmingham Road, Warwick CV34 5JL, UK         */
 /* ------------------------------------------------------------------ */
 
+#ifndef DECCONTEXT_H_
+#define DECCONTEXT_H_
 /* Modified version, for use from within ICU.
- *    Renamed public functions, to avoid an unwanted export of the 
+ *    Renamed public functions, to avoid an unwanted export of the
  *    standard names from the ICU library.
  *
  *    Use ICU's uprv_malloc() and uprv_free()
@@ -51,8 +53,6 @@
 /*                                                                    */
 /* ------------------------------------------------------------------ */
 
-#if !defined(DECCONTEXT)
-  #define DECCONTEXT
   #define DECCNAME     "decContext"                     /* Short name */
   #define DECCFULLNAME "Decimal Context Descriptor"   /* Verbose name */
   #define DECCAUTHOR   "Mike Cowlishaw"               /* Who to blame */

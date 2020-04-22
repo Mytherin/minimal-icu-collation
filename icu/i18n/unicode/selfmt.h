@@ -15,8 +15,8 @@
  *   11/11/09    kirtig      Finished first cut of implementation.
  ********************************************************************/
 
-#ifndef SELFMT
-#define SELFMT
+#ifndef SELFMT_H
+#define SELFMT_H
 
 #include "unicode/utypes.h"
 

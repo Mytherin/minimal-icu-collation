@@ -15,8 +15,8 @@
 ********************************************************************************
 */
 
-#ifndef NUMSYS
-#define NUMSYS
+#ifndef NUMSYS_H
+#define NUMSYS_H
 
 #include "unicode/utypes.h"
 
@@ -42,7 +42,7 @@ U_NAMESPACE_BEGIN
 constexpr const size_t kInternalNumSysNameCapacity = 8;
 
 /**
- * Defines numbering systems. A numbering system describes the scheme by which 
+ * Defines numbering systems. A numbering system describes the scheme by which
  * numbers are to be presented to the end user.  In its simplest form, a numbering
  * system describes the set of digit characters that are to be used to display
  * numbers, such as Western digits, Thai digits, Arabic-Indic digits, etc., in a
@@ -94,7 +94,7 @@ public:
     static NumberingSystem* U_EXPORT2 createInstance(UErrorCode& status);
 
     /**
-     * Create a numbering system using the specified radix, type, and description. 
+     * Create a numbering system using the specified radix, type, and description.
      * @param radix         The radix (base) for this numbering system.
      * @param isAlgorithmic TRUE if the numbering system is algorithmic rather than numeric.
      * @param description   The string representing the set of digits used in a numeric system, or the name of the RBNF

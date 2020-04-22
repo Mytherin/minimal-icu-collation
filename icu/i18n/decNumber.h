@@ -20,7 +20,7 @@
 /* ------------------------------------------------------------------ */
 
 /* Modified version, for use from within ICU.
- *    Renamed public functions, to avoid an unwanted export of the 
+ *    Renamed public functions, to avoid an unwanted export of the
  *    standard names from the ICU library.
  *
  *    Use ICU's uprv_malloc() and uprv_free()
@@ -30,8 +30,9 @@
  *    Remove a few compiler warnings.
  */
 
-#if !defined(DECNUMBER)
-  #define DECNUMBER
+#ifndef DECNUMBER_H
+#define DECNUMBER_H
+
   #define DECNAME     "decNumber"                       /* Short name */
   #define DECFULLNAME "Decimal Number Module"         /* Verbose name */
   #define DECAUTHOR   "Mike Cowlishaw"                /* Who to blame */

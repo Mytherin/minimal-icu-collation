@@ -130,40 +130,38 @@ int main()
 	// u_printf("%S\n", curTZNameFr.getTerminatedBuffer());
 
 
+	status = U_ZERO_ERROR;
+	int32_t count;
+	auto locales = Collator::getAvailableLocales(count);
+	fprintf(stdout, "Available collation locales:\n");
+	for(int32_t i = 0; i < count; i++) {
+			fprintf(stdout, "Language: %s, Country: %s\n", locales[i].getLanguage(), locales[i].getCountry());
+	}
+
+	auto lt_collator = std::unique_ptr<icu::Collator>(Collator::createInstance(Locale("lt"), status));
+	if (!lt_collator) {
+		fprintf(stderr, "Could not make LT collator!\n");
+		exit(1);
+	}
+	StringPiece str1("yaaa");
+	StringPiece str2("paaa");
+	auto unistr1 = UnicodeString::fromUTF8(str1);
+	auto unistr2 = UnicodeString::fromUTF8(str2);
+	auto res1 = lt_collator->compare(unistr1, unistr2);
+	auto de_collator = std::unique_ptr<icu::Collator>(Collator::createInstance(Locale("de"), status));
+	if (!de_collator) {
+		fprintf(stderr, "Could not make LT collator!\n");
+		exit(1);
+	}
+	auto res2 = de_collator->compare(unistr1, unistr2);
+	fprintf(stdout, "\n");
+	if (collateWithLocaleInCPP(Locale("en", "US"), status) != TRUE)
+	{
+		fprintf(stderr,
+		"Collate with locale in C++ failed.\n");
+	} else
+	{
+		fprintf(stdout, "Collate with Locale C++ example worked!!\n");
+	}
 	return 0;
-
-	// UErrorCode status = U_ZERO_ERROR;
-	// int32_t count;
-	// auto locales = Collator::getAvailableLocales(count);
-	// fprintf(stdout, "Available collation locales:\n");
-	// for(int32_t i = 0; i < count; i++) {
-	// 		fprintf(stdout, "Language: %s, Country: %s\n", locales[i].getLanguage(), locales[i].getCountry());
-	// }
-
-	// auto lt_collator = std::unique_ptr<icu::Collator>(Collator::createInstance(Locale("lt"), status));
-	// if (!lt_collator) {
-	// 	fprintf(stderr, "Could not make LT collator!\n");
-	// 	exit(1);
-	// }
-	// StringPiece str1("yaaa");
-	// StringPiece str2("paaa");
-	// auto unistr1 = UnicodeString::fromUTF8(str1);
-	// auto unistr2 = UnicodeString::fromUTF8(str2);
-	// auto res1 = lt_collator->compare(unistr1, unistr2);
-	// auto de_collator = std::unique_ptr<icu::Collator>(Collator::createInstance(Locale("de"), status));
-	// if (!de_collator) {
-	// 	fprintf(stderr, "Could not make LT collator!\n");
-	// 	exit(1);
-	// }
-	// auto res2 = de_collator->compare(unistr1, unistr2);
-	// fprintf(stdout, "\n");
-	// if (collateWithLocaleInCPP(Locale("en", "US"), status) != TRUE)
-	// {
-	// 	fprintf(stderr,
-	// 	"Collate with locale in C++ failed.\n");
-	// } else
-	// {
-	// 	fprintf(stdout, "Collate with Locale C++ example worked!!\n");
-	// }
-	// return 0;
 }

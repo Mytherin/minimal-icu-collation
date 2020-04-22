@@ -24,8 +24,8 @@
 /* decNumber.h or one of decDouble (etc.) must be included first.     */
 /* ------------------------------------------------------------------ */
 
-#if !defined(DECNUMBERLOC)
-  #define DECNUMBERLOC
+#ifndef DECNUMBERLOC_H
+#define DECNUMBERLOC_H
   #define DECVERSION    "decNumber 3.61" /* Package Version [16 max.] */
   #define DECNLAUTHOR   "Mike Cowlishaw"              /* Who to blame */
 

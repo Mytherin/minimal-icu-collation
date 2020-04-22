@@ -15,8 +15,8 @@
 ********************************************************************************
 */
 
-#ifndef PLURRULE
-#define PLURRULE
+#ifndef PLURRULE_H
+#define PLURRULE_H
 
 #include "unicode/utypes.h"
 
