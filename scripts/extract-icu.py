@@ -106,7 +106,7 @@ for fname in copied_file_set:
     target_path = os.path.join(target_dir, base_path)
     shutil.copy(fname, target_path)
     if fname.endswith('.cpp'):
-        to_be_compiled.append(os.path.join('icu', base_path))
+        to_be_compiled.append(base_path)
 
 # create the cmake file
 cmake_file = """
@@ -130,8 +130,8 @@ if(${FORCE_COLORED_OUTPUT})
   endif()
 endif()
 
-include_directories(icu/common)
-include_directories(icu/i18n)
+include_directories(common)
+include_directories(i18n)
 
 add_library(minimal_icu_collation STATIC %s)
 add_executable(minimal_icu_example example.cpp)
@@ -141,7 +141,7 @@ target_link_libraries(minimal_icu_example minimal_icu_collation)
 """ % (' '.join(to_be_compiled))
 
 
-with open('CMakeLists.txt', 'w+') as f:
+with open('icu/CMakeLists.txt', 'w+') as f:
     f.write(cmake_file)
 
 # coll_ucadata
