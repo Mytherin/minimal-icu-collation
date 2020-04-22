@@ -293,28 +293,28 @@ Derived NumberFormatterSettings<Derived>::threshold(int32_t threshold)&& {
 }
 
 template<typename Derived>
-Derived NumberFormatterSettings<Derived>::macros(const impl::MacroProps& macros) const& {
+Derived NumberFormatterSettings<Derived>::macros(const icu::number::impl::MacroProps& macros) const& {
     Derived copy(*this);
     copy.fMacros = macros;
     return copy;
 }
 
 template<typename Derived>
-Derived NumberFormatterSettings<Derived>::macros(const impl::MacroProps& macros)&& {
+Derived NumberFormatterSettings<Derived>::macros(const icu::number::impl::MacroProps& macros)&& {
     Derived move(std::move(*this));
     move.fMacros = macros;
     return move;
 }
 
 template<typename Derived>
-Derived NumberFormatterSettings<Derived>::macros(impl::MacroProps&& macros) const& {
+Derived NumberFormatterSettings<Derived>::macros(icu::number::impl::MacroProps&& macros) const& {
     Derived copy(*this);
     copy.fMacros = std::move(macros);
     return copy;
 }
 
 template<typename Derived>
-Derived NumberFormatterSettings<Derived>::macros(impl::MacroProps&& macros)&& {
+Derived NumberFormatterSettings<Derived>::macros(icu::number::impl::MacroProps&& macros)&& {
     Derived move(std::move(*this));
     move.fMacros = std::move(macros);
     return move;
@@ -682,7 +682,7 @@ LocalizedNumberFormatter::formatDecimalQuantity(const DecimalQuantity& dq, UErro
     }
 }
 
-void LocalizedNumberFormatter::formatImpl(impl::UFormattedNumberData* results, UErrorCode& status) const {
+void LocalizedNumberFormatter::formatImpl(icu::number::impl::UFormattedNumberData* results, UErrorCode& status) const {
     if (computeCompiled(status)) {
         fCompiled->format(results->quantity, results->getStringRef(), status);
     } else {
@@ -756,7 +756,7 @@ bool LocalizedNumberFormatter::computeCompiled(UErrorCode& status) const {
     }
 }
 
-const impl::NumberFormatterImpl* LocalizedNumberFormatter::getCompiled() const {
+const icu::number::impl::NumberFormatterImpl* LocalizedNumberFormatter::getCompiled() const {
     return fCompiled;
 }
 

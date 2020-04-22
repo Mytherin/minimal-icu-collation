@@ -93,19 +93,19 @@ static UBool U_CALLCONV tzdbTimeZoneNames_cleanup(void) {
 U_CDECL_END
 
 /**
- * ZNameInfo stores zone name information in the trie
+ * tznames_ZNameInfo stores zone name information in the trie
  */
-struct ZNameInfo {
+struct tznames_ZNameInfo {
     UTimeZoneNameType   type;
     const UChar*        tzID;
     const UChar*        mzID;
 };
 
 /**
- * ZMatchInfo stores zone name match information used by find method
+ * tznames_ZMatchInfo stores zone name match information used by find method
  */
-struct ZMatchInfo {
-    const ZNameInfo*    znameInfo;
+struct tznames_ZMatchInfo {
+    const tznames_ZNameInfo*    znameInfo;
     int32_t             matchLength;
 };
 
@@ -710,7 +710,7 @@ private:
         for (int32_t i = 0; i < UTZNM_INDEX_COUNT; i++) {
             const UChar* name = fNames[i];
             if (name != NULL) {
-                ZNameInfo *nameinfo = (ZNameInfo *)uprv_malloc(sizeof(ZNameInfo));
+                tznames_ZNameInfo *nameinfo = (tznames_ZNameInfo *)uprv_malloc(sizeof(tznames_ZNameInfo));
                 if (nameinfo == NULL) {
                     status = U_MEMORY_ALLOCATION_ERROR;
                     return;
@@ -947,7 +947,7 @@ ZNameSearchHandler::handleMatch(int32_t matchLength, const CharacterNode *node, 
     if (node->hasValues()) {
         int32_t valuesCount = node->countValues();
         for (int32_t i = 0; i < valuesCount; i++) {
-            ZNameInfo *nameinfo = (ZNameInfo *)node->getValue(i);
+            tznames_ZNameInfo *nameinfo = (tznames_ZNameInfo *)node->getValue(i);
             if (nameinfo == NULL) {
                 continue;
             }
@@ -1008,10 +1008,10 @@ deleteZNames(void *obj) {
 }
 
 /**
- * Deleter for ZNameInfo
+ * Deleter for tznames_ZNameInfo
  */
 static void U_CALLCONV
-deleteZNameInfo(void *obj) {
+deletetznames_ZNameInfo(void *obj) {
     uprv_free(obj);
 }
 
@@ -1024,7 +1024,7 @@ TimeZoneNamesImpl::TimeZoneNamesImpl(const Locale& locale, UErrorCode& status)
   fMZNamesMap(NULL),
   fNamesTrieFullyLoaded(FALSE),
   fNamesFullyLoaded(FALSE),
-  fNamesTrie(TRUE, deleteZNameInfo) {
+  fNamesTrie(TRUE, deletetznames_ZNameInfo) {
     initialize(locale, status);
 }
 

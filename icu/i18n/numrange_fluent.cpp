@@ -336,7 +336,7 @@ void LocalizedNumberRangeFormatter::formatImpl(
     results.getStringRef().writeTerminator(status);
 }
 
-const impl::NumberRangeFormatterImpl*
+const icu::number::impl::NumberRangeFormatterImpl*
 LocalizedNumberRangeFormatter::getFormatter(UErrorCode& status) const {
     // TODO: Move this into umutex.h? (similar logic also in decimfmt.cpp)
     // See ICU-20146

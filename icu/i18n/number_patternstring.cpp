@@ -904,7 +904,9 @@ PatternStringUtils::convertLocalized(const UnicodeString& input, const DecimalFo
     // Special case: quotes are NOT allowed to be in any localIdx strings.
     // Substitute them with '’' instead.
     for (int32_t i = 0; i < LEN; i++) {
-        table[i][localIdx].findAndReplace(u'\'', u'’');
+        UnicodeString oldText(u'\'');
+        UnicodeString newText(u'’');
+        table[i][localIdx].findAndReplace(oldText, newText);
     }
 
     // Iterate through the string and convert.

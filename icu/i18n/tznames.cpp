@@ -33,18 +33,18 @@ static UMutex gTimeZoneNamesLock;
 static UHashtable *gTimeZoneNamesCache = NULL;
 static UBool gTimeZoneNamesCacheInitialized = FALSE;
 
-// Access count - incremented every time up to SWEEP_INTERVAL,
+// Access count - incremented every time up to tznames_SWEEP_INTERVAL,
 // then reset to 0
-static int32_t gAccessCount = 0;
+static int32_t tznames_gAccessCount = 0;
 
 // Interval for calling the cache sweep function - every 100 times
-#define SWEEP_INTERVAL 100
+#define tznames_SWEEP_INTERVAL 100
 
 // Cache expiration in millisecond. When a cached entry is no
 // longer referenced and exceeding this threshold since last
 // access time, then the cache entry will be deleted by the sweep
 // function. For now, 3 minutes.
-#define CACHE_EXPIRATION 180000.0
+#define tznames_CACHE_EXPIRATION 180000.0
 
 typedef struct TimeZoneNamesCacheEntry {
     TimeZoneNames*  names;
@@ -89,7 +89,7 @@ static void tznames_sweepCache() {
 
     while ((elem = uhash_nextElement(gTimeZoneNamesCache, &pos)) != 0) {
         TimeZoneNamesCacheEntry *entry = (TimeZoneNamesCacheEntry *)elem->value.pointer;
-        if (entry->refCount <= 0 && (now - entry->lastAccess) > CACHE_EXPIRATION) {
+        if (entry->refCount <= 0 && (now - entry->lastAccess) > tznames_CACHE_EXPIRATION) {
             // delete this entry
             uhash_removeElement(gTimeZoneNamesCache, elem);
         }
@@ -198,11 +198,11 @@ TimeZoneNamesDelegate::TimeZoneNamesDelegate(const Locale& locale, UErrorCode& s
         cacheEntry->refCount++;
         cacheEntry->lastAccess = (double)uprv_getUTCtime();
     }
-    gAccessCount++;
-    if (gAccessCount >= SWEEP_INTERVAL) {
+    tznames_gAccessCount++;
+    if (tznames_gAccessCount >= tznames_SWEEP_INTERVAL) {
         // sweep
         tznames_sweepCache();
-        gAccessCount = 0;
+        tznames_gAccessCount = 0;
     }
     fTZnamesCacheEntry = cacheEntry;
 }

@@ -11,7 +11,7 @@
 * Modification History:
 *
 * Date        Name        Description
-* 02/15/2001  synwee      Modified all methods to process its own function 
+* 02/15/2001  synwee      Modified all methods to process its own function
 *                         instead of calling the equivalent c++ api (coleitr.h)
 * 2012-2014   markus      Rewritten in C++ again.
 ******************************************************************************/
@@ -31,16 +31,16 @@
 
 U_NAMESPACE_USE
 
-#define BUFFER_LENGTH             100
+#define ucoleitr_BUFFER_LENGTH             100
 
-#define DEFAULT_BUFFER_SIZE 16
-#define BUFFER_GROW 8
+#define ucoleitr_DEFAULT_BUFFER_SIZE 16
+#define ucoleitr_BUFFER_GROW 8
 
-#define ARRAY_COPY(dst, src, count) uprv_memcpy((void *) (dst), (void *) (src), (size_t)(count) * sizeof (src)[0])
+#define ucoleitr_ARRAY_COPY(dst, src, count) uprv_memcpy((void *) (dst), (void *) (src), (size_t)(count) * sizeof (src)[0])
 
-#define NEW_ARRAY(type, count) (type *) uprv_malloc((size_t)(count) * sizeof(type))
+#define ucoleitr_NEW_ARRAY(type, count) (type *) uprv_malloc((size_t)(count) * sizeof(type))
 
-#define DELETE_ARRAY(array) uprv_free((void *) (array))
+#define ucoleitr_DELETE_ARRAY(array) uprv_free((void *) (array))
 
 struct RCEI
 {
@@ -53,7 +53,7 @@ U_NAMESPACE_BEGIN
 
 struct RCEBuffer
 {
-    RCEI    defaultBuffer[DEFAULT_BUFFER_SIZE];
+    RCEI    defaultBuffer[ucoleitr_DEFAULT_BUFFER_SIZE];
     RCEI   *buffer;
     int32_t bufferIndex;
     int32_t bufferSize;
@@ -76,7 +76,7 @@ RCEBuffer::RCEBuffer()
 RCEBuffer::~RCEBuffer()
 {
     if (buffer != defaultBuffer) {
-        DELETE_ARRAY(buffer);
+        ucoleitr_DELETE_ARRAY(buffer);
     }
 }
 
@@ -91,20 +91,20 @@ void RCEBuffer::put(uint32_t ce, int32_t ixLow, int32_t ixHigh, UErrorCode &erro
         return;
     }
     if (bufferIndex >= bufferSize) {
-        RCEI *newBuffer = NEW_ARRAY(RCEI, bufferSize + BUFFER_GROW);
+        RCEI *newBuffer = ucoleitr_NEW_ARRAY(RCEI, bufferSize + ucoleitr_BUFFER_GROW);
         if (newBuffer == NULL) {
             errorCode = U_MEMORY_ALLOCATION_ERROR;
             return;
         }
 
-        ARRAY_COPY(newBuffer, buffer, bufferSize);
+        ucoleitr_ARRAY_COPY(newBuffer, buffer, bufferSize);
 
         if (buffer != defaultBuffer) {
-            DELETE_ARRAY(buffer);
+            ucoleitr_DELETE_ARRAY(buffer);
         }
 
         buffer = newBuffer;
-        bufferSize += BUFFER_GROW;
+        bufferSize += ucoleitr_BUFFER_GROW;
     }
 
     buffer[bufferIndex].ce   = ce;
@@ -133,7 +133,7 @@ PCEBuffer::PCEBuffer()
 PCEBuffer::~PCEBuffer()
 {
     if (buffer != defaultBuffer) {
-        DELETE_ARRAY(buffer);
+        ucoleitr_DELETE_ARRAY(buffer);
     }
 }
 
@@ -153,20 +153,20 @@ void PCEBuffer::put(uint64_t ce, int32_t ixLow, int32_t ixHigh, UErrorCode &erro
         return;
     }
     if (bufferIndex >= bufferSize) {
-        PCEI *newBuffer = NEW_ARRAY(PCEI, bufferSize + BUFFER_GROW);
+        PCEI *newBuffer = ucoleitr_NEW_ARRAY(PCEI, bufferSize + ucoleitr_BUFFER_GROW);
         if (newBuffer == NULL) {
             errorCode = U_MEMORY_ALLOCATION_ERROR;
             return;
         }
 
-        ARRAY_COPY(newBuffer, buffer, bufferSize);
+        ucoleitr_ARRAY_COPY(newBuffer, buffer, bufferSize);
 
         if (buffer != defaultBuffer) {
-            DELETE_ARRAY(buffer);
+            ucoleitr_DELETE_ARRAY(buffer);
         }
 
         buffer = newBuffer;
-        bufferSize += BUFFER_GROW;
+        bufferSize += ucoleitr_BUFFER_GROW;
     }
 
     buffer[bufferIndex].ce   = ce;
@@ -313,7 +313,7 @@ ucol_reset(UCollationElements *elems)
 }
 
 U_CAPI int32_t U_EXPORT2
-ucol_next(UCollationElements *elems, 
+ucol_next(UCollationElements *elems,
           UErrorCode         *status)
 {
     if (U_FAILURE(*status)) {
@@ -397,7 +397,7 @@ UCollationPCE::previousProcessed(
         // buffer raw CEs up to non-ignorable primary
         RCEBuffer rceb;
         int32_t ce;
-        
+
         // **** do we need to reset rceb, or will it always be empty at this point ****
         do {
             high = cei->getOffset();
@@ -436,7 +436,7 @@ finish:
     	if (ixLow != NULL) {
     		*ixLow = -1;
     	}
-    	
+
     	if (ixHigh != NULL) {
     		*ixHigh = -1
     		;
@@ -511,19 +511,19 @@ ucol_setOffset(UCollationElements    *elems,
 }
 
 U_CAPI int32_t U_EXPORT2
-ucol_primaryOrder (int32_t order) 
+ucol_primaryOrder (int32_t order)
 {
     return (order >> 16) & 0xffff;
 }
 
 U_CAPI int32_t U_EXPORT2
-ucol_secondaryOrder (int32_t order) 
+ucol_secondaryOrder (int32_t order)
 {
     return (order >> 8) & 0xff;
 }
 
 U_CAPI int32_t U_EXPORT2
-ucol_tertiaryOrder (int32_t order) 
+ucol_tertiaryOrder (int32_t order)
 {
     return order & 0xff;
 }

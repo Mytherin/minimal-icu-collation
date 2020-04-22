@@ -49,43 +49,43 @@ U_NAMESPACE_USE
 
 // Define UChar constants using hex for EBCDIC compatibility
 // Used #define to reduce private static exports and memory access time.
-#define SET_OPEN        ((UChar)0x005B) /*[*/
-#define SET_CLOSE       ((UChar)0x005D) /*]*/
-#define HYPHEN          ((UChar)0x002D) /*-*/
-#define COMPLEMENT      ((UChar)0x005E) /*^*/
-#define COLON           ((UChar)0x003A) /*:*/
-#define BACKSLASH       ((UChar)0x005C) /*\*/
-#define INTERSECTION    ((UChar)0x0026) /*&*/
-#define UPPER_U         ((UChar)0x0055) /*U*/
-#define LOWER_U         ((UChar)0x0075) /*u*/
-#define OPEN_BRACE      ((UChar)123)    /*{*/
-#define CLOSE_BRACE     ((UChar)125)    /*}*/
-#define UPPER_P         ((UChar)0x0050) /*P*/
-#define LOWER_P         ((UChar)0x0070) /*p*/
-#define UPPER_N         ((UChar)78)     /*N*/
-#define EQUALS          ((UChar)0x003D) /*=*/
+#define uniset_props_SET_OPEN        ((UChar)0x005B) /*[*/
+#define uniset_props_SET_CLOSE       ((UChar)0x005D) /*]*/
+#define uniset_props_HYPHEN          ((UChar)0x002D) /*-*/
+#define uniset_props_COMPLEMENT      ((UChar)0x005E) /*^*/
+#define uniset_props_COLON           ((UChar)0x003A) /*:*/
+#define uniset_props_BACKSLASH       ((UChar)0x005C) /*\*/
+#define uniset_props_INTERSECTION    ((UChar)0x0026) /*&*/
+#define uniset_props_UPPER_U         ((UChar)0x0055) /*U*/
+#define uniset_props_LOWER_U         ((UChar)0x0075) /*u*/
+#define uniset_props_OPEN_BRACE      ((UChar)123)    /*{*/
+#define uniset_props_CLOSE_BRACE     ((UChar)125)    /*}*/
+#define uniset_props_UPPER_P         ((UChar)0x0050) /*P*/
+#define uniset_props_LOWER_P         ((UChar)0x0070) /*p*/
+#define uniset_props_UPPER_N         ((UChar)78)     /*N*/
+#define uniset_props_EQUALS          ((UChar)0x003D) /*=*/
 
-//static const UChar POSIX_OPEN[]  = { SET_OPEN,COLON,0 };  // "[:"
-static const UChar POSIX_CLOSE[] = { COLON,SET_CLOSE,0 };  // ":]"
-//static const UChar PERL_OPEN[]   = { BACKSLASH,LOWER_P,0 }; // "\\p"
-//static const UChar PERL_CLOSE[]  = { CLOSE_BRACE,0 };    // "}"
-//static const UChar NAME_OPEN[]   = { BACKSLASH,UPPER_N,0 };  // "\\N"
-static const UChar HYPHEN_RIGHT_BRACE[] = {HYPHEN,SET_CLOSE,0}; /*-]*/
+//static const UChar POSIX_OPEN[]  = { uniset_props_SET_OPEN,uniset_props_COLON,0 };  // "[:"
+static const UChar uniset_props_POSIX_CLOSE[] = { uniset_props_COLON,uniset_props_SET_CLOSE,0 };  // ":]"
+//static const UChar PERL_OPEN[]   = { uniset_props_BACKSLASH,uniset_props_LOWER_P,0 }; // "\\p"
+//static const UChar PERL_CLOSE[]  = { uniset_props_CLOSE_BRACE,0 };    // "}"
+//static const UChar NAME_OPEN[]   = { uniset_props_BACKSLASH,uniset_props_UPPER_N,0 };  // "\\N"
+static const UChar uniset_props_HYPHEN_RIGHT_BRACE[] = {uniset_props_HYPHEN,uniset_props_SET_CLOSE,0}; /*-]*/
 
 // Special property set IDs
-static const char ANY[]   = "ANY";   // [\u0000-\U0010FFFF]
-static const char ASCII[] = "ASCII"; // [\u0000-\u007F]
-static const char ASSIGNED[] = "Assigned"; // [:^Cn:]
+static const char uniset_props_ANY[]   = "uniset_props_ANY";   // [\u0000-\U0010FFFF]
+static const char uniset_props_ASCII[] = "uniset_props_ASCII"; // [\u0000-\u007F]
+static const char uniset_props_ASSIGNED[] = "Assigned"; // [:^Cn:]
 
 // Unicode name property alias
-#define NAME_PROP "na"
-#define NAME_PROP_LENGTH 2
+#define uniset_props_NAME_PROP "na"
+#define uniset_props_NAME_PROP_LENGTH 2
 
 /**
  * Delimiter string used in patterns to close a category reference:
  * ":]".  Example: "[:Lu:]".
  */
-//static const UChar CATEGORY_CLOSE[] = {COLON, SET_CLOSE, 0x0000}; /* ":]" */
+//static const UChar CATEGORY_CLOSE[] = {uniset_props_COLON, uniset_props_SET_CLOSE, 0x0000}; /* ":]" */
 
 // Cached sets ------------------------------------------------------------- ***
 
@@ -140,27 +140,27 @@ uniset_getUnicode32Instance(UErrorCode &errorCode) {
 static inline UBool
 isPerlOpen(const UnicodeString &pattern, int32_t pos) {
     UChar c;
-    return pattern.charAt(pos)==BACKSLASH && ((c=pattern.charAt(pos+1))==LOWER_P || c==UPPER_P);
+    return pattern.charAt(pos)==uniset_props_BACKSLASH && ((c=pattern.charAt(pos+1))==uniset_props_LOWER_P || c==uniset_props_UPPER_P);
 }
 
 /*static inline UBool
 isPerlClose(const UnicodeString &pattern, int32_t pos) {
-    return pattern.charAt(pos)==CLOSE_BRACE;
+    return pattern.charAt(pos)==uniset_props_CLOSE_BRACE;
 }*/
 
 static inline UBool
 isNameOpen(const UnicodeString &pattern, int32_t pos) {
-    return pattern.charAt(pos)==BACKSLASH && pattern.charAt(pos+1)==UPPER_N;
+    return pattern.charAt(pos)==uniset_props_BACKSLASH && pattern.charAt(pos+1)==uniset_props_UPPER_N;
 }
 
 static inline UBool
 isPOSIXOpen(const UnicodeString &pattern, int32_t pos) {
-    return pattern.charAt(pos)==SET_OPEN && pattern.charAt(pos+1)==COLON;
+    return pattern.charAt(pos)==uniset_props_SET_OPEN && pattern.charAt(pos+1)==uniset_props_COLON;
 }
 
 /*static inline UBool
 isPOSIXClose(const UnicodeString &pattern, int32_t pos) {
-    return pattern.charAt(pos)==COLON && pattern.charAt(pos+1)==SET_CLOSE;
+    return pattern.charAt(pos)==uniset_props_COLON && pattern.charAt(pos+1)==uniset_props_SET_CLOSE;
 }*/
 
 // TODO memory debugging provided inside uniset.cpp
@@ -328,9 +328,9 @@ void UnicodeSet::applyPattern(RuleCharacterIterator& chars,
 
     while (mode != 2 && !chars.atEnd()) {
         U_ASSERT((lastItem == 0 && op == 0) ||
-                 (lastItem == 1 && (op == 0 || op == HYPHEN /*'-'*/)) ||
-                 (lastItem == 2 && (op == 0 || op == HYPHEN /*'-'*/ ||
-                                    op == INTERSECTION /*'&'*/)));
+                 (lastItem == 1 && (op == 0 || op == uniset_props_HYPHEN /*'-'*/)) ||
+                 (lastItem == 2 && (op == 0 || op == uniset_props_HYPHEN /*'-'*/ ||
+                                    op == uniset_props_INTERSECTION /*'&'*/)));
 
         UChar32 c = 0;
         UBool literal = FALSE;
@@ -378,7 +378,7 @@ void UnicodeSet::applyPattern(RuleCharacterIterator& chars,
                     }
                     // Fall through to handle special leading '-';
                     // otherwise restart loop for nested [], \p{}, etc.
-                    if (c == HYPHEN /*'-'*/) {
+                    if (c == uniset_props_HYPHEN /*'-'*/) {
                         literal = TRUE;
                         // Fall through to handle literal '-' below
                     } else {
@@ -420,7 +420,7 @@ void UnicodeSet::applyPattern(RuleCharacterIterator& chars,
                 op = 0;
             }
 
-            if (op == HYPHEN /*'-'*/ || op == INTERSECTION /*'&'*/) {
+            if (op == uniset_props_HYPHEN /*'-'*/ || op == uniset_props_INTERSECTION /*'&'*/) {
                 patLocal.append(op);
             }
 
@@ -456,10 +456,10 @@ void UnicodeSet::applyPattern(RuleCharacterIterator& chars,
             }
 
             switch (op) {
-            case HYPHEN: /*'-'*/
+            case uniset_props_HYPHEN: /*'-'*/
                 removeAll(*nested);
                 break;
-            case INTERSECTION: /*'&'*/
+            case uniset_props_INTERSECTION: /*'&'*/
                 retainAll(*nested);
                 break;
             case 0:
@@ -491,10 +491,10 @@ void UnicodeSet::applyPattern(RuleCharacterIterator& chars,
                     _appendToPat(patLocal, lastChar, FALSE);
                 }
                 // Treat final trailing '-' as a literal
-                if (op == HYPHEN /*'-'*/) {
+                if (op == uniset_props_HYPHEN /*'-'*/) {
                     add(op, op);
                     patLocal.append(op);
-                } else if (op == INTERSECTION /*'&'*/) {
+                } else if (op == uniset_props_INTERSECTION /*'&'*/) {
                     // syntaxError(chars, "Trailing '&'");
                     ec = U_MALFORMED_SET;
                     return;
@@ -502,7 +502,7 @@ void UnicodeSet::applyPattern(RuleCharacterIterator& chars,
                 patLocal.append((UChar) 0x5D /*']'*/);
                 mode = 2;
                 continue;
-            case HYPHEN /*'-'*/:
+            case uniset_props_HYPHEN /*'-'*/:
                 if (op == 0) {
                     if (lastItem != 0) {
                         op = (UChar) c;
@@ -513,7 +513,7 @@ void UnicodeSet::applyPattern(RuleCharacterIterator& chars,
                         c = chars.next(opts, literal, ec);
                         if (U_FAILURE(ec)) return;
                         if (c == 0x5D /*']'*/ && !literal) {
-                            patLocal.append(HYPHEN_RIGHT_BRACE, 2);
+                            patLocal.append(uniset_props_HYPHEN_RIGHT_BRACE, 2);
                             mode = 2;
                             continue;
                         }
@@ -522,7 +522,7 @@ void UnicodeSet::applyPattern(RuleCharacterIterator& chars,
                 // syntaxError(chars, "'-' not after char or set");
                 ec = U_MALFORMED_SET;
                 return;
-            case INTERSECTION /*'&'*/:
+            case uniset_props_INTERSECTION /*'&'*/:
                 if (lastItem == 2 && op == 0) {
                     op = (UChar) c;
                     continue;
@@ -619,7 +619,7 @@ void UnicodeSet::applyPattern(RuleCharacterIterator& chars,
             lastChar = c;
             break;
         case 1:
-            if (op == HYPHEN /*'-'*/) {
+            if (op == uniset_props_HYPHEN /*'-'*/) {
                 if (lastChar >= c) {
                     // Don't allow redundant (a-a) or empty (b-a) ranges;
                     // these are most likely typos.
@@ -662,7 +662,7 @@ void UnicodeSet::applyPattern(RuleCharacterIterator& chars,
     /**
      * Handle global flags (invert, case insensitivity).  If this
      * pattern should be compiled case-insensitive, then we need
-     * to close over case BEFORE COMPLEMENTING.  This makes
+     * to close over case BEFORE uniset_props_COMPLEMENTING.  This makes
      * patterns like /[^abc]/i work.
      */
     if ((options & USET_CASE_INSENSITIVE) != 0) {
@@ -972,13 +972,13 @@ UnicodeSet::applyPropertyAlias(const UnicodeString& prop,
                 p = u_getPropertyEnum(pname.data());
                 if (p >= UCHAR_BINARY_START && p < UCHAR_BINARY_LIMIT) {
                     v = 1;
-                } else if (0 == uprv_comparePropertyNames(ANY, pname.data())) {
+                } else if (0 == uprv_comparePropertyNames(uniset_props_ANY, pname.data())) {
                     set(MIN_VALUE, MAX_VALUE);
                     return *this;
-                } else if (0 == uprv_comparePropertyNames(ASCII, pname.data())) {
+                } else if (0 == uprv_comparePropertyNames(uniset_props_ASCII, pname.data())) {
                     set(0, 0x7F);
                     return *this;
-                } else if (0 == uprv_comparePropertyNames(ASSIGNED, pname.data())) {
+                } else if (0 == uprv_comparePropertyNames(uniset_props_ASSIGNED, pname.data())) {
                     // [:Assigned:]=[:^Cn:]
                     p = UCHAR_GENERAL_CATEGORY_MASK;
                     v = U_GC_CN_MASK;
@@ -1073,17 +1073,17 @@ UnicodeSet& UnicodeSet::applyPropertyPattern(const UnicodeString& pattern,
         posix = TRUE;
         pos += 2;
         pos = ICU_Utility::skipWhitespace(pattern, pos);
-        if (pos < pattern.length() && pattern.charAt(pos) == COMPLEMENT) {
+        if (pos < pattern.length() && pattern.charAt(pos) == uniset_props_COMPLEMENT) {
             ++pos;
             invert = TRUE;
         }
     } else if (isPerlOpen(pattern, pos) || isNameOpen(pattern, pos)) {
         UChar c = pattern.charAt(pos+1);
-        invert = (c == UPPER_P);
-        isName = (c == UPPER_N);
+        invert = (c == uniset_props_UPPER_P);
+        isName = (c == uniset_props_UPPER_N);
         pos += 2;
         pos = ICU_Utility::skipWhitespace(pattern, pos);
-        if (pos == pattern.length() || pattern.charAt(pos++) != OPEN_BRACE) {
+        if (pos == pattern.length() || pattern.charAt(pos++) != uniset_props_OPEN_BRACE) {
             // Syntax error; "\p" or "\P" not followed by "{"
             FAIL(ec);
         }
@@ -1095,9 +1095,9 @@ UnicodeSet& UnicodeSet::applyPropertyPattern(const UnicodeString& pattern,
     // Look for the matching close delimiter, either :] or }
     int32_t close;
     if (posix) {
-      close = pattern.indexOf(POSIX_CLOSE, 2, pos);
+      close = pattern.indexOf(uniset_props_POSIX_CLOSE, 2, pos);
     } else {
-      close = pattern.indexOf(CLOSE_BRACE, pos);
+      close = pattern.indexOf(uniset_props_CLOSE_BRACE, pos);
     }
     if (close < 0) {
         // Syntax error; close delimiter missing
@@ -1107,7 +1107,7 @@ UnicodeSet& UnicodeSet::applyPropertyPattern(const UnicodeString& pattern,
     // Look for an '=' sign.  If this is present, we will parse a
     // medium \p{gc=Cf} or long \p{GeneralCategory=Format}
     // pattern.
-    int32_t equals = pattern.indexOf(EQUALS, pos);
+    int32_t equals = pattern.indexOf(uniset_props_EQUALS, pos);
     UnicodeString propName, valueName;
     if (equals >= 0 && equals < close && !isName) {
         // Equals seen; parse medium/long pattern
@@ -1122,12 +1122,12 @@ UnicodeSet& UnicodeSet::applyPropertyPattern(const UnicodeString& pattern,
         // Handle \N{name}
         if (isName) {
             // This is a little inefficient since it means we have to
-            // parse NAME_PROP back to UCHAR_NAME even though we already
+            // parse uniset_props_NAME_PROP back to UCHAR_NAME even though we already
             // know it's UCHAR_NAME.  If we refactor the API to
             // support args of (UProperty, char*) then we can remove
-            // NAME_PROP and make this a little more efficient.
+            // uniset_props_NAME_PROP and make this a little more efficient.
             valueName = propName;
-            propName = UnicodeString(NAME_PROP, NAME_PROP_LENGTH, US_INV);
+            propName = UnicodeString(uniset_props_NAME_PROP, uniset_props_NAME_PROP_LENGTH, US_INV);
         }
     }
 

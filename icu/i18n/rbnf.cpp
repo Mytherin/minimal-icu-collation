@@ -286,12 +286,12 @@ private:
 
 
 enum {
-    OPEN_ANGLE = 0x003c, /* '<' */
-    CLOSE_ANGLE = 0x003e, /* '>' */
-    COMMA = 0x002c,
-    TICK = 0x0027,
-    QUOTE = 0x0022,
-    SPACE = 0x0020
+    rbnf_OPEN_ANGLE = 0x003c, /* '<' */
+    rbnf_CLOSE_ANGLE = 0x003e, /* '>' */
+    rbnf_COMMA = 0x002c,
+    rbnf_TICK = 0x0027,
+    rbnf_QUOTE = 0x0022,
+    rbnf_SPACE = 0x0020
 };
 
 /**
@@ -338,7 +338,7 @@ private:
         }
     }
     inline UBool inList(UChar c, const UChar* list) const {
-        if (*list == SPACE && PatternProps::isWhiteSpace(c)) {
+        if (*list == rbnf_SPACE && PatternProps::isWhiteSpace(c)) {
             return TRUE;
         }
         while (*list && *list != c) {
@@ -369,16 +369,16 @@ private:
 #endif
 
 
-static const UChar DQUOTE_STOPLIST[] = {
-    QUOTE, 0
+static const UChar Drbnf_QUOTE_STOPLIST[] = {
+    rbnf_QUOTE, 0
 };
 
-static const UChar SQUOTE_STOPLIST[] = {
-    TICK, 0
+static const UChar Srbnf_QUOTE_STOPLIST[] = {
+    rbnf_TICK, 0
 };
 
-static const UChar NOQUOTE_STOPLIST[] = {
-    SPACE, COMMA, CLOSE_ANGLE, OPEN_ANGLE, TICK, QUOTE, 0
+static const UChar NOrbnf_QUOTE_STOPLIST[] = {
+    rbnf_SPACE, rbnf_COMMA, rbnf_CLOSE_ANGLE, rbnf_OPEN_ANGLE, rbnf_TICK, rbnf_QUOTE, 0
 };
 
 static void
@@ -421,7 +421,7 @@ LocDataParser::parse(UChar* _data, int32_t len) {
 StringLocalizationInfo*
 LocDataParser::doParse(void) {
     skipWhitespace();
-    if (!checkInc(OPEN_ANGLE)) {
+    if (!checkInc(rbnf_OPEN_ANGLE)) {
         ERROR("Missing open angle");
     } else {
         VArray array(DeleteFn);
@@ -431,7 +431,7 @@ LocDataParser::doParse(void) {
             mightHaveNext = FALSE;
             UChar** elem = nextArray(requiredLength);
             skipWhitespace();
-            UBool haveComma = check(COMMA);
+            UBool haveComma = check(rbnf_COMMA);
             if (elem) {
                 array.add(elem, ec);
                 if (haveComma) {
@@ -444,8 +444,8 @@ LocDataParser::doParse(void) {
         }
 
         skipWhitespace();
-        if (!checkInc(CLOSE_ANGLE)) {
-            if (check(OPEN_ANGLE)) {
+        if (!checkInc(rbnf_CLOSE_ANGLE)) {
+            if (check(rbnf_OPEN_ANGLE)) {
                 ERROR("Missing comma in outer array");
             } else {
                 ERROR("Missing close angle bracket in outer array");
@@ -476,7 +476,7 @@ LocDataParser::nextArray(int32_t& requiredLength) {
     }
 
     skipWhitespace();
-    if (!checkInc(OPEN_ANGLE)) {
+    if (!checkInc(rbnf_OPEN_ANGLE)) {
         ERROR("Missing open angle");
     }
 
@@ -486,7 +486,7 @@ LocDataParser::nextArray(int32_t& requiredLength) {
         mightHaveNext = FALSE;
         UChar* elem = nextString();
         skipWhitespace();
-        UBool haveComma = check(COMMA);
+        UBool haveComma = check(rbnf_COMMA);
         if (elem) {
             array.add(elem, ec);
             if (haveComma) {
@@ -498,8 +498,8 @@ LocDataParser::nextArray(int32_t& requiredLength) {
         }
     }
     skipWhitespace();
-    if (!checkInc(CLOSE_ANGLE)) {
-        if (check(OPEN_ANGLE)) {
+    if (!checkInc(rbnf_CLOSE_ANGLE)) {
+        if (check(rbnf_OPEN_ANGLE)) {
             ERROR("Missing close angle bracket in inner array");
         } else {
             ERROR("Missing comma in inner array");
@@ -528,12 +528,12 @@ LocDataParser::nextString() {
     if (p < e) {
         const UChar* terminators;
         UChar c = *p;
-        UBool haveQuote = c == QUOTE || c == TICK;
+        UBool haveQuote = c == rbnf_QUOTE || c == rbnf_TICK;
         if (haveQuote) {
             inc();
-            terminators = c == QUOTE ? DQUOTE_STOPLIST : SQUOTE_STOPLIST;
+            terminators = c == rbnf_QUOTE ? Drbnf_QUOTE_STOPLIST : Srbnf_QUOTE_STOPLIST;
         } else {
-            terminators = NOQUOTE_STOPLIST;
+            terminators = NOrbnf_QUOTE_STOPLIST;
         }
         UChar* start = p;
         while (p < e && !inList(*p, terminators)) ++p;
@@ -554,7 +554,7 @@ LocDataParser::nextString() {
                 ERROR("Empty string");
             }
             inc();
-        } else if (x == OPEN_ANGLE || x == TICK || x == QUOTE) {
+        } else if (x == rbnf_OPEN_ANGLE || x == rbnf_TICK || x == rbnf_QUOTE) {
             ERROR("Unexpected character in string");
         }
     }

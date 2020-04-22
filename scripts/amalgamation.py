@@ -89,7 +89,7 @@ def write_file(current_file, ignore_excluded = False):
 
 
     if current_file.endswith(".h") and match == None:
-        if current_file not in ['icu/common/bytesinkutil.h', 'icu/common/norm2_nfc_data.h', 'icu/common/propname_data.h', 'icu/common/ubidi_props_data.h', 'icu/common/ucase_props_data.h', 'icu/common/uchar_props_data.h', 'icu/common/unicode/urename.h']:
+        if current_file not in ['icu/common/bytesinkutil.h', 'icu/common/norm2_nfc_data.h', 'icu/common/propname_data.h', 'icu/common/ubidi_props_data.h', 'icu/common/ucase_props_data.h', 'icu/common/uchar_props_data.h', 'icu/common/unicode/urename.h', 'icu/common/unicode/brkiter.h', 'icu/common/unicode/ubrk.h', 'icu/i18n/unicode/ureldatefmt.h', 'icu/i18n/unicode/search.h', 'icu/i18n/unicode/stsearch.h', 'icu/i18n/brktrans.h', 'icu/i18n/unicode/usearch.h', 'icu/common/locutil.h', 'icu/common/unicode/ucnv_err.h', 'icu/common/ucnv_io.h', 'icu/common/ustr_cnv.h']:
             print(current_file)
             exit(1)
 
@@ -101,6 +101,9 @@ def write_file(current_file, ignore_excluded = False):
 
         # now write all the dependencies of this header first
         for i in range(len(includes)):
+            # if 'usrchimp.h' in includes[i]:
+            #     print(current_file)
+            #     exit(1)
             include_text = write_file(includes[i])
             if linenumbers and i == len(includes) - 1:
                 # for the last include statement, we also include a #line directive
