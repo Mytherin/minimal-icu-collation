@@ -29,3 +29,6 @@ release:
 amal:
 	python3 scripts/amalgamation.py --linenumbers
 	(cd amalgamation && clang++ -std=c++11 -O0 -g icu-collate.cpp)
+
+unit: debug
+	build/debug/test/unittest
