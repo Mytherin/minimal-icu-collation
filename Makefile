@@ -25,3 +25,7 @@ release:
 	cd build/release && \
 	cmake $(GENERATOR) $(FORCE_COLOR) -DCMAKE_BUILD_TYPE=Release ../.. && \
 	cmake --build .
+
+amal:
+	python3 scripts/amalgamation.py --linenumbers
+	(cd amalgamation && clang++ -std=c++11 -O0 -g icu-collate.cpp)
