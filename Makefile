@@ -1,4 +1,4 @@
-.PHONY: all opt unit clean debug release test unittest allunit docs doxygen format sqlite imdb
+.PHONY: all opt unit clean debug release test unittest allunit docs doxygen format sqlite imdb amal
 
 all: release
 opt: release
@@ -28,7 +28,6 @@ release:
 
 amal:
 	python3 scripts/amalgamation.py --linenumbers
-	(cd amalgamation && clang++ -std=c++11 -O0 -g icu-collate.cpp)
 
-unit: debug
+unit: amal debug
 	build/debug/test/unittest
