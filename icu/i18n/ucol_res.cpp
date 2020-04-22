@@ -59,9 +59,9 @@ U_NAMESPACE_BEGIN
 
 namespace {
 
-static const UChar *rootRules = NULL;
-static int32_t rootRulesLength = 0;
-static UResourceBundle *rootBundle = NULL;
+static const UChar *ucol_res_rootRules = NULL;
+static int32_t ucol_res_rootRulesLength = 0;
+static UResourceBundle *ucol_res_rootBundle = NULL;
 static UInitOnce gInitOnceUcolRes = U_INITONCE_INITIALIZER;
 
 }  // namespace
@@ -70,10 +70,10 @@ U_CDECL_BEGIN
 
 static UBool U_CALLCONV
 ucol_res_cleanup() {
-    rootRules = NULL;
-    rootRulesLength = 0;
-    ures_close(rootBundle);
-    rootBundle = NULL;
+    ucol_res_rootRules = NULL;
+    ucol_res_rootRulesLength = 0;
+    ures_close(ucol_res_rootBundle);
+    ucol_res_rootBundle = NULL;
     gInitOnceUcolRes.reset();
     return TRUE;
 }
@@ -81,12 +81,12 @@ ucol_res_cleanup() {
 void U_CALLCONV
 CollationLoader::loadRootRules(UErrorCode &errorCode) {
     if(U_FAILURE(errorCode)) { return; }
-    rootBundle = ures_open(U_ICUDATA_COLL, kRootLocaleName, &errorCode);
+    ucol_res_rootBundle = ures_open(U_ICUDATA_COLL, kRootLocaleName, &errorCode);
     if(U_FAILURE(errorCode)) { return; }
-    rootRules = ures_getStringByKey(rootBundle, "UCARules", &rootRulesLength, &errorCode);
+    ucol_res_rootRules = ures_getStringByKey(ucol_res_rootBundle, "UCARules", &ucol_res_rootRulesLength, &errorCode);
     if(U_FAILURE(errorCode)) {
-        ures_close(rootBundle);
-        rootBundle = NULL;
+        ures_close(ucol_res_rootBundle);
+        ucol_res_rootBundle = NULL;
         return;
     }
     ucln_i18n_registerCleanup(UCLN_I18N_UCOL_RES, ucol_res_cleanup);
@@ -99,7 +99,7 @@ CollationLoader::appendRootRules(UnicodeString &s) {
     UErrorCode errorCode = U_ZERO_ERROR;
     umtx_initOnce(gInitOnceUcolRes, CollationLoader::loadRootRules, errorCode);
     if(U_SUCCESS(errorCode)) {
-        s.append(rootRules, rootRulesLength);
+        s.append(ucol_res_rootRules, ucol_res_rootRulesLength);
     }
 }
 

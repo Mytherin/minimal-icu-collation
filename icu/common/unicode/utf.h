@@ -212,7 +212,7 @@
 
 /* include the utfXX.h ------------------------------------------------------ */
 
-#if !U_NO_DEFAULT_INCLUDE_UTF_HEADERS
+// #if !U_NO_DEFAULT_INCLUDE_UTF_HEADERS
 
 #include "unicode/utf8.h"
 #include "unicode/utf16.h"
@@ -220,6 +220,6 @@
 /* utf_old.h contains deprecated, pre-ICU 2.4 definitions */
 #include "unicode/utf_old.h"
 
-#endif  /* !U_NO_DEFAULT_INCLUDE_UTF_HEADERS */
+// #endif  /* !U_NO_DEFAULT_INCLUDE_UTF_HEADERS */
 
 #endif  /* __UTF_H__ */

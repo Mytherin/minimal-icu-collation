@@ -51,9 +51,9 @@
  *
  * @internal ICU 4.0
  */
-#if defined(UCONFIG_USE_LOCAL)
-#include "uconfig_local.h"
-#endif
+// #if defined(UCONFIG_USE_LOCAL)
+// #include "uconfig_local.h"
+// #endif
 
 /**
  * \def U_DEBUG
@@ -100,15 +100,15 @@
  * Defaults to 0 for backward compatibility, except inside ICU.
  * @stable ICU 49
  */
-#ifdef U_NO_DEFAULT_INCLUDE_UTF_HEADERS
-    /* Use the predefined value. */
-#elif defined(U_COMBINED_IMPLEMENTATION) || defined(U_COMMON_IMPLEMENTATION) || defined(U_I18N_IMPLEMENTATION) || \
-      defined(U_IO_IMPLEMENTATION) || defined(U_LAYOUT_IMPLEMENTATION) || defined(U_LAYOUTEX_IMPLEMENTATION) || \
-      defined(U_TOOLUTIL_IMPLEMENTATION)
-#   define U_NO_DEFAULT_INCLUDE_UTF_HEADERS 1
-#else
-#   define U_NO_DEFAULT_INCLUDE_UTF_HEADERS 0
-#endif
+// #ifdef U_NO_DEFAULT_INCLUDE_UTF_HEADERS
+//     /* Use the predefined value. */
+// #elif defined(U_COMBINED_IMPLEMENTATION) || defined(U_COMMON_IMPLEMENTATION) || defined(U_I18N_IMPLEMENTATION) || \
+//       defined(U_IO_IMPLEMENTATION) || defined(U_LAYOUT_IMPLEMENTATION) || defined(U_LAYOUTEX_IMPLEMENTATION) || \
+//       defined(U_TOOLUTIL_IMPLEMENTATION)
+// #   define U_NO_DEFAULT_INCLUDE_UTF_HEADERS 1
+// #else
+// #   define U_NO_DEFAULT_INCLUDE_UTF_HEADERS 0
+// #endif
 
 /**
  * \def U_OVERRIDE_CXX_ALLOCATION

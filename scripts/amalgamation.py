@@ -101,6 +101,9 @@ def write_file(current_file, ignore_excluded = False):
 
         # now write all the dependencies of this header first
         for i in range(len(includes)):
+            # if 'utypes.h' in includes[i]:
+            #     print(current_file)
+            #     exit(1)
             include_text = write_file(includes[i])
             if linenumbers and i == len(includes) - 1:
                 # for the last include statement, we also include a #line directive
@@ -167,6 +170,11 @@ with open(header_file, 'w+') as hfile:
 #ifndef UCONFIG_NO_SERVICE
 #define UCONFIG_NO_SERVICE 1
 #endif
+
+#ifndef U_SHOW_CPLUSPLUS_API
+#define U_SHOW_CPLUSPLUS_API 1
+#endif
+
 """)
     for fpath in main_header_files:
         hfile.write(write_file(fpath))

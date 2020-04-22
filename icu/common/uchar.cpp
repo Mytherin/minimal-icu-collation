@@ -14,7 +14,7 @@
 *   04/02/97    aliu        Creation.
 *   4/15/99     Madhu       Updated all the function definitions for C Implementation
 *   5/20/99     Madhu       Added the function u_getVersion()
-*   8/19/1999   srl         Upgraded scripts to Unicode3.0 
+*   8/19/1999   srl         Upgraded scripts to Unicode3.0
 *   11/11/1999  weiv        added u_isalnum(), cleaned comments
 *   01/11/2000  helena      Renamed u_getVersion to u_getUnicodeVersion.
 *   06/20/2000  helena      OS/400 port changes; mostly typecast.
@@ -648,7 +648,7 @@ ublock_getCode(UChar32 c) {
 /* property starts for UnicodeSet ------------------------------------------- */
 
 static UBool U_CALLCONV
-_enumPropertyStartsRange(const void *context, UChar32 start, UChar32 end, uint32_t value) {
+uchar_enumPropertyStartsRange(const void *context, UChar32 start, UChar32 end, uint32_t value) {
     /* add the start code point to the USet */
     const USetAdder *sa=(const USetAdder *)context;
     sa->add(sa->set, start);
@@ -666,7 +666,7 @@ uchar_addPropertyStarts(const USetAdder *sa, UErrorCode *pErrorCode) {
     }
 
     /* add the start code point of each same-value range of the main trie */
-    utrie2_enum(&propsTrie, NULL, _enumPropertyStartsRange, sa);
+    utrie2_enum(&propsTrie, NULL, uchar_enumPropertyStartsRange, sa);
 
     /* add code points with hardcoded properties, plus the ones following them */
 
@@ -726,5 +726,5 @@ upropsvec_addPropertyStarts(const USetAdder *sa, UErrorCode *pErrorCode) {
     }
 
     /* add the start code point of each same-value range of the properties vectors trie */
-    utrie2_enum(&propsVectorsTrie, NULL, _enumPropertyStartsRange, sa);
+    utrie2_enum(&propsVectorsTrie, NULL, uchar_enumPropertyStartsRange, sa);
 }

@@ -35,9 +35,9 @@
 
 U_NAMESPACE_BEGIN
 
-static icu::Locale*  availableLocaleList = NULL;
-static int32_t  availableLocaleListCount;
-static icu::UInitOnce gInitOnceLocale = U_INITONCE_INITIALIZER;
+static icu::Locale*  gLocAvailable_availableLocaleList = NULL;
+static int32_t  gLocAvailable_availableLocaleListCount;
+static icu::UInitOnce gLocAvailableInitOnceLocale = U_INITONCE_INITIALIZER;
 
 U_NAMESPACE_END
 
@@ -47,12 +47,12 @@ static UBool U_CALLCONV locale_available_cleanup(void)
 {
     U_NAMESPACE_USE
 
-    if (availableLocaleList) {
-        delete []availableLocaleList;
-        availableLocaleList = NULL;
+    if (gLocAvailable_availableLocaleList) {
+        delete []gLocAvailable_availableLocaleList;
+        gLocAvailable_availableLocaleList = NULL;
     }
-    availableLocaleListCount = 0;
-    gInitOnceLocale.reset();
+    gLocAvailable_availableLocaleListCount = 0;
+    gLocAvailableInitOnceLocale.reset();
 
     return TRUE;
 }
@@ -64,18 +64,18 @@ U_NAMESPACE_BEGIN
 void U_CALLCONV locale_available_init() {
     // This function is a friend of class Locale.
     // This function is only invoked via umtx_initOnce().
-    
+
     // for now, there is a hardcoded list, so just walk through that list and set it up.
     //  Note: this function is a friend of class Locale.
-    availableLocaleListCount = uloc_countAvailable();
-    if(availableLocaleListCount) {
-       availableLocaleList = new Locale[availableLocaleListCount];
+    gLocAvailable_availableLocaleListCount = uloc_countAvailable();
+    if(gLocAvailable_availableLocaleListCount) {
+       gLocAvailable_availableLocaleList = new Locale[gLocAvailable_availableLocaleListCount];
     }
-    if (availableLocaleList == NULL) {
-        availableLocaleListCount= 0;
+    if (gLocAvailable_availableLocaleList == NULL) {
+        gLocAvailable_availableLocaleListCount= 0;
     }
-    for (int32_t locCount=availableLocaleListCount-1; locCount>=0; --locCount) {
-        availableLocaleList[locCount].setFromPOSIXID(uloc_getAvailable(locCount));
+    for (int32_t locCount=gLocAvailable_availableLocaleListCount-1; locCount>=0; --locCount) {
+        gLocAvailable_availableLocaleList[locCount].setFromPOSIXID(uloc_getAvailable(locCount));
     }
     ucln_common_registerCleanup(UCLN_COMMON_LOCALE_AVAILABLE, locale_available_cleanup);
 }
@@ -83,9 +83,9 @@ void U_CALLCONV locale_available_init() {
 const Locale* U_EXPORT2
 Locale::getAvailableLocales(int32_t& count)
 {
-    umtx_initOnce(gInitOnceLocale, &locale_available_init);
-    count = availableLocaleListCount;
-    return availableLocaleList;
+    umtx_initOnce(gLocAvailableInitOnceLocale, &locale_available_init);
+    count = gLocAvailable_availableLocaleListCount;
+    return gLocAvailable_availableLocaleList;
 }
 
 

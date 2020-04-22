@@ -180,7 +180,7 @@ BytesTrieBuilder::add(StringPiece s, int32_t value, UErrorCode &errorCode) {
 U_CDECL_BEGIN
 
 static int32_t U_CALLCONV
-compareElementStrings(const void *context, const void *left, const void *right) {
+bytestriebuilder_compareElementStrings(const void *context, const void *left, const void *right) {
     const CharString *strings=static_cast<const CharString *>(context);
     const BytesTrieElement *leftElement=static_cast<const BytesTrieElement *>(left);
     const BytesTrieElement *rightElement=static_cast<const BytesTrieElement *>(right);
@@ -230,7 +230,7 @@ BytesTrieBuilder::buildBytes(UStringTrieBuildOption buildOption, UErrorCode &err
             return;
         }
         uprv_sortArray(elements, elementsLength, (int32_t)sizeof(BytesTrieElement),
-                      compareElementStrings, strings,
+                      bytestriebuilder_compareElementStrings, strings,
                       FALSE,  // need not be a stable sort
                       &errorCode);
         if(U_FAILURE(errorCode)) {

@@ -307,12 +307,12 @@ private:
 namespace {
 
 XLikelySubtags *gLikelySubtags = nullptr;
-UInitOnce gInitOnce = U_INITONCE_INITIALIZER;
+UInitOnce loclikelysubtags_gInitOnce = U_INITONCE_INITIALIZER;
 
-UBool U_CALLCONV cleanup() {
+UBool U_CALLCONV loclikelysubtags_cleanup() {
     delete gLikelySubtags;
     gLikelySubtags = nullptr;
-    gInitOnce.reset();
+    loclikelysubtags_gInitOnce.reset();
     return TRUE;
 }
 
@@ -329,12 +329,12 @@ void U_CALLCONV XLikelySubtags::initLikelySubtags(UErrorCode &errorCode) {
         errorCode = U_MEMORY_ALLOCATION_ERROR;
         return;
     }
-    ucln_common_registerCleanup(UCLN_COMMON_LIKELY_SUBTAGS, cleanup);
+    ucln_common_registerCleanup(UCLN_COMMON_LIKELY_SUBTAGS, loclikelysubtags_cleanup);
 }
 
 const XLikelySubtags *XLikelySubtags::getSingleton(UErrorCode &errorCode) {
     if (U_FAILURE(errorCode)) { return nullptr; }
-    umtx_initOnce(gInitOnce, &XLikelySubtags::initLikelySubtags, errorCode);
+    umtx_initOnce(loclikelysubtags_gInitOnce, &XLikelySubtags::initLikelySubtags, errorCode);
     return gLikelySubtags;
 }
 

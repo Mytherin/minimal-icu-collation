@@ -133,7 +133,7 @@ UCharsTrieBuilder::add(const UnicodeString &s, int32_t value, UErrorCode &errorC
 U_CDECL_BEGIN
 
 static int32_t U_CALLCONV
-compareElementStrings(const void *context, const void *left, const void *right) {
+ucharstriebuilder_compareElementStrings(const void *context, const void *left, const void *right) {
     const UnicodeString *strings=static_cast<const UnicodeString *>(context);
     const UCharsTrieElement *leftElement=static_cast<const UCharsTrieElement *>(left);
     const UCharsTrieElement *rightElement=static_cast<const UCharsTrieElement *>(right);
@@ -187,7 +187,7 @@ UCharsTrieBuilder::buildUChars(UStringTrieBuildOption buildOption, UErrorCode &e
             return;
         }
         uprv_sortArray(elements, elementsLength, (int32_t)sizeof(UCharsTrieElement),
-                      compareElementStrings, &strings,
+                      ucharstriebuilder_compareElementStrings, &strings,
                       FALSE,  // need not be a stable sort
                       &errorCode);
         if(U_FAILURE(errorCode)) {
