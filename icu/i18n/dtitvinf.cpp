@@ -49,22 +49,22 @@ U_NAMESPACE_BEGIN
 
 UOBJECT_DEFINE_RTTI_IMPLEMENTATION(DateIntervalInfo)
 
-static const char gCalendarTag[]="calendar";
-static const char gGenericTag[]="generic";
-static const char gGregorianTag[]="gregorian";
-static const char gIntervalDateTimePatternTag[]="intervalFormats";
-static const char gFallbackPatternTag[]="fallback";
+static const char dtitvinf_gCalendarTag[]="calendar";
+static const char dtitvinf_gGenericTag[]="generic";
+static const char dtitvinf_gGregorianTag[]="gregorian";
+static const char dtitvinf_gIntervalDateTimePatternTag[]="intervalFormats";
+static const char dtitvinf_gFallbackPatternTag[]="fallback";
 
 // {0}
-static const UChar gFirstPattern[] = {LEFT_CURLY_BRACKET, DIGIT_ZERO, RIGHT_CURLY_BRACKET};
+static const UChar dtitvinf_gFirstPattern[] = {dtitv_impl_LEFT_CURLY_BRACKET, dtitv_impl_DIGIT_ZERO, dtitv_impl_RIGHT_CURLY_BRACKET};
 // {1}
-static const UChar gSecondPattern[] = {LEFT_CURLY_BRACKET, DIGIT_ONE, RIGHT_CURLY_BRACKET};
+static const UChar dtitvinf_gSecondPattern[] = {dtitv_impl_LEFT_CURLY_BRACKET, dtitv_impl_DIGIT_ONE, dtitv_impl_RIGHT_CURLY_BRACKET};
 
 // default fall-back
-static const UChar gDefaultFallbackPattern[] = {LEFT_CURLY_BRACKET, DIGIT_ZERO, RIGHT_CURLY_BRACKET, SPACE, EN_DASH, SPACE, LEFT_CURLY_BRACKET, DIGIT_ONE, RIGHT_CURLY_BRACKET, 0};
+static const UChar dtitvinf_gDefaultFallbackPattern[] = {dtitv_impl_LEFT_CURLY_BRACKET, dtitv_impl_DIGIT_ZERO, dtitv_impl_RIGHT_CURLY_BRACKET, dtitv_impl_SPACE, dtitv_impl_EN_DASH, dtitv_impl_SPACE, dtitv_impl_LEFT_CURLY_BRACKET, dtitv_impl_DIGIT_ONE, dtitv_impl_RIGHT_CURLY_BRACKET, 0};
 
 DateIntervalInfo::DateIntervalInfo(UErrorCode& status)
-:   fFallbackIntervalPattern(gDefaultFallbackPattern),
+:   fFallbackIntervalPattern(dtitvinf_gDefaultFallbackPattern),
     fFirstDateInPtnIsLaterDate(false),
     fIntervalPatterns(NULL)
 {
@@ -74,7 +74,7 @@ DateIntervalInfo::DateIntervalInfo(UErrorCode& status)
 
 
 DateIntervalInfo::DateIntervalInfo(const Locale& locale, UErrorCode& status)
-:   fFallbackIntervalPattern(gDefaultFallbackPattern),
+:   fFallbackIntervalPattern(dtitvinf_gDefaultFallbackPattern),
     fFirstDateInPtnIsLaterDate(false),
     fIntervalPatterns(NULL)
 {
@@ -108,10 +108,10 @@ DateIntervalInfo::setFallbackIntervalPattern(
     if ( U_FAILURE(status) ) {
         return;
     }
-    int32_t firstPatternIndex = fallbackPattern.indexOf(gFirstPattern,
-                        UPRV_LENGTHOF(gFirstPattern), 0);
-    int32_t secondPatternIndex = fallbackPattern.indexOf(gSecondPattern,
-                        UPRV_LENGTHOF(gSecondPattern), 0);
+    int32_t firstPatternIndex = fallbackPattern.indexOf(dtitvinf_gFirstPattern,
+                        UPRV_LENGTHOF(dtitvinf_gFirstPattern), 0);
+    int32_t secondPatternIndex = fallbackPattern.indexOf(dtitvinf_gSecondPattern,
+                        UPRV_LENGTHOF(dtitvinf_gSecondPattern), 0);
     if ( firstPatternIndex == -1 || secondPatternIndex == -1 ) {
         status = U_ILLEGAL_ARGUMENT_ERROR;
         return;
@@ -219,11 +219,11 @@ DateIntervalInfo::getFallbackIntervalPattern(UnicodeString& result) const {
 
 
 static const int32_t PATH_PREFIX_LENGTH = 17;
-static const UChar PATH_PREFIX[] = {SOLIDUS, CAP_L, CAP_O, CAP_C, CAP_A, CAP_L, CAP_E, SOLIDUS,
-                                    LOW_C, LOW_A, LOW_L, LOW_E, LOW_N, LOW_D, LOW_A, LOW_R, SOLIDUS};
+static const UChar PATH_PREFIX[] = {dtitv_impl_SOLIDUS, dtitv_impl_CAP_L, dtitv_impl_CAP_O, dtitv_impl_CAP_C, dtitv_impl_CAP_A, dtitv_impl_CAP_L, dtitv_impl_CAP_E, dtitv_impl_SOLIDUS,
+                                    dtitv_impl_LOW_C, dtitv_impl_LOW_A, dtitv_impl_LOW_L, dtitv_impl_LOW_E, dtitv_impl_LOW_N, dtitv_impl_LOW_D, dtitv_impl_LOW_A, dtitv_impl_LOW_R, dtitv_impl_SOLIDUS};
 static const int32_t PATH_SUFFIX_LENGTH = 16;
-static const UChar PATH_SUFFIX[] = {SOLIDUS, LOW_I, LOW_N, LOW_T, LOW_E, LOW_R, LOW_V, LOW_A,
-                                    LOW_L, CAP_F, LOW_O, LOW_R, LOW_M, LOW_A, LOW_T, LOW_S};
+static const UChar PATH_SUFFIX[] = {dtitv_impl_SOLIDUS, dtitv_impl_LOW_I, dtitv_impl_LOW_N, dtitv_impl_LOW_T, dtitv_impl_LOW_E, dtitv_impl_LOW_R, dtitv_impl_LOW_V, dtitv_impl_LOW_A,
+                                    dtitv_impl_LOW_L, dtitv_impl_CAP_F, dtitv_impl_LOW_O, dtitv_impl_LOW_R, dtitv_impl_LOW_M, dtitv_impl_LOW_A, dtitv_impl_LOW_T, dtitv_impl_LOW_S};
 
 /**
  * Sink for enumerating all of the date interval skeletons.
@@ -247,7 +247,7 @@ struct DateIntervalInfo::DateIntervalSink : public ResourceSink {
         ResourceTable dateIntervalData = value.getTable(errorCode);
         if (U_FAILURE(errorCode)) { return; }
         for (int32_t i = 0; dateIntervalData.getKeyAndValue(i, key, value); i++) {
-            if (uprv_strcmp(key, gIntervalDateTimePatternTag) != 0) {
+            if (uprv_strcmp(key, dtitvinf_gIntervalDateTimePatternTag) != 0) {
                 continue;
             }
 
@@ -394,7 +394,7 @@ DateIntervalInfo::initializeData(const Locale& locale, UErrorCode& status)
     const char *locName = locale.getName();
 
     // Get the correct calendar type
-    const char * calendarTypeToUse = gGregorianTag; // initial default
+    const char * calendarTypeToUse = dtitvinf_gGregorianTag; // initial default
     char         calendarType[ULOC_KEYWORDS_CAPACITY]; // to be filled in with the type to use, if all goes well
     char         localeWithCalendarKey[ULOC_LOCALE_IDENTIFIER_CAPACITY];
     // obtain a locale that always has the calendar key value that should be used
@@ -415,7 +415,7 @@ DateIntervalInfo::initializeData(const Locale& locale, UErrorCode& status)
     if (U_FAILURE(status)) {
         return;
     }
-    calBundle = ures_getByKeyWithFallback(rb, gCalendarTag, NULL, &status);
+    calBundle = ures_getByKeyWithFallback(rb, dtitvinf_gCalendarTag, NULL, &status);
 
 
     if (U_SUCCESS(status)) {
@@ -426,23 +426,23 @@ DateIntervalInfo::initializeData(const Locale& locale, UErrorCode& status)
         int32_t resStrLen = 0;
         calTypeBundle = ures_getByKeyWithFallback(calBundle, calendarTypeToUse, NULL, &status);
         itvDtPtnResource = ures_getByKeyWithFallback(calTypeBundle,
-                                                     gIntervalDateTimePatternTag, NULL, &status);
+                                                     dtitvinf_gIntervalDateTimePatternTag, NULL, &status);
         // TODO(ICU-20400): After the fixing, we should find the "fallback" from
         // the rb directly by the path "calendar/${calendar}/intervalFormats/fallback".
         if ( U_SUCCESS(status) ) {
-            resStr = ures_getStringByKeyWithFallback(itvDtPtnResource, gFallbackPatternTag,
+            resStr = ures_getStringByKeyWithFallback(itvDtPtnResource, dtitvinf_gFallbackPatternTag,
                                                      &resStrLen, &status);
             if ( U_FAILURE(status) ) {
                 // Try to find "fallback" from "generic" to work around the bug in
                 // ures_getByKeyWithFallback
                 UErrorCode localStatus = U_ZERO_ERROR;
                 UResourceBundle *genericCalBundle =
-                    ures_getByKeyWithFallback(calBundle, gGenericTag, NULL, &localStatus);
+                    ures_getByKeyWithFallback(calBundle, dtitvinf_gGenericTag, NULL, &localStatus);
                 UResourceBundle *genericItvDtPtnResource =
                     ures_getByKeyWithFallback(
-                        genericCalBundle, gIntervalDateTimePatternTag, NULL, &localStatus);
+                        genericCalBundle, dtitvinf_gIntervalDateTimePatternTag, NULL, &localStatus);
                 resStr = ures_getStringByKeyWithFallback(
-                    genericItvDtPtnResource, gFallbackPatternTag, &resStrLen, &localStatus);
+                    genericItvDtPtnResource, dtitvinf_gFallbackPatternTag, &resStrLen, &localStatus);
                 ures_close(genericItvDtPtnResource);
                 ures_close(genericCalBundle);
                 if ( U_SUCCESS(localStatus) ) {
@@ -607,7 +607,7 @@ DateIntervalInfo::getBestSkeleton(const UnicodeString& skeleton,
     }
 
     parseSkeleton(*inputSkeleton, inputSkeletonFieldWidth);
-    int32_t bestDistance = MAX_POSITIVE_INT;
+    int32_t bestDistance = dtitv_impl_MAX_POSITIVE_INT;
     const UnicodeString* bestSkeleton = NULL;
 
     // 0 means exact the same skeletons;

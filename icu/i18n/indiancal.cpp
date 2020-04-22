@@ -364,7 +364,7 @@ UBool IndianCalendar::haveDefaultCentury() const
 }
 
 static void U_CALLCONV
-initializeSystemDefaultCentury()
+indiancal_initializeSystemDefaultCentury()
 {
     // initialize systemDefaultCentury and systemDefaultCenturyYear based
     // on the current time.  They'll be set to 80 years before
@@ -390,7 +390,7 @@ UDate
 IndianCalendar::defaultCenturyStart() const
 {
     // lazy-evaluate systemDefaultCenturyStart
-    umtx_initOnce(indiancal_gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
+    umtx_initOnce(indiancal_gSystemDefaultCenturyInit, &indiancal_initializeSystemDefaultCentury);
     return indiancal_gSystemDefaultCenturyStart;
 }
 
@@ -398,7 +398,7 @@ int32_t
 IndianCalendar::defaultCenturyStartYear() const
 {
     // lazy-evaluate systemDefaultCenturyStartYear
-    umtx_initOnce(indiancal_gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
+    umtx_initOnce(indiancal_gSystemDefaultCenturyInit, &indiancal_initializeSystemDefaultCentury);
     return    indiancal_gSystemDefaultCenturyStartYear;
 }
 

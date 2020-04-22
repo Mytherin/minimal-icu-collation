@@ -203,31 +203,31 @@ UOBJECT_DEFINE_RTTI_IMPLEMENTATION(DateFormatSymbols)
  * These are the tags we expect to see in normal resource bundle files associated
  * with a locale and calendar
  */
-static const char gCalendarTag[]="calendar";
-static const char gGregorianTag[]="gregorian";
-static const char gErasTag[]="eras";
-static const char gCyclicNameSetsTag[]="cyclicNameSets";
-static const char gNameSetYearsTag[]="years";
-static const char gNameSetZodiacsTag[]="zodiacs";
-static const char gMonthNamesTag[]="monthNames";
-static const char gMonthPatternsTag[]="monthPatterns";
-static const char gDayNamesTag[]="dayNames";
-static const char gNamesWideTag[]="wide";
-static const char gNamesAbbrTag[]="abbreviated";
-static const char gNamesShortTag[]="short";
-static const char gNamesNarrowTag[]="narrow";
-static const char gNamesAllTag[]="all";
-static const char gNamesFormatTag[]="format";
-static const char gNamesStandaloneTag[]="stand-alone";
-static const char gNamesNumericTag[]="numeric";
-static const char gAmPmMarkersTag[]="AmPmMarkers";
-static const char gAmPmMarkersAbbrTag[]="AmPmMarkersAbbr";
-static const char gAmPmMarkersNarrowTag[]="AmPmMarkersNarrow";
-static const char gQuartersTag[]="quarters";
-static const char gNumberElementsTag[]="NumberElements";
-static const char gSymbolsTag[]="symbols";
-static const char gTimeSeparatorTag[]="timeSeparator";
-static const char gDayPeriodTag[]="dayPeriod";
+static const char dtfmtsym_gCalendarTag[]="calendar";
+static const char dtfmtsym_gGregorianTag[]="gregorian";
+static const char dtfmtsym_gErasTag[]="eras";
+static const char dtfmtsym_gCyclicNameSetsTag[]="cyclicNameSets";
+static const char dtfmtsym_gNameSetYearsTag[]="years";
+static const char dtfmtsym_gNameSetZodiacsTag[]="zodiacs";
+static const char dtfmtsym_gMonthNamesTag[]="monthNames";
+static const char dtfmtsym_gMonthPatternsTag[]="monthPatterns";
+static const char dtfmtsym_gDayNamesTag[]="dayNames";
+static const char dtfmtsym_gNamesWideTag[]="wide";
+static const char dtfmtsym_gNamesAbbrTag[]="abbreviated";
+static const char dtfmtsym_gNamesShortTag[]="short";
+static const char dtfmtsym_gNamesNarrowTag[]="narrow";
+static const char dtfmtsym_gNamesAllTag[]="all";
+static const char dtfmtsym_gNamesFormatTag[]="format";
+static const char dtfmtsym_gNamesStandaloneTag[]="stand-alone";
+static const char dtfmtsym_gNamesNumericTag[]="numeric";
+static const char dtfmtsym_gAmPmMarkersTag[]="AmPmMarkers";
+static const char dtfmtsym_gAmPmMarkersAbbrTag[]="AmPmMarkersAbbr";
+static const char dtfmtsym_gAmPmMarkersNarrowTag[]="AmPmMarkersNarrow";
+static const char dtfmtsym_gQuartersTag[]="quarters";
+static const char dtfmtsym_gNumberElementsTag[]="NumberElements";
+static const char dtfmtsym_gSymbolsTag[]="symbols";
+static const char dtfmtsym_gTimeSeparatorTag[]="timeSeparator";
+static const char dtfmtsym_gDayPeriodTag[]="dayPeriod";
 
 // static const char gZoneStringsTag[]="zoneStrings";
 
@@ -1451,35 +1451,35 @@ namespace {
 
 // Constants declarations
 static const UChar kCalendarAliasPrefixUChar[] = {
-    SOLIDUS, CAP_L, CAP_O, CAP_C, CAP_A, CAP_L, CAP_E, SOLIDUS,
-    LOW_C, LOW_A, LOW_L, LOW_E, LOW_N, LOW_D, LOW_A, LOW_R, SOLIDUS
+    dt_impl_SOLIDUS, dt_impl_CAP_L, dt_impl_CAP_O, dt_impl_CAP_C, dt_impl_CAP_A, dt_impl_CAP_L, dt_impl_CAP_E, dt_impl_SOLIDUS,
+    dt_impl_LOW_C, dt_impl_LOW_A, dt_impl_LOW_L, dt_impl_LOW_E, dt_impl_LOW_N, dt_impl_LOW_D, dt_impl_LOW_A, dt_impl_LOW_R, dt_impl_SOLIDUS
 };
 static const UChar kGregorianTagUChar[] = {
-    LOW_G, LOW_R, LOW_E, LOW_G, LOW_O, LOW_R, LOW_I, LOW_A, LOW_N
+    dt_impl_LOW_G, dt_impl_LOW_R, dt_impl_LOW_E, dt_impl_LOW_G, dt_impl_LOW_O, dt_impl_LOW_R, dt_impl_LOW_I, dt_impl_LOW_A, dt_impl_LOW_N
 };
 static const UChar kVariantTagUChar[] = {
-    PERCENT, LOW_V, LOW_A, LOW_R, LOW_I, LOW_A, LOW_N, LOW_T
+    dt_impl_PERCENT, dt_impl_LOW_V, dt_impl_LOW_A, dt_impl_LOW_R, dt_impl_LOW_I, dt_impl_LOW_A, dt_impl_LOW_N, dt_impl_LOW_T
 };
 static const UChar kLeapTagUChar[] = {
-    LOW_L, LOW_E, LOW_A, LOW_P
+    dt_impl_LOW_L, dt_impl_LOW_E, dt_impl_LOW_A, dt_impl_LOW_P
 };
 static const UChar kCyclicNameSetsTagUChar[] = {
-    LOW_C, LOW_Y, LOW_C, LOW_L, LOW_I, LOW_C, CAP_N, LOW_A, LOW_M, LOW_E, CAP_S, LOW_E, LOW_T, LOW_S
+    dt_impl_LOW_C, dt_impl_LOW_Y, dt_impl_LOW_C, dt_impl_LOW_L, dt_impl_LOW_I, dt_impl_LOW_C, dt_impl_CAP_N, dt_impl_LOW_A, dt_impl_LOW_M, dt_impl_LOW_E, dt_impl_CAP_S, dt_impl_LOW_E, dt_impl_LOW_T, dt_impl_LOW_S
 };
 static const UChar kYearsTagUChar[] = {
-    SOLIDUS, LOW_Y, LOW_E, LOW_A, LOW_R, LOW_S
+    dt_impl_SOLIDUS, dt_impl_LOW_Y, dt_impl_LOW_E, dt_impl_LOW_A, dt_impl_LOW_R, dt_impl_LOW_S
 };
 static const UChar kZodiacsUChar[] = {
-    SOLIDUS, LOW_Z, LOW_O, LOW_D, LOW_I, LOW_A, LOW_C, LOW_S
+    dt_impl_SOLIDUS, dt_impl_LOW_Z, dt_impl_LOW_O, dt_impl_LOW_D, dt_impl_LOW_I, dt_impl_LOW_A, dt_impl_LOW_C, dt_impl_LOW_S
 };
 static const UChar kDayPartsTagUChar[] = {
-    SOLIDUS, LOW_D, LOW_A, LOW_Y, CAP_P, LOW_A, LOW_R, LOW_T, LOW_S
+    dt_impl_SOLIDUS, dt_impl_LOW_D, dt_impl_LOW_A, dt_impl_LOW_Y, dt_impl_CAP_P, dt_impl_LOW_A, dt_impl_LOW_R, dt_impl_LOW_T, dt_impl_LOW_S
 };
 static const UChar kFormatTagUChar[] = {
-    SOLIDUS, LOW_F, LOW_O, LOW_R, LOW_M, LOW_A, LOW_T
+    dt_impl_SOLIDUS, dt_impl_LOW_F, dt_impl_LOW_O, dt_impl_LOW_R, dt_impl_LOW_M, dt_impl_LOW_A, dt_impl_LOW_T
 };
 static const UChar kAbbrTagUChar[] = {
-    SOLIDUS, LOW_A, LOW_B, LOW_B, LOW_R, LOW_E, LOW_V, LOW_I, LOW_A, LOW_T, LOW_E, LOW_D
+    dt_impl_SOLIDUS, dt_impl_LOW_A, dt_impl_LOW_B, dt_impl_LOW_B, dt_impl_LOW_R, dt_impl_LOW_E, dt_impl_LOW_V, dt_impl_LOW_I, dt_impl_LOW_A, dt_impl_LOW_T, dt_impl_LOW_E, dt_impl_LOW_D
 };
 
 // ResourceSink to enumerate all calendar resources
@@ -1497,7 +1497,7 @@ struct CalendarDataSink : public ResourceSink {
     Hashtable arrays;
     Hashtable arraySizes;
     Hashtable maps;
-    /** 
+    /**
      * Whenever there are aliases, the same object will be added twice to 'map'.
      * To avoid double deletion, 'maps' won't take ownership of the objects. Instead,
      * 'mapRefs' will own them and will delete them when CalendarDataSink is deleted.
@@ -1596,12 +1596,12 @@ struct CalendarDataSink : public ResourceSink {
             // Only visit the resources that were referenced by an alias on the previous calendar
             // (AmPmMarkersAbbr is an exception).
             if (!resourcesToVisit.isNull() && !resourcesToVisit->isEmpty() && !resourcesToVisit->contains(&keyUString)
-                && uprv_strcmp(key, gAmPmMarkersAbbrTag) != 0) { continue; }
+                && uprv_strcmp(key, dtfmtsym_gAmPmMarkersAbbrTag) != 0) { continue; }
 
             // == Handle data ==
-            if (uprv_strcmp(key, gAmPmMarkersTag) == 0
-                || uprv_strcmp(key, gAmPmMarkersAbbrTag) == 0
-                || uprv_strcmp(key, gAmPmMarkersNarrowTag) == 0) {
+            if (uprv_strcmp(key, dtfmtsym_gAmPmMarkersTag) == 0
+                || uprv_strcmp(key, dtfmtsym_gAmPmMarkersAbbrTag) == 0
+                || uprv_strcmp(key, dtfmtsym_gAmPmMarkersNarrowTag) == 0) {
                 if (arrays.get(keyUString) == NULL) {
                     ResourceArray resourceArray = value.getArray(errorCode);
                     int32_t arraySize = resourceArray.getSize();
@@ -1611,13 +1611,13 @@ struct CalendarDataSink : public ResourceSink {
                     arraySizes.puti(keyUString, arraySize, errorCode);
                     if (U_FAILURE(errorCode)) { return; }
                 }
-            } else if (uprv_strcmp(key, gErasTag) == 0
-                       || uprv_strcmp(key, gDayNamesTag) == 0
-                       || uprv_strcmp(key, gMonthNamesTag) == 0
-                       || uprv_strcmp(key, gQuartersTag) == 0
-                       || uprv_strcmp(key, gDayPeriodTag) == 0
-                       || uprv_strcmp(key, gMonthPatternsTag) == 0
-                       || uprv_strcmp(key, gCyclicNameSetsTag) == 0) {
+            } else if (uprv_strcmp(key, dtfmtsym_gErasTag) == 0
+                       || uprv_strcmp(key, dtfmtsym_gDayNamesTag) == 0
+                       || uprv_strcmp(key, dtfmtsym_gMonthNamesTag) == 0
+                       || uprv_strcmp(key, dtfmtsym_gQuartersTag) == 0
+                       || uprv_strcmp(key, dtfmtsym_gDayPeriodTag) == 0
+                       || uprv_strcmp(key, dtfmtsym_gMonthPatternsTag) == 0
+                       || uprv_strcmp(key, dtfmtsym_gCyclicNameSetsTag) == 0) {
                 processResource(keyUString, key, value, errorCode);
             }
         }
@@ -1713,7 +1713,7 @@ struct CalendarDataSink : public ResourceSink {
 
             // Store the current path's length and append the current key to the path.
             int32_t pathLength = path.length();
-            path.append(SOLIDUS).append(keyUString);
+            path.append(dt_impl_SOLIDUS).append(keyUString);
 
             // In cyclicNameSets ignore everything but years/format/abbreviated
             // and zodiacs/format/abbreviated
@@ -1806,7 +1806,7 @@ struct CalendarDataSink : public ResourceSink {
             const int32_t aliasPrefixLength = UPRV_LENGTHOF(kCalendarAliasPrefixUChar);
             if (aliasPath.startsWith(kCalendarAliasPrefixUChar, aliasPrefixLength)
                 && aliasPath.length() > aliasPrefixLength) {
-                int32_t typeLimit = aliasPath.indexOf(SOLIDUS, aliasPrefixLength);
+                int32_t typeLimit = aliasPath.indexOf(dt_impl_SOLIDUS, aliasPrefixLength);
                 if (typeLimit > aliasPrefixLength) {
                     const UnicodeString aliasCalendarType =
                         aliasPath.tempSubStringBetween(aliasPrefixLength, typeLimit);
@@ -2105,12 +2105,12 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
     // Create a CalendarDataSink to process this data and the resouce bundles
     CalendarDataSink calendarSink(status);
     UResourceBundle *rb = ures_open(NULL, locale.getBaseName(), &status);
-    UResourceBundle *cb = ures_getByKey(rb, gCalendarTag, NULL, &status);
+    UResourceBundle *cb = ures_getByKey(rb, dtfmtsym_gCalendarTag, NULL, &status);
 
     if (U_FAILURE(status)) return;
 
     // Iterate over the resource bundle data following the fallbacks through different calendar types
-    UnicodeString calendarType((type != NULL && *type != '\0')? type : gGregorianTag, -1, US_INV);
+    UnicodeString calendarType((type != NULL && *type != '\0')? type : dtfmtsym_gGregorianTag, -1, US_INV);
     while (!calendarType.isBogus()) {
         CharString calendarTypeBuffer;
         calendarTypeBuffer.appendInvariantChars(calendarType, status);
@@ -2122,7 +2122,7 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
         UResourceBundle *ctb = ures_getByKeyWithFallback(cb, calendarTypeCArray, NULL, &status);
         if (status == U_MISSING_RESOURCE_ERROR) {
             ures_close(ctb);
-            if (uprv_strcmp(calendarTypeCArray, gGregorianTag) != 0) {
+            if (uprv_strcmp(calendarTypeCArray, dtfmtsym_gGregorianTag) != 0) {
                 calendarType.setTo(FALSE, kGregorianTagUChar, UPRV_LENGTHOF(kGregorianTagUChar));
                 calendarSink.visitAllResources();
                 status = oldStatus;
@@ -2137,7 +2137,7 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
         if (U_FAILURE(status)) break;
 
         // Stop loading when gregorian was loaded
-        if (uprv_strcmp(calendarTypeCArray, gGregorianTag) == 0) {
+        if (uprv_strcmp(calendarTypeCArray, dtfmtsym_gGregorianTag) == 0) {
             break;
         }
 
@@ -2159,19 +2159,19 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
     fLeapMonthPatterns = newUnicodeStringArray(kMonthPatternsCount);
     if (fLeapMonthPatterns) {
         initLeapMonthPattern(fLeapMonthPatterns, kLeapMonthPatternFormatWide, calendarSink,
-                             buildResourcePath(path, gMonthPatternsTag, gNamesFormatTag, gNamesWideTag, tempStatus), tempStatus);
+                             buildResourcePath(path, dtfmtsym_gMonthPatternsTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesWideTag, tempStatus), tempStatus);
         initLeapMonthPattern(fLeapMonthPatterns, kLeapMonthPatternFormatAbbrev, calendarSink,
-                             buildResourcePath(path, gMonthPatternsTag, gNamesFormatTag, gNamesAbbrTag, tempStatus), tempStatus);
+                             buildResourcePath(path, dtfmtsym_gMonthPatternsTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesAbbrTag, tempStatus), tempStatus);
         initLeapMonthPattern(fLeapMonthPatterns, kLeapMonthPatternFormatNarrow, calendarSink,
-                             buildResourcePath(path, gMonthPatternsTag, gNamesFormatTag, gNamesNarrowTag, tempStatus), tempStatus);
+                             buildResourcePath(path, dtfmtsym_gMonthPatternsTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesNarrowTag, tempStatus), tempStatus);
         initLeapMonthPattern(fLeapMonthPatterns, kLeapMonthPatternStandaloneWide, calendarSink,
-                             buildResourcePath(path, gMonthPatternsTag, gNamesStandaloneTag, gNamesWideTag, tempStatus), tempStatus);
+                             buildResourcePath(path, dtfmtsym_gMonthPatternsTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesWideTag, tempStatus), tempStatus);
         initLeapMonthPattern(fLeapMonthPatterns, kLeapMonthPatternStandaloneAbbrev, calendarSink,
-                             buildResourcePath(path, gMonthPatternsTag, gNamesStandaloneTag, gNamesAbbrTag, tempStatus), tempStatus);
+                             buildResourcePath(path, dtfmtsym_gMonthPatternsTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesAbbrTag, tempStatus), tempStatus);
         initLeapMonthPattern(fLeapMonthPatterns, kLeapMonthPatternStandaloneNarrow, calendarSink,
-                             buildResourcePath(path, gMonthPatternsTag, gNamesStandaloneTag, gNamesNarrowTag, tempStatus), tempStatus);
+                             buildResourcePath(path, dtfmtsym_gMonthPatternsTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesNarrowTag, tempStatus), tempStatus);
         initLeapMonthPattern(fLeapMonthPatterns, kLeapMonthPatternNumeric, calendarSink,
-                             buildResourcePath(path, gMonthPatternsTag, gNamesNumericTag, gNamesAllTag, tempStatus), tempStatus);
+                             buildResourcePath(path, dtfmtsym_gMonthPatternsTag, dtfmtsym_gNamesNumericTag, dtfmtsym_gNamesAllTag, tempStatus), tempStatus);
         if (U_SUCCESS(tempStatus)) {
             // Hack to fix bad C inheritance for dangi monthPatterns (OK in J); this should be handled by aliases in root, but isn't.
             // The ordering of the following statements is important.
@@ -2198,9 +2198,9 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
     // Load cyclic names sets
     tempStatus = status;
     initField(&fShortYearNames, fShortYearNamesCount, calendarSink,
-              buildResourcePath(path, gCyclicNameSetsTag, gNameSetYearsTag, gNamesFormatTag, gNamesAbbrTag, tempStatus), tempStatus);
+              buildResourcePath(path, dtfmtsym_gCyclicNameSetsTag, dtfmtsym_gNameSetYearsTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesAbbrTag, tempStatus), tempStatus);
     initField(&fShortZodiacNames, fShortZodiacNamesCount, calendarSink,
-              buildResourcePath(path, gCyclicNameSetsTag, gNameSetZodiacsTag, gNamesFormatTag, gNamesAbbrTag, tempStatus), tempStatus);
+              buildResourcePath(path, dtfmtsym_gCyclicNameSetsTag, dtfmtsym_gNameSetZodiacsTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesAbbrTag, tempStatus), tempStatus);
 
     // Load context transforms and capitalization
     tempStatus = U_ZERO_ERROR;
@@ -2240,13 +2240,13 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
             // do nothing unless U_SUCCESS(tempStatus), so it's only necessary
             // to check for errors once after all calls are made.
             const LocalUResourceBundlePointer numberElementsData(ures_getByKeyWithFallback(
-                    localeBundle, gNumberElementsTag, NULL, &tempStatus));
+                    localeBundle, dtfmtsym_gNumberElementsTag, NULL, &tempStatus));
             const LocalUResourceBundlePointer nsNameData(ures_getByKeyWithFallback(
                     numberElementsData.getAlias(), numberingSystem->getName(), NULL, &tempStatus));
             const LocalUResourceBundlePointer symbolsData(ures_getByKeyWithFallback(
-                    nsNameData.getAlias(), gSymbolsTag, NULL, &tempStatus));
+                    nsNameData.getAlias(), dtfmtsym_gSymbolsTag, NULL, &tempStatus));
             fTimeSeparator = ures_getUnicodeStringByKey(
-                    symbolsData.getAlias(), gTimeSeparatorTag, &tempStatus);
+                    symbolsData.getAlias(), dtfmtsym_gTimeSeparatorTag, &tempStatus);
             if (U_FAILURE(tempStatus)) {
                 fTimeSeparator.setToBogus();
             }
@@ -2261,22 +2261,22 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
 
     // Load day periods
     fWideDayPeriods = loadDayPeriodStrings(calendarSink,
-                            buildResourcePath(path, gDayPeriodTag, gNamesFormatTag, gNamesWideTag, status),
+                            buildResourcePath(path, dtfmtsym_gDayPeriodTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesWideTag, status),
                             fWideDayPeriodsCount, status);
     fNarrowDayPeriods = loadDayPeriodStrings(calendarSink,
-                            buildResourcePath(path, gDayPeriodTag, gNamesFormatTag, gNamesNarrowTag, status),
+                            buildResourcePath(path, dtfmtsym_gDayPeriodTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesNarrowTag, status),
                             fNarrowDayPeriodsCount, status);
     fAbbreviatedDayPeriods = loadDayPeriodStrings(calendarSink,
-                            buildResourcePath(path, gDayPeriodTag, gNamesFormatTag, gNamesAbbrTag, status),
+                            buildResourcePath(path, dtfmtsym_gDayPeriodTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesAbbrTag, status),
                             fAbbreviatedDayPeriodsCount, status);
     fStandaloneWideDayPeriods = loadDayPeriodStrings(calendarSink,
-                            buildResourcePath(path, gDayPeriodTag, gNamesStandaloneTag, gNamesWideTag, status),
+                            buildResourcePath(path, dtfmtsym_gDayPeriodTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesWideTag, status),
                             fStandaloneWideDayPeriodsCount, status);
     fStandaloneNarrowDayPeriods = loadDayPeriodStrings(calendarSink,
-                            buildResourcePath(path, gDayPeriodTag, gNamesStandaloneTag, gNamesNarrowTag, status),
+                            buildResourcePath(path, dtfmtsym_gDayPeriodTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesNarrowTag, status),
                             fStandaloneNarrowDayPeriodsCount, status);
     fStandaloneAbbreviatedDayPeriods = loadDayPeriodStrings(calendarSink,
-                            buildResourcePath(path, gDayPeriodTag, gNamesStandaloneTag, gNamesAbbrTag, status),
+                            buildResourcePath(path, dtfmtsym_gDayPeriodTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesAbbrTag, status),
                             fStandaloneAbbreviatedDayPeriodsCount, status);
 
     U_LOCALE_BASED(locBased, *this);
@@ -2287,16 +2287,16 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
                           ures_getLocaleByType(cb, ULOC_ACTUAL_LOCALE, &status));
 
     // Load eras
-    initField(&fEras, fErasCount, calendarSink, buildResourcePath(path, gErasTag, gNamesAbbrTag, status), status);
+    initField(&fEras, fErasCount, calendarSink, buildResourcePath(path, dtfmtsym_gErasTag, dtfmtsym_gNamesAbbrTag, status), status);
     UErrorCode oldStatus = status;
-    initField(&fEraNames, fEraNamesCount, calendarSink, buildResourcePath(path, gErasTag, gNamesWideTag, status), status);
+    initField(&fEraNames, fEraNamesCount, calendarSink, buildResourcePath(path, dtfmtsym_gErasTag, dtfmtsym_gNamesWideTag, status), status);
     if (status == U_MISSING_RESOURCE_ERROR) { // Workaround because eras/wide was omitted from CLDR 1.3
         status = oldStatus;
         assignArray(fEraNames, fEraNamesCount, fEras, fErasCount);
     }
     // current ICU4J falls back to abbreviated if narrow eras are missing, so we will too
     oldStatus = status;
-    initField(&fNarrowEras, fNarrowErasCount, calendarSink, buildResourcePath(path, gErasTag, gNamesNarrowTag, status), status);
+    initField(&fNarrowEras, fNarrowErasCount, calendarSink, buildResourcePath(path, dtfmtsym_gErasTag, dtfmtsym_gNamesNarrowTag, status), status);
     if (status == U_MISSING_RESOURCE_ERROR) { // Workaround because eras/wide was omitted from CLDR 1.3
         status = oldStatus;
         assignArray(fNarrowEras, fNarrowErasCount, fEras, fErasCount);
@@ -2304,17 +2304,17 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
 
     // Load month names
     initField(&fMonths, fMonthsCount, calendarSink,
-              buildResourcePath(path, gMonthNamesTag, gNamesFormatTag, gNamesWideTag, status), status);
+              buildResourcePath(path, dtfmtsym_gMonthNamesTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesWideTag, status), status);
     initField(&fShortMonths, fShortMonthsCount, calendarSink,
-              buildResourcePath(path, gMonthNamesTag, gNamesFormatTag, gNamesAbbrTag, status), status);
+              buildResourcePath(path, dtfmtsym_gMonthNamesTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesAbbrTag, status), status);
     initField(&fStandaloneMonths, fStandaloneMonthsCount, calendarSink,
-              buildResourcePath(path, gMonthNamesTag, gNamesStandaloneTag, gNamesWideTag, status), status);
+              buildResourcePath(path, dtfmtsym_gMonthNamesTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesWideTag, status), status);
     if (status == U_MISSING_RESOURCE_ERROR) { /* If standalone/wide not available, use format/wide */
         status = U_ZERO_ERROR;
         assignArray(fStandaloneMonths, fStandaloneMonthsCount, fMonths, fMonthsCount);
     }
     initField(&fStandaloneShortMonths, fStandaloneShortMonthsCount, calendarSink,
-              buildResourcePath(path, gMonthNamesTag, gNamesStandaloneTag, gNamesAbbrTag, status), status);
+              buildResourcePath(path, dtfmtsym_gMonthNamesTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesAbbrTag, status), status);
     if (status == U_MISSING_RESOURCE_ERROR) { /* If standalone/abbreviated not available, use format/abbreviated */
         status = U_ZERO_ERROR;
         assignArray(fStandaloneShortMonths, fStandaloneShortMonthsCount, fShortMonths, fShortMonthsCount);
@@ -2323,9 +2323,9 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
     UErrorCode narrowMonthsEC = status;
     UErrorCode standaloneNarrowMonthsEC = status;
     initField(&fNarrowMonths, fNarrowMonthsCount, calendarSink,
-              buildResourcePath(path, gMonthNamesTag, gNamesFormatTag, gNamesNarrowTag, narrowMonthsEC), narrowMonthsEC);
+              buildResourcePath(path, dtfmtsym_gMonthNamesTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesNarrowTag, narrowMonthsEC), narrowMonthsEC);
     initField(&fStandaloneNarrowMonths, fStandaloneNarrowMonthsCount, calendarSink,
-              buildResourcePath(path, gMonthNamesTag, gNamesStandaloneTag, gNamesNarrowTag, narrowMonthsEC), standaloneNarrowMonthsEC);
+              buildResourcePath(path, dtfmtsym_gMonthNamesTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesNarrowTag, narrowMonthsEC), standaloneNarrowMonthsEC);
     if (narrowMonthsEC == U_MISSING_RESOURCE_ERROR && standaloneNarrowMonthsEC != U_MISSING_RESOURCE_ERROR) {
         // If format/narrow not available, use standalone/narrow
         assignArray(fNarrowMonths, fNarrowMonthsCount, fStandaloneNarrowMonths, fStandaloneNarrowMonthsCount);
@@ -2341,33 +2341,33 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
     // Load AM/PM markers; if wide or narrow not available, use short
     UErrorCode ampmStatus = U_ZERO_ERROR;
     initField(&fAmPms, fAmPmsCount, calendarSink,
-              buildResourcePath(path, gAmPmMarkersTag, ampmStatus), ampmStatus);
+              buildResourcePath(path, dtfmtsym_gAmPmMarkersTag, ampmStatus), ampmStatus);
     if (U_FAILURE(ampmStatus)) {
         initField(&fAmPms, fAmPmsCount, calendarSink,
-                  buildResourcePath(path, gAmPmMarkersAbbrTag, status), status);
+                  buildResourcePath(path, dtfmtsym_gAmPmMarkersAbbrTag, status), status);
     }
     ampmStatus = U_ZERO_ERROR;
     initField(&fNarrowAmPms, fNarrowAmPmsCount, calendarSink,
-              buildResourcePath(path, gAmPmMarkersNarrowTag, ampmStatus), ampmStatus);
+              buildResourcePath(path, dtfmtsym_gAmPmMarkersNarrowTag, ampmStatus), ampmStatus);
     if (U_FAILURE(ampmStatus)) {
         initField(&fNarrowAmPms, fNarrowAmPmsCount, calendarSink,
-                  buildResourcePath(path, gAmPmMarkersAbbrTag, status), status);
+                  buildResourcePath(path, dtfmtsym_gAmPmMarkersAbbrTag, status), status);
     }
 
     // Load quarters
     initField(&fQuarters, fQuartersCount, calendarSink,
-              buildResourcePath(path, gQuartersTag, gNamesFormatTag, gNamesWideTag, status), status);
+              buildResourcePath(path, dtfmtsym_gQuartersTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesWideTag, status), status);
     initField(&fShortQuarters, fShortQuartersCount, calendarSink,
-              buildResourcePath(path, gQuartersTag, gNamesFormatTag, gNamesAbbrTag, status), status);
+              buildResourcePath(path, dtfmtsym_gQuartersTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesAbbrTag, status), status);
 
     initField(&fStandaloneQuarters, fStandaloneQuartersCount, calendarSink,
-              buildResourcePath(path, gQuartersTag, gNamesStandaloneTag, gNamesWideTag, status), status);
+              buildResourcePath(path, dtfmtsym_gQuartersTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesWideTag, status), status);
     if(status == U_MISSING_RESOURCE_ERROR) {
         status = U_ZERO_ERROR;
         assignArray(fStandaloneQuarters, fStandaloneQuartersCount, fQuarters, fQuartersCount);
     }
     initField(&fStandaloneShortQuarters, fStandaloneShortQuartersCount, calendarSink,
-              buildResourcePath(path, gQuartersTag, gNamesStandaloneTag, gNamesAbbrTag, status), status);
+              buildResourcePath(path, dtfmtsym_gQuartersTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesAbbrTag, status), status);
     if(status == U_MISSING_RESOURCE_ERROR) {
         status = U_ZERO_ERROR;
         assignArray(fStandaloneShortQuarters, fStandaloneShortQuartersCount, fShortQuarters, fShortQuartersCount);
@@ -2389,15 +2389,15 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
     // Format wide weekdays -> fWeekdays
     // {sfb} fixed to handle 1-based weekdays
     initField(&fWeekdays, fWeekdaysCount, calendarSink,
-              buildResourcePath(path, gDayNamesTag, gNamesFormatTag, gNamesWideTag, status), 1, status);
+              buildResourcePath(path, dtfmtsym_gDayNamesTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesWideTag, status), 1, status);
 
     // Format abbreviated weekdays -> fShortWeekdays
     initField(&fShortWeekdays, fShortWeekdaysCount, calendarSink,
-              buildResourcePath(path, gDayNamesTag, gNamesFormatTag, gNamesAbbrTag, status), 1, status);
+              buildResourcePath(path, dtfmtsym_gDayNamesTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesAbbrTag, status), 1, status);
 
     // Format short weekdays -> fShorterWeekdays (fall back to abbreviated)
     initField(&fShorterWeekdays, fShorterWeekdaysCount, calendarSink,
-              buildResourcePath(path, gDayNamesTag, gNamesFormatTag, gNamesShortTag, status), 1, status);
+              buildResourcePath(path, dtfmtsym_gDayNamesTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesShortTag, status), 1, status);
     if (status == U_MISSING_RESOURCE_ERROR) {
         status = U_ZERO_ERROR;
         assignArray(fShorterWeekdays, fShorterWeekdaysCount, fShortWeekdays, fShortWeekdaysCount);
@@ -2405,7 +2405,7 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
 
     // Stand-alone wide weekdays -> fStandaloneWeekdays
     initField(&fStandaloneWeekdays, fStandaloneWeekdaysCount, calendarSink,
-              buildResourcePath(path, gDayNamesTag, gNamesStandaloneTag, gNamesWideTag, status), 1, status);
+              buildResourcePath(path, dtfmtsym_gDayNamesTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesWideTag, status), 1, status);
     if (status == U_MISSING_RESOURCE_ERROR) { /* If standalone/wide is not available, use format/wide */
         status = U_ZERO_ERROR;
         assignArray(fStandaloneWeekdays, fStandaloneWeekdaysCount, fWeekdays, fWeekdaysCount);
@@ -2413,7 +2413,7 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
 
     // Stand-alone abbreviated weekdays -> fStandaloneShortWeekdays
     initField(&fStandaloneShortWeekdays, fStandaloneShortWeekdaysCount, calendarSink,
-              buildResourcePath(path, gDayNamesTag, gNamesStandaloneTag, gNamesAbbrTag, status), 1, status);
+              buildResourcePath(path, dtfmtsym_gDayNamesTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesAbbrTag, status), 1, status);
     if (status == U_MISSING_RESOURCE_ERROR) { /* If standalone/abbreviated is not available, use format/abbreviated */
         status = U_ZERO_ERROR;
         assignArray(fStandaloneShortWeekdays, fStandaloneShortWeekdaysCount, fShortWeekdays, fShortWeekdaysCount);
@@ -2421,7 +2421,7 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
 
     // Stand-alone short weekdays -> fStandaloneShorterWeekdays (fall back to format abbreviated)
     initField(&fStandaloneShorterWeekdays, fStandaloneShorterWeekdaysCount, calendarSink,
-              buildResourcePath(path, gDayNamesTag, gNamesStandaloneTag, gNamesShortTag, status), 1, status);
+              buildResourcePath(path, dtfmtsym_gDayNamesTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesShortTag, status), 1, status);
     if (status == U_MISSING_RESOURCE_ERROR) { /* If standalone/short is not available, use format/short */
         status = U_ZERO_ERROR;
         assignArray(fStandaloneShorterWeekdays, fStandaloneShorterWeekdaysCount, fShorterWeekdays, fShorterWeekdaysCount);
@@ -2430,11 +2430,11 @@ DateFormatSymbols::initializeData(const Locale& locale, const char *type, UError
     // Format narrow weekdays -> fNarrowWeekdays
     UErrorCode narrowWeeksEC = status;
     initField(&fNarrowWeekdays, fNarrowWeekdaysCount, calendarSink,
-              buildResourcePath(path, gDayNamesTag, gNamesFormatTag, gNamesNarrowTag, status), 1, narrowWeeksEC);
+              buildResourcePath(path, dtfmtsym_gDayNamesTag, dtfmtsym_gNamesFormatTag, dtfmtsym_gNamesNarrowTag, status), 1, narrowWeeksEC);
     // Stand-alone narrow weekdays -> fStandaloneNarrowWeekdays
     UErrorCode standaloneNarrowWeeksEC = status;
     initField(&fStandaloneNarrowWeekdays, fStandaloneNarrowWeekdaysCount, calendarSink,
-              buildResourcePath(path, gDayNamesTag, gNamesStandaloneTag, gNamesNarrowTag, status), 1, standaloneNarrowWeeksEC);
+              buildResourcePath(path, dtfmtsym_gDayNamesTag, dtfmtsym_gNamesStandaloneTag, dtfmtsym_gNamesNarrowTag, status), 1, standaloneNarrowWeeksEC);
 
     if (narrowWeeksEC == U_MISSING_RESOURCE_ERROR && standaloneNarrowWeeksEC != U_MISSING_RESOURCE_ERROR) {
         // If format/narrow not available, use standalone/narrow

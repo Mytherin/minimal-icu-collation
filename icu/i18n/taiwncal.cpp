@@ -30,7 +30,7 @@ UOBJECT_DEFINE_RTTI_IMPLEMENTATION(TaiwanCalendar)
 
 static const int32_t kTaiwanEraStart = 1911;  // 1911 (Gregorian)
 
-static const int32_t kGregorianEpoch = 1970;
+static const int32_t taiwncal_kGregorianEpoch = 1970;
 
 TaiwanCalendar::TaiwanCalendar(const Locale& aLocale, UErrorCode& success)
 :   GregorianCalendar(aLocale, success)
@@ -67,11 +67,11 @@ int32_t TaiwanCalendar::handleGetExtendedYear()
 {
     // EXTENDED_YEAR in TaiwanCalendar is a Gregorian year
     // The default value of EXTENDED_YEAR is 1970 (Minguo 59)
-    int32_t year = kGregorianEpoch;
+    int32_t year = taiwncal_kGregorianEpoch;
 
     if (newerField(UCAL_EXTENDED_YEAR, UCAL_YEAR) == UCAL_EXTENDED_YEAR
         && newerField(UCAL_EXTENDED_YEAR, UCAL_ERA) == UCAL_EXTENDED_YEAR) {
-        year = internalGet(UCAL_EXTENDED_YEAR, kGregorianEpoch);
+        year = internalGet(UCAL_EXTENDED_YEAR, taiwncal_kGregorianEpoch);
     } else {
         int32_t era = internalGet(UCAL_ERA, MINGUO);
         if(era == MINGUO) {
@@ -147,7 +147,7 @@ UBool TaiwanCalendar::haveDefaultCentury() const
     return TRUE;
 }
 
-static void U_CALLCONV initializeSystemDefaultCentury()
+static void U_CALLCONV taiwncal_initializeSystemDefaultCentury()
 {
     // initialize systemDefaultCentury and systemDefaultCenturyYear based
     // on the current time.  They'll be set to 80 years before
@@ -168,13 +168,13 @@ static void U_CALLCONV initializeSystemDefaultCentury()
 
 UDate TaiwanCalendar::defaultCenturyStart() const {
     // lazy-evaluate systemDefaultCenturyStart
-    umtx_initOnce(taiwncal_gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
+    umtx_initOnce(taiwncal_gSystemDefaultCenturyInit, &taiwncal_initializeSystemDefaultCentury);
     return taiwncal_gSystemDefaultCenturyStart;
 }
 
 int32_t TaiwanCalendar::defaultCenturyStartYear() const {
     // lazy-evaluate systemDefaultCenturyStartYear
-    umtx_initOnce(taiwncal_gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
+    umtx_initOnce(taiwncal_gSystemDefaultCenturyInit, &taiwncal_initializeSystemDefaultCentury);
     return taiwncal_gSystemDefaultCenturyStartYear;
 }
 

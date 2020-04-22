@@ -43,27 +43,27 @@ U_NAMESPACE_BEGIN
 #endif
 
 
-static const UChar gDateFormatSkeleton[][11] = {
+static const UChar dtitvfmt_gDateFormatSkeleton[][11] = {
 //yMMMMEEEEd
-{LOW_Y, CAP_M, CAP_M, CAP_M, CAP_M, CAP_E, CAP_E, CAP_E, CAP_E, LOW_D, 0},
+{dtitv_impl_LOW_Y, dtitv_impl_CAP_M, dtitv_impl_CAP_M, dtitv_impl_CAP_M, dtitv_impl_CAP_M, dtitv_impl_CAP_E, dtitv_impl_CAP_E, dtitv_impl_CAP_E, dtitv_impl_CAP_E, dtitv_impl_LOW_D, 0},
 //yMMMMd
-{LOW_Y, CAP_M, CAP_M, CAP_M, CAP_M, LOW_D, 0},
+{dtitv_impl_LOW_Y, dtitv_impl_CAP_M, dtitv_impl_CAP_M, dtitv_impl_CAP_M, dtitv_impl_CAP_M, dtitv_impl_LOW_D, 0},
 //yMMMd
-{LOW_Y, CAP_M, CAP_M, CAP_M, LOW_D, 0},
+{dtitv_impl_LOW_Y, dtitv_impl_CAP_M, dtitv_impl_CAP_M, dtitv_impl_CAP_M, dtitv_impl_LOW_D, 0},
 //yMd
-{LOW_Y, CAP_M, LOW_D, 0} };
+{dtitv_impl_LOW_Y, dtitv_impl_CAP_M, dtitv_impl_LOW_D, 0} };
 
 
-static const char gCalendarTag[] = "calendar";
-static const char gGregorianTag[] = "gregorian";
-static const char gDateTimePatternsTag[] = "DateTimePatterns";
+static const char dtitvfmt_gCalendarTag[] = "calendar";
+static const char dtitvfmt_gGregorianTag[] = "gregorian";
+static const char dtitvfmt_gDateTimePatternsTag[] = "DateTimePatterns";
 
 
 // latestFirst:
-static const UChar gLaterFirstPrefix[] = {LOW_L, LOW_A, LOW_T, LOW_E, LOW_S,LOW_T, CAP_F, LOW_I, LOW_R, LOW_S, LOW_T, COLON};
+static const UChar dtitvfmt_gLaterFirstPrefix[] = {dtitv_impl_LOW_L, dtitv_impl_LOW_A, dtitv_impl_LOW_T, dtitv_impl_LOW_E, dtitv_impl_LOW_S,dtitv_impl_LOW_T, dtitv_impl_CAP_F, dtitv_impl_LOW_I, dtitv_impl_LOW_R, dtitv_impl_LOW_S, dtitv_impl_LOW_T, dtitv_impl_COLON};
 
 // earliestFirst:
-static const UChar gEarlierFirstPrefix[] = {LOW_E, LOW_A, LOW_R, LOW_L, LOW_I, LOW_E, LOW_S, LOW_T, CAP_F, LOW_I, LOW_R, LOW_S, LOW_T, COLON};
+static const UChar dtitvfmt_gEarlierFirstPrefix[] = {dtitv_impl_LOW_E, dtitv_impl_LOW_A, dtitv_impl_LOW_R, dtitv_impl_LOW_L, dtitv_impl_LOW_I, dtitv_impl_LOW_E, dtitv_impl_LOW_S, dtitv_impl_LOW_T, dtitv_impl_CAP_F, dtitv_impl_LOW_I, dtitv_impl_LOW_R, dtitv_impl_LOW_S, dtitv_impl_LOW_T, dtitv_impl_COLON};
 
 
 class FormattedDateIntervalData : public FormattedValueFieldPositionIteratorImpl {
@@ -761,11 +761,11 @@ DateIntervalFormat::initializePattern(UErrorCode& status) {
         // The date/time pattern ( such as {0} {1} ) is saved in
         // calendar, that is why need to get the CalendarData here.
         LocalUResourceBundlePointer dateTimePatternsRes(ures_open(NULL, locale.getBaseName(), &status));
-        ures_getByKey(dateTimePatternsRes.getAlias(), gCalendarTag,
+        ures_getByKey(dateTimePatternsRes.getAlias(), dtitvfmt_gCalendarTag,
                       dateTimePatternsRes.getAlias(), &status);
-        ures_getByKeyWithFallback(dateTimePatternsRes.getAlias(), gGregorianTag,
+        ures_getByKeyWithFallback(dateTimePatternsRes.getAlias(), dtitvfmt_gGregorianTag,
                                   dateTimePatternsRes.getAlias(), &status);
-        ures_getByKeyWithFallback(dateTimePatternsRes.getAlias(), gDateTimePatternsTag,
+        ures_getByKeyWithFallback(dateTimePatternsRes.getAlias(), dtitvfmt_gDateTimePatternsTag,
                                   dateTimePatternsRes.getAlias(), &status);
 
         int32_t dateTimeFormatLength;
@@ -788,7 +788,7 @@ DateIntervalFormat::initializePattern(UErrorCode& status) {
         if ( timeSkeleton.length() != 0 ) {
             if ( dateSkeleton.length() == 0 ) {
                 // prefix with yMd
-                timeSkeleton.insert(0, gDateFormatSkeleton[DateFormat::kShort], -1);
+                timeSkeleton.insert(0, dtitvfmt_gDateFormatSkeleton[DateFormat::kShort], -1);
                 UnicodeString pattern = DateFormat::getBestPattern(
                         locale, timeSkeleton, status);
                 if ( U_FAILURE(status) ) {
@@ -814,7 +814,7 @@ DateIntervalFormat::initializePattern(UErrorCode& status) {
         // done
     } else if ( dateSkeleton.length() == 0 ) {
         // prefix with yMd
-        timeSkeleton.insert(0, gDateFormatSkeleton[DateFormat::kShort], -1);
+        timeSkeleton.insert(0, dtitvfmt_gDateFormatSkeleton[DateFormat::kShort], -1);
         UnicodeString pattern = DateFormat::getBestPattern(
                 locale, timeSkeleton, status);
         if ( U_FAILURE(status) ) {
@@ -842,17 +842,17 @@ DateIntervalFormat::initializePattern(UErrorCode& status) {
         UnicodeString skeleton = fSkeleton;
         if ( !fieldExistsInSkeleton(UCAL_DATE, dateSkeleton) ) {
             // prefix skeleton with 'd'
-            skeleton.insert(0, LOW_D);
+            skeleton.insert(0, dtitv_impl_LOW_D);
             setFallbackPattern(UCAL_DATE, skeleton, status);
         }
         if ( !fieldExistsInSkeleton(UCAL_MONTH, dateSkeleton) ) {
             // then prefix skeleton with 'M'
-            skeleton.insert(0, CAP_M);
+            skeleton.insert(0, dtitv_impl_CAP_M);
             setFallbackPattern(UCAL_MONTH, skeleton, status);
         }
         if ( !fieldExistsInSkeleton(UCAL_YEAR, dateSkeleton) ) {
             // then prefix skeleton with 'y'
-            skeleton.insert(0, LOW_Y);
+            skeleton.insert(0, dtitv_impl_LOW_Y);
             setFallbackPattern(UCAL_YEAR, skeleton, status);
         }
 
@@ -899,73 +899,73 @@ DateIntervalFormat::getDateTimeSkeleton(const UnicodeString& skeleton,
     for (i = 0; i < skeleton.length(); ++i) {
         UChar ch = skeleton[i];
         switch ( ch ) {
-          case CAP_E:
+          case dtitv_impl_CAP_E:
             dateSkeleton.append(ch);
             ++ECount;
             break;
-          case LOW_D:
+          case dtitv_impl_LOW_D:
             dateSkeleton.append(ch);
             ++dCount;
             break;
-          case CAP_M:
+          case dtitv_impl_CAP_M:
             dateSkeleton.append(ch);
             ++MCount;
             break;
-          case LOW_Y:
+          case dtitv_impl_LOW_Y:
             dateSkeleton.append(ch);
             ++yCount;
             break;
-          case CAP_G:
-          case CAP_Y:
-          case LOW_U:
-          case CAP_Q:
-          case LOW_Q:
-          case CAP_L:
-          case LOW_L:
-          case CAP_W:
-          case LOW_W:
-          case CAP_D:
-          case CAP_F:
-          case LOW_G:
-          case LOW_E:
-          case LOW_C:
-          case CAP_U:
-          case LOW_R:
+          case dtitv_impl_CAP_G:
+          case dtitv_impl_CAP_Y:
+          case dtitv_impl_LOW_U:
+          case dtitv_impl_CAP_Q:
+          case dtitv_impl_LOW_Q:
+          case dtitv_impl_CAP_L:
+          case dtitv_impl_LOW_L:
+          case dtitv_impl_CAP_W:
+          case dtitv_impl_LOW_W:
+          case dtitv_impl_CAP_D:
+          case dtitv_impl_CAP_F:
+          case dtitv_impl_LOW_G:
+          case dtitv_impl_LOW_E:
+          case dtitv_impl_LOW_C:
+          case dtitv_impl_CAP_U:
+          case dtitv_impl_LOW_R:
             normalizedDateSkeleton.append(ch);
             dateSkeleton.append(ch);
             break;
-          case LOW_A:
+          case dtitv_impl_LOW_A:
             // 'a' is implicitly handled
             timeSkeleton.append(ch);
             break;
-          case LOW_H:
+          case dtitv_impl_LOW_H:
             timeSkeleton.append(ch);
             ++hCount;
             break;
-          case CAP_H:
+          case dtitv_impl_CAP_H:
             timeSkeleton.append(ch);
             ++HCount;
             break;
-          case LOW_M:
+          case dtitv_impl_LOW_M:
             timeSkeleton.append(ch);
             ++mCount;
             break;
-          case LOW_Z:
+          case dtitv_impl_LOW_Z:
             ++zCount;
             timeSkeleton.append(ch);
             break;
-          case LOW_V:
+          case dtitv_impl_LOW_V:
             ++vCount;
             timeSkeleton.append(ch);
             break;
-          case CAP_V:
-          case CAP_Z:
-          case LOW_K:
-          case CAP_K:
-          case LOW_J:
-          case LOW_S:
-          case CAP_S:
-          case CAP_A:
+          case dtitv_impl_CAP_V:
+          case dtitv_impl_CAP_Z:
+          case dtitv_impl_LOW_K:
+          case dtitv_impl_CAP_K:
+          case dtitv_impl_LOW_J:
+          case dtitv_impl_LOW_S:
+          case dtitv_impl_CAP_S:
+          case dtitv_impl_CAP_A:
             timeSkeleton.append(ch);
             normalizedTimeSkeleton.append(ch);
             break;
@@ -975,46 +975,46 @@ DateIntervalFormat::getDateTimeSkeleton(const UnicodeString& skeleton,
     /* generate normalized form for date*/
     if ( yCount != 0 ) {
         for (i = 0; i < yCount; ++i) {
-            normalizedDateSkeleton.append(LOW_Y);
+            normalizedDateSkeleton.append(dtitv_impl_LOW_Y);
         }
     }
     if ( MCount != 0 ) {
         if ( MCount < 3 ) {
-            normalizedDateSkeleton.append(CAP_M);
+            normalizedDateSkeleton.append(dtitv_impl_CAP_M);
         } else {
-            for ( int32_t j = 0; j < MCount && j < MAX_M_COUNT; ++j) {
-                 normalizedDateSkeleton.append(CAP_M);
+            for ( int32_t j = 0; j < MCount && j < dtitv_impl_MAX_M_COUNT; ++j) {
+                 normalizedDateSkeleton.append(dtitv_impl_CAP_M);
             }
         }
     }
     if ( ECount != 0 ) {
         if ( ECount <= 3 ) {
-            normalizedDateSkeleton.append(CAP_E);
+            normalizedDateSkeleton.append(dtitv_impl_CAP_E);
         } else {
-            for ( int32_t j = 0; j < ECount && j < MAX_E_COUNT; ++j ) {
-                 normalizedDateSkeleton.append(CAP_E);
+            for ( int32_t j = 0; j < ECount && j < dtitv_impl_MAX_E_COUNT; ++j ) {
+                 normalizedDateSkeleton.append(dtitv_impl_CAP_E);
             }
         }
     }
     if ( dCount != 0 ) {
-        normalizedDateSkeleton.append(LOW_D);
+        normalizedDateSkeleton.append(dtitv_impl_LOW_D);
     }
 
     /* generate normalized form for time */
     if ( HCount != 0 ) {
-        normalizedTimeSkeleton.append(CAP_H);
+        normalizedTimeSkeleton.append(dtitv_impl_CAP_H);
     }
     else if ( hCount != 0 ) {
-        normalizedTimeSkeleton.append(LOW_H);
+        normalizedTimeSkeleton.append(dtitv_impl_LOW_H);
     }
     if ( mCount != 0 ) {
-        normalizedTimeSkeleton.append(LOW_M);
+        normalizedTimeSkeleton.append(dtitv_impl_LOW_M);
     }
     if ( zCount != 0 ) {
-        normalizedTimeSkeleton.append(LOW_Z);
+        normalizedTimeSkeleton.append(dtitv_impl_LOW_Z);
     }
     if ( vCount != 0 ) {
-        normalizedTimeSkeleton.append(LOW_V);
+        normalizedTimeSkeleton.append(dtitv_impl_LOW_V);
     }
 }
 
@@ -1198,16 +1198,16 @@ DateIntervalFormat::setIntervalPattern(UCalendarDateFields field,
     const UnicodeString* pattern = &intervalPattern;
     UBool order = laterDateFirst;
     // check for "latestFirst:" or "earliestFirst:" prefix
-    int8_t prefixLength = UPRV_LENGTHOF(gLaterFirstPrefix);
-    int8_t earliestFirstLength = UPRV_LENGTHOF(gEarlierFirstPrefix);
+    int8_t prefixLength = UPRV_LENGTHOF(dtitvfmt_gLaterFirstPrefix);
+    int8_t earliestFirstLength = UPRV_LENGTHOF(dtitvfmt_gEarlierFirstPrefix);
     UnicodeString realPattern;
-    if ( intervalPattern.startsWith(gLaterFirstPrefix, prefixLength) ) {
+    if ( intervalPattern.startsWith(dtitvfmt_gLaterFirstPrefix, prefixLength) ) {
         order = true;
         intervalPattern.extract(prefixLength,
                                 intervalPattern.length() - prefixLength,
                                 realPattern);
         pattern = &realPattern;
-    } else if ( intervalPattern.startsWith(gEarlierFirstPrefix,
+    } else if ( intervalPattern.startsWith(dtitvfmt_gEarlierFirstPrefix,
                                            earliestFirstLength) ) {
         order = false;
         intervalPattern.extract(earliestFirstLength,
@@ -1553,11 +1553,11 @@ DateIntervalFormat::adjustFieldWidth(const UnicodeString& inputSkeleton,
         if (ch != prevCh && count > 0) {
             // check the repeativeness of pattern letter
             UChar skeletonChar = prevCh;
-            if ( skeletonChar ==  CAP_L ) {
+            if ( skeletonChar ==  dtitv_impl_CAP_L ) {
                 // there is no "L" (always be "M") in skeleton,
                 // but there is "L" in pattern.
                 // for skeleton "M+", the pattern might be "...L..."
-                skeletonChar = CAP_M;
+                skeletonChar = dtitv_impl_CAP_M;
             }
             int32_t fieldCount = bestMatchSkeletonFieldWidth[(int)(skeletonChar - PATTERN_CHAR_BASE)];
             int32_t inputFieldCount = inputSkeletonFieldWidth[(int)(skeletonChar - PATTERN_CHAR_BASE)];
@@ -1592,11 +1592,11 @@ DateIntervalFormat::adjustFieldWidth(const UnicodeString& inputSkeleton,
         // last item
         // check the repeativeness of pattern letter
         UChar skeletonChar = prevCh;
-        if ( skeletonChar == CAP_L ) {
+        if ( skeletonChar == dtitv_impl_CAP_L ) {
             // there is no "L" (always be "M") in skeleton,
             // but there is "L" in pattern.
             // for skeleton "M+", the pattern might be "...L..."
-            skeletonChar = CAP_M;
+            skeletonChar = dtitv_impl_CAP_M;
         }
         int32_t fieldCount = bestMatchSkeletonFieldWidth[(int)(skeletonChar - PATTERN_CHAR_BASE)];
         int32_t inputFieldCount = inputSkeletonFieldWidth[(int)(skeletonChar - PATTERN_CHAR_BASE)];
@@ -1644,14 +1644,14 @@ DateIntervalFormat::concatSingleDate2TimeInterval(UnicodeString& format,
 const UChar
 DateIntervalFormat::fgCalendarFieldToPatternLetter[] =
 {
-    /*GyM*/ CAP_G, LOW_Y, CAP_M,
-    /*wWd*/ LOW_W, CAP_W, LOW_D,
-    /*DEF*/ CAP_D, CAP_E, CAP_F,
-    /*ahH*/ LOW_A, LOW_H, CAP_H,
-    /*msS*/ LOW_M, LOW_S, CAP_S, // MINUTE, SECOND, MILLISECOND
-    /*z.Y*/ LOW_Z, SPACE, CAP_Y, // ZONE_OFFSET, DST_OFFSET, YEAR_WOY,
-    /*eug*/ LOW_E, LOW_U, LOW_G, // DOW_LOCAL, EXTENDED_YEAR, JULIAN_DAY,
-    /*A..*/ CAP_A, SPACE, SPACE, // MILLISECONDS_IN_DAY, IS_LEAP_MONTH, FIELD_COUNT
+    /*GyM*/ dtitv_impl_CAP_G, dtitv_impl_LOW_Y, dtitv_impl_CAP_M,
+    /*wWd*/ dtitv_impl_LOW_W, dtitv_impl_CAP_W, dtitv_impl_LOW_D,
+    /*DEF*/ dtitv_impl_CAP_D, dtitv_impl_CAP_E, dtitv_impl_CAP_F,
+    /*ahH*/ dtitv_impl_LOW_A, dtitv_impl_LOW_H, dtitv_impl_CAP_H,
+    /*msS*/ dtitv_impl_LOW_M, dtitv_impl_LOW_S, dtitv_impl_CAP_S, // MINUTE, SECOND, MILLISECOND
+    /*z.Y*/ dtitv_impl_LOW_Z, dtitv_impl_SPACE, dtitv_impl_CAP_Y, // ZONE_OFFSET, DST_OFFSET, YEAR_WOY,
+    /*eug*/ dtitv_impl_LOW_E, dtitv_impl_LOW_U, dtitv_impl_LOW_G, // DOW_LOCAL, EXTENDED_YEAR, JULIAN_DAY,
+    /*A..*/ dtitv_impl_CAP_A, dtitv_impl_SPACE, dtitv_impl_SPACE, // MILLISECONDS_IN_DAY, IS_LEAP_MONTH, FIELD_COUNT
 };
 
 

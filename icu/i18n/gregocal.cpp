@@ -1283,7 +1283,7 @@ UBool GregorianCalendar::haveDefaultCentury() const
 }
 
 static void U_CALLCONV
-initializeSystemDefaultCentury()
+gregocal_initializeSystemDefaultCentury()
 {
     // initialize systemDefaultCentury and systemDefaultCenturyYear based
     // on the current time.  They'll be set to 80 years before
@@ -1303,13 +1303,13 @@ initializeSystemDefaultCentury()
 
 UDate GregorianCalendar::defaultCenturyStart() const {
     // lazy-evaluate systemDefaultCenturyStart
-    umtx_initOnce(gregocal_gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
+    umtx_initOnce(gregocal_gSystemDefaultCenturyInit, &gregocal_initializeSystemDefaultCentury);
     return gregocal_gSystemDefaultCenturyStart;
 }
 
 int32_t GregorianCalendar::defaultCenturyStartYear() const {
     // lazy-evaluate systemDefaultCenturyStartYear
-    umtx_initOnce(gregocal_gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
+    umtx_initOnce(gregocal_gSystemDefaultCenturyInit, &gregocal_initializeSystemDefaultCentury);
     return gregocal_gSystemDefaultCenturyStartYear;
 }
 

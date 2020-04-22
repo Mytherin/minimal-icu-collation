@@ -30,7 +30,7 @@ UOBJECT_DEFINE_RTTI_IMPLEMENTATION(BuddhistCalendar)
 
 static const int32_t kBuddhistEraStart = -543;  // 544 BC (Gregorian)
 
-static const int32_t kGregorianEpoch = 1970;    // used as the default value of EXTENDED_YEAR
+static const int32_t buddhcal_kGregorianEpoch = 1970;    // used as the default value of EXTENDED_YEAR
 
 BuddhistCalendar::BuddhistCalendar(const Locale& aLocale, UErrorCode& success)
 :   GregorianCalendar(aLocale, success)
@@ -69,10 +69,10 @@ int32_t BuddhistCalendar::handleGetExtendedYear()
     // The default value of EXTENDED_YEAR is 1970 (Buddhist 2513)
     int32_t year;
     if (newerField(UCAL_EXTENDED_YEAR, UCAL_YEAR) == UCAL_EXTENDED_YEAR) {
-        year = internalGet(UCAL_EXTENDED_YEAR, kGregorianEpoch);
+        year = internalGet(UCAL_EXTENDED_YEAR, buddhcal_kGregorianEpoch);
     } else {
         // extended year is a gregorian year, where 1 = 1AD,  0 = 1BC, -1 = 2BC, etc
-        year = internalGet(UCAL_YEAR, kGregorianEpoch - kBuddhistEraStart)
+        year = internalGet(UCAL_YEAR, buddhcal_kGregorianEpoch - kBuddhistEraStart)
                 + kBuddhistEraStart;
     }
     return year;

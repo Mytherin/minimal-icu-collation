@@ -58,7 +58,7 @@ U_NAMESPACE_BEGIN
 
 UOBJECT_DEFINE_RTTI_IMPLEMENTATION(JapaneseCalendar)
 
-static const int32_t kGregorianEpoch = 1970;    // used as the default value of EXTENDED_YEAR
+static const int32_t japancal_kGregorianEpoch = 1970;    // used as the default value of EXTENDED_YEAR
 static const char* TENTATIVE_ERA_VAR_NAME = "ICU_ENABLE_TENTATIVE_ERA";
 
 
@@ -146,7 +146,7 @@ const char *JapaneseCalendar::getType() const
     return "japanese";
 }
 
-int32_t JapaneseCalendar::getDefaultMonthInYear(int32_t eyear) 
+int32_t JapaneseCalendar::getDefaultMonthInYear(int32_t eyear)
 {
     int32_t era = internalGetEra();
     // TODO do we assume we can trust 'era'?  What if it is denormalized?
@@ -167,7 +167,7 @@ int32_t JapaneseCalendar::getDefaultMonthInYear(int32_t eyear)
     return month;
 }
 
-int32_t JapaneseCalendar::getDefaultDayInMonth(int32_t eyear, int32_t month) 
+int32_t JapaneseCalendar::getDefaultDayInMonth(int32_t eyear, int32_t month)
 {
     int32_t era = internalGetEra();
     int32_t day = 1;
@@ -199,7 +199,7 @@ int32_t JapaneseCalendar::handleGetExtendedYear()
 
     if (newerField(UCAL_EXTENDED_YEAR, UCAL_YEAR) == UCAL_EXTENDED_YEAR &&
         newerField(UCAL_EXTENDED_YEAR, UCAL_ERA) == UCAL_EXTENDED_YEAR) {
-        year = internalGet(UCAL_EXTENDED_YEAR, kGregorianEpoch);
+        year = internalGet(UCAL_EXTENDED_YEAR, japancal_kGregorianEpoch);
     } else {
         UErrorCode status = U_ZERO_ERROR;
         int32_t eraStartYear = gJapaneseEraRules->getStartYear(internalGet(UCAL_ERA, gCurrentEra), status);
@@ -226,7 +226,7 @@ void JapaneseCalendar::handleComputeFields(int32_t julianDay, UErrorCode& status
 }
 
 /*
-Disable pivoting 
+Disable pivoting
 */
 UBool JapaneseCalendar::haveDefaultCentury() const
 {

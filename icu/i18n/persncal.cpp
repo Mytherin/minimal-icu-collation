@@ -257,7 +257,7 @@ UBool PersianCalendar::haveDefaultCentury() const
     return TRUE;
 }
 
-static void U_CALLCONV initializeSystemDefaultCentury() {
+static void U_CALLCONV persncal_initializeSystemDefaultCentury() {
     // initialize systemDefaultCentury and systemDefaultCenturyYear based
     // on the current time.  They'll be set to 80 years before
     // the current time.
@@ -277,13 +277,13 @@ static void U_CALLCONV initializeSystemDefaultCentury() {
 
 UDate PersianCalendar::defaultCenturyStart() const {
     // lazy-evaluate systemDefaultCenturyStart
-    umtx_initOnce(persncal_gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
+    umtx_initOnce(persncal_gSystemDefaultCenturyInit, &persncal_initializeSystemDefaultCentury);
     return persncal_gSystemDefaultCenturyStart;
 }
 
 int32_t PersianCalendar::defaultCenturyStartYear() const {
     // lazy-evaluate systemDefaultCenturyStartYear
-    umtx_initOnce(persncal_gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
+    umtx_initOnce(persncal_gSystemDefaultCenturyInit, &persncal_initializeSystemDefaultCentury);
     return persncal_gSystemDefaultCenturyStartYear;
 }
 

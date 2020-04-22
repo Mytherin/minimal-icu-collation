@@ -145,7 +145,7 @@ static UDate           gethpccal_gSystemDefaultCenturyStart       = DBL_MIN;
 static int32_t         gethpccal_gSystemDefaultCenturyStartYear   = -1;
 static icu::UInitOnce  gethpccal_gSystemDefaultCenturyInit        = U_INITONCE_INITIALIZER;
 
-static void U_CALLCONV initializeSystemDefaultCentury()
+static void U_CALLCONV ethpccal_initializeSystemDefaultCentury()
 {
     UErrorCode status = U_ZERO_ERROR;
     EthiopicCalendar calendar(Locale("@calendar=ethiopic"), status);
@@ -164,7 +164,7 @@ UDate
 EthiopicCalendar::defaultCenturyStart() const
 {
     // lazy-evaluate systemDefaultCenturyStart
-    umtx_initOnce(gethpccal_gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
+    umtx_initOnce(gethpccal_gSystemDefaultCenturyInit, &ethpccal_initializeSystemDefaultCentury);
     return gethpccal_gSystemDefaultCenturyStart;
 }
 
@@ -172,7 +172,7 @@ int32_t
 EthiopicCalendar::defaultCenturyStartYear() const
 {
     // lazy-evaluate systemDefaultCenturyStartYear
-    umtx_initOnce(gethpccal_gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
+    umtx_initOnce(gethpccal_gSystemDefaultCenturyInit, &ethpccal_initializeSystemDefaultCentury);
     if (isAmeteAlemEra()) {
         return gethpccal_gSystemDefaultCenturyStartYear + AMETE_MIHRET_DELTA;
     }

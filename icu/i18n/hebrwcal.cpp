@@ -134,12 +134,12 @@ static const int16_t  LEAP_MONTH_START[][3] = {
     {  383,        384,        385  },          // Elul
 };
 
-static icu::CalendarCache *gCache =  NULL;
+static icu::CalendarCache *hebrwcal_gCache =  NULL;
 
 U_CDECL_BEGIN
 static UBool calendar_hebrew_cleanup(void) {
-    delete gCache;
-    gCache = NULL;
+    delete hebrwcal_gCache;
+    hebrwcal_gCache = NULL;
     return TRUE;
 }
 U_CDECL_END
@@ -390,7 +390,7 @@ static const int32_t BAHARAD = 11*HOUR_PARTS + 204;
 int32_t HebrewCalendar::startOfYear(int32_t year, UErrorCode &status)
 {
     ucln_i18n_registerCleanup(UCLN_I18N_HEBREW_CALENDAR, calendar_hebrew_cleanup);
-    int32_t day = CalendarCache::get(&gCache, year, status);
+    int32_t day = CalendarCache::get(&hebrwcal_gCache, year, status);
 
     if (day == 0) {
         int32_t months = (235 * year - 234) / 19;           // # of months before year
@@ -418,7 +418,7 @@ int32_t HebrewCalendar::startOfYear(int32_t year, UErrorCode &status)
             // Prevents 382-day years.
             day += 1;
         }
-        CalendarCache::put(&gCache, year, day, status);
+        CalendarCache::put(&hebrwcal_gCache, year, day, status);
     }
     return day;
 }
@@ -692,7 +692,7 @@ UBool HebrewCalendar::haveDefaultCentury() const
     return TRUE;
 }
 
-static void U_CALLCONV initializeSystemDefaultCentury()
+static void U_CALLCONV hebrwcal_initializeSystemDefaultCentury()
 {
     // initialize systemDefaultCentury and systemDefaultCenturyYear based
     // on the current time.  They'll be set to 80 years before
@@ -713,13 +713,13 @@ static void U_CALLCONV initializeSystemDefaultCentury()
 
 UDate HebrewCalendar::defaultCenturyStart() const {
     // lazy-evaluate systemDefaultCenturyStart
-    umtx_initOnce(hebrwcal_gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
+    umtx_initOnce(hebrwcal_gSystemDefaultCenturyInit, &hebrwcal_initializeSystemDefaultCentury);
     return hebrwcal_gSystemDefaultCenturyStart;
 }
 
 int32_t HebrewCalendar::defaultCenturyStartYear() const {
     // lazy-evaluate systemDefaultCenturyStartYear
-    umtx_initOnce(hebrwcal_gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
+    umtx_initOnce(hebrwcal_gSystemDefaultCenturyInit, &hebrwcal_initializeSystemDefaultCentury);
     return hebrwcal_gSystemDefaultCenturyStartYear;
 }
 

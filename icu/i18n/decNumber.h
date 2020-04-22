@@ -37,9 +37,9 @@
   #define DECFULLNAME "Decimal Number Module"         /* Verbose name */
   #define DECAUTHOR   "Mike Cowlishaw"                /* Who to blame */
 
-  #if !defined(DECCONTEXT)
-    #include "decContext.h"
-  #endif
+#if !defined(DECCONTEXT)
+#include "decContext.h"
+#endif
 
   /* Bit settings for decNumber.bits                                  */
   #define DECNEG    0x80      /* Sign; 1=negative, 0=positive or zero */

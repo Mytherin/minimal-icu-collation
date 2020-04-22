@@ -33,7 +33,7 @@ U_NAMESPACE_BEGIN
 namespace {
 
 static const CollationCacheEntry *rootSingleton = NULL;
-static UInitOnce initOnce = U_INITONCE_INITIALIZER;
+static UInitOnce collationroot_initOnce = U_INITONCE_INITIALIZER;
 
 }  // namespace
 
@@ -41,7 +41,7 @@ U_CDECL_BEGIN
 
 static UBool U_CALLCONV uprv_collation_root_cleanup() {
     SharedObject::clearPtr(rootSingleton);
-    initOnce.reset();
+    collationroot_initOnce.reset();
     return TRUE;
 }
 
@@ -73,14 +73,14 @@ CollationRoot::load(UErrorCode &errorCode) {
 
 const CollationCacheEntry *
 CollationRoot::getRootCacheEntry(UErrorCode &errorCode) {
-    umtx_initOnce(initOnce, CollationRoot::load, errorCode);
+    umtx_initOnce(collationroot_initOnce, CollationRoot::load, errorCode);
     if(U_FAILURE(errorCode)) { return NULL; }
     return rootSingleton;
 }
 
 const CollationTailoring *
 CollationRoot::getRoot(UErrorCode &errorCode) {
-    umtx_initOnce(initOnce, CollationRoot::load, errorCode);
+    umtx_initOnce(collationroot_initOnce, CollationRoot::load, errorCode);
     if(U_FAILURE(errorCode)) { return NULL; }
     return rootSingleton->tailoring;
 }

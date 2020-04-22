@@ -454,7 +454,7 @@ DateTimePatternGenerator::~DateTimePatternGenerator() {
 
 namespace {
 
-UInitOnce initOnce = U_INITONCE_INITIALIZER;
+UInitOnce dtptngen_initOnce = U_INITONCE_INITIALIZER;
 UHashtable *localeToAllowedHourFormatsMap = nullptr;
 
 // Value deleter for hashmap.
@@ -496,7 +496,7 @@ DateTimePatternGenerator::initData(const Locale& locale, UErrorCode &status) {
     addCLDRData(locale, status);
     setDateTimeFromCalendar(locale, status);
     setDecimalSymbols(locale, status);
-    umtx_initOnce(initOnce, loadAllowedHourFormatsData, status);
+    umtx_initOnce(dtptngen_initOnce, loadAllowedHourFormatsData, status);
     getAllowedHourFormats(locale, status);
     // If any of the above methods failed then the object is in an invalid state.
     internalErrorCode = status;
@@ -611,7 +611,7 @@ U_CFUNC void U_CALLCONV DateTimePatternGenerator::loadAllowedHourFormatsData(UEr
     // into the hashmap, store 6 single-value sub-arrays right at the beginning of the
     // vector (at index enum*2) for easy data sharing, copy sub-arrays into runtime
     // object. Remember to clean up the vector, too.
-    ures_getAllItemsWithFallback(rb.getAlias(), "timeData", sink, status);    
+    ures_getAllItemsWithFallback(rb.getAlias(), "timeData", sink, status);
 }
 
 static int32_t* getAllowedHourFormatsLangCountry(const char* language, const char* country, UErrorCode& status) {
@@ -2674,7 +2674,7 @@ DTSkeletonEnumeration::DTSkeletonEnumeration(PatternMap& patternMap, dtStrEnum t
             }
             if ( !isCanonicalItem(s) ) {
                 LocalPointer<UnicodeString> newElem(new UnicodeString(s), status);
-                if (U_FAILURE(status)) { 
+                if (U_FAILURE(status)) {
                     return;
                 }
                 fSkeletons->addElement(newElem.getAlias(), status);
@@ -2797,7 +2797,7 @@ DTRedundantEnumeration::~DTRedundantEnumeration() {
                 delete s;
             }
         }
-    }    
+    }
 }
 
 U_NAMESPACE_END
