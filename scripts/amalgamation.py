@@ -16,7 +16,8 @@ compile_directories = include_paths + [os.path.join(src_dir, 'stubdata')]
 # files that are ignored
 ignored_includes = ['uconfig_local.h', 'ucln_local_hook.c', 'stdio.h']
 headers_without_include_guards = [os.path.join(*x.split('/')) for x in ['icu/common/bytesinkutil.h', 'icu/common/norm2_nfc_data.h', 'icu/common/propname_data.h', 'icu/common/ubidi_props_data.h', 'icu/common/ucase_props_data.h', 'icu/common/uchar_props_data.h', 'icu/common/unicode/urename.h', 'icu/common/unicode/brkiter.h', 'icu/common/unicode/ubrk.h', 'icu/i18n/unicode/ureldatefmt.h', 'icu/i18n/unicode/search.h', 'icu/i18n/unicode/stsearch.h', 'icu/i18n/brktrans.h', 'icu/i18n/unicode/usearch.h', 'icu/common/locutil.h', 'icu/common/unicode/ucnv_err.h', 'icu/common/ucnv_io.h', 'icu/common/ustr_cnv.h']]
-
+# these files are included after all other files because they include windows.h, which has a number of nasty defines that mess up a lot of code
+final_included_files = ['icu/common/locmap.cpp', 'icu/common/putil.cpp', 'icu/common/umapfile.cpp', 'icu/common/wintz.cpp', 'icu/i18n/japancal.cpp', 'icu/i18n/windtfmt.cpp', 'icu/i18n/winnmfmt.cpp', 'icu/i18n/wintzimpl.cpp']
 
 linenumbers = False
 
@@ -125,6 +126,8 @@ def write_dir(dir, sfile):
         if os.path.isdir(fpath):
             write_dir(fpath, sfile)
         elif fname.endswith('.cpp') or fname.endswith('.c') or fname.endswith('.cc'):
+            if fpath in final_included_files:
+                continue
             sfile.write(write_file(fpath))
 
 
@@ -187,3 +190,6 @@ with open(source_file, 'w+') as sfile:
     sfile.write('#include "' + header_file_name + '"\n\n')
     for compile_dir in compile_directories:
         write_dir(compile_dir, sfile)
+    for fname in final_included_files:
+        sfile.write(write_file(fname))
+
