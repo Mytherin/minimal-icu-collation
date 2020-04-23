@@ -1722,7 +1722,7 @@ void UnicodeSet::setToBogus() {
 // Implementation: Fundamental operators
 //----------------------------------------------------------------
 
-static inline UChar32 max(UChar32 a, UChar32 b) {
+static inline UChar32 unichar_max(UChar32 a, UChar32 b) {
     return (a > b) ? a : b;
 }
 
@@ -1797,7 +1797,7 @@ void UnicodeSet::add(const UChar32* other, int32_t otherLen, int8_t polarity) {
                 // Back up over overlapping ranges in buffer[]
                 if (k > 0 && a <= buffer[k-1]) {
                     // Pick latter end value in buffer[] vs. list[]
-                    a = max(list[i], buffer[--k]);
+                    a = unichar_max(list[i], buffer[--k]);
                 } else {
                     // No overlap
                     buffer[k++] = a;
@@ -1807,7 +1807,7 @@ void UnicodeSet::add(const UChar32* other, int32_t otherLen, int8_t polarity) {
                 polarity ^= 1;
             } else if (b < a) { // take b
                 if (k > 0 && b <= buffer[k-1]) {
-                    b = max(other[j], buffer[--k]);
+                    b = unichar_max(other[j], buffer[--k]);
                 } else {
                     buffer[k++] = b;
                     b = other[j];
@@ -1819,7 +1819,7 @@ void UnicodeSet::add(const UChar32* other, int32_t otherLen, int8_t polarity) {
                 // This is symmetrical; it doesn't matter if
                 // we backtrack with a or b. - liu
                 if (k > 0 && a <= buffer[k-1]) {
-                    a = max(list[i], buffer[--k]);
+                    a = unichar_max(list[i], buffer[--k]);
                 } else {
                     // No overlap
                     buffer[k++] = a;

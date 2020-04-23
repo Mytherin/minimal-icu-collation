@@ -1337,9 +1337,9 @@ cleanupVtzlines:
 }
 
 // parser state
-#define INI 0   // Initial state
-#define VTZ 1   // In VTIMEZONE
-#define TZI 2   // In STANDARD or DAYLIGHT
+#define vtzone_INI 0   // Initial state
+#define vtzone_VTZ 1   // In VTIMEZONE
+#define vtzone_TZI 2   // In STANDARD or DAYLIGHT
 
 #define DEF_DSTSAVINGS (60*60*1000)
 #define DEF_TZSTARTTIME (0.0)
@@ -1359,7 +1359,7 @@ VTimeZone::parse(UErrorCode& status) {
     // timezone ID
     UnicodeString tzid;
 
-    int32_t state = INI;
+    int32_t state = vtzone_INI;
     int32_t n = 0;
     UBool dst = FALSE;      // current zone type
     UnicodeString from;     // current zone from offset
@@ -1405,14 +1405,14 @@ VTimeZone::parse(UErrorCode& status) {
         value.setTo(*line, valueSep + 1);
 
         switch (state) {
-        case INI:
+        case vtzone_INI:
             if (name.compare(ICAL_BEGIN, -1) == 0
                 && value.compare(ICAL_VTIMEZONE, -1) == 0) {
-                state = VTZ;
+                state = vtzone_VTZ;
             }
             break;
 
-        case VTZ:
+        case vtzone_VTZ:
             if (name.compare(ICAL_TZID, -1) == 0) {
                 tzid = value;
             } else if (name.compare(ICAL_TZURL, -1) == 0) {
@@ -1440,7 +1440,7 @@ VTimeZone::parse(UErrorCode& status) {
                     to.remove();
                     zonename.remove();
                     dst = isDST;
-                    state = TZI;
+                    state = vtzone_TZI;
                 } else {
                     // BEGIN property other than STANDARD/DAYLIGHT
                     // must not be there.
@@ -1450,7 +1450,7 @@ VTimeZone::parse(UErrorCode& status) {
                 break;
             }
             break;
-        case TZI:
+        case vtzone_TZI:
             if (name.compare(ICAL_DTSTART, -1) == 0) {
                 dtstart = value;
             } else if (name.compare(ICAL_TZNAME, -1) == 0) {
@@ -1574,7 +1574,7 @@ VTimeZone::parse(UErrorCode& status) {
                 if (U_FAILURE(status)) {
                     goto cleanupParse;
                 }
-                state = VTZ;
+                state = vtzone_VTZ;
             }
             break;
         }

@@ -268,8 +268,8 @@ int32_t UnifiedCache::_computeCountOfItemsToEvict() const {
     int32_t evictableItems = totalItems - fNumValuesInUse;
 
     int32_t unusedLimitByPercentage = fNumValuesInUse * fMaxPercentageOfInUse / 100;
-    int32_t unusedLimit = std::max(unusedLimitByPercentage, fMaxUnused);
-    int32_t countOfItemsToEvict = std::max(0, evictableItems - unusedLimit);
+    int32_t unusedLimit = unusedLimitByPercentage > fMaxUnused ? unusedLimitByPercentage : fMaxUnused;
+    int32_t countOfItemsToEvict = evictableItems > unusedLimit ? evictableItems - unusedLimit : 0;
     return countOfItemsToEvict;
 }
 
