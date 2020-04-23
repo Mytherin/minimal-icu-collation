@@ -355,13 +355,13 @@ private:
 };
 
 #ifdef RBNF_DEBUG
-#define ERROR(msg) UPRV_BLOCK_MACRO_BEGIN { \
+#define rbnf_ERROR(msg) UPRV_BLOCK_MACRO_BEGIN { \
     parseError(msg); \
     return NULL; \
 } UPRV_BLOCK_MACRO_END
 #define EXPLANATION_ARG explanationArg
 #else
-#define ERROR(msg) UPRV_BLOCK_MACRO_BEGIN { \
+#define rbnf_ERROR(msg) UPRV_BLOCK_MACRO_BEGIN { \
     parseError(NULL); \
     return NULL; \
 } UPRV_BLOCK_MACRO_END
@@ -422,7 +422,7 @@ StringLocalizationInfo*
 LocDataParser::doParse(void) {
     skipWhitespace();
     if (!checkInc(rbnf_OPEN_ANGLE)) {
-        ERROR("Missing open angle");
+        rbnf_ERROR("Missing open angle");
     } else {
         VArray array(DeleteFn);
         UBool mightHaveNext = TRUE;
@@ -439,22 +439,22 @@ LocDataParser::doParse(void) {
                     mightHaveNext = TRUE;
                 }
             } else if (haveComma) {
-                ERROR("Unexpected character");
+                rbnf_ERROR("Unexpected character");
             }
         }
 
         skipWhitespace();
         if (!checkInc(rbnf_CLOSE_ANGLE)) {
             if (check(rbnf_OPEN_ANGLE)) {
-                ERROR("Missing comma in outer array");
+                rbnf_ERROR("Missing comma in outer array");
             } else {
-                ERROR("Missing close angle bracket in outer array");
+                rbnf_ERROR("Missing close angle bracket in outer array");
             }
         }
 
         skipWhitespace();
         if (p != e) {
-            ERROR("Extra text after close of localization data");
+            rbnf_ERROR("Extra text after close of localization data");
         }
 
         array.add(NULL, ec);
@@ -466,7 +466,7 @@ LocDataParser::doParse(void) {
         }
     }
 
-    ERROR("Unknown error");
+    rbnf_ERROR("Unknown error");
 }
 
 UChar**
@@ -477,7 +477,7 @@ LocDataParser::nextArray(int32_t& requiredLength) {
 
     skipWhitespace();
     if (!checkInc(rbnf_OPEN_ANGLE)) {
-        ERROR("Missing open angle");
+        rbnf_ERROR("Missing open angle");
     }
 
     VArray array;
@@ -494,15 +494,15 @@ LocDataParser::nextArray(int32_t& requiredLength) {
                 mightHaveNext = TRUE;
             }
         } else if (haveComma) {
-            ERROR("Unexpected comma");
+            rbnf_ERROR("Unexpected comma");
         }
     }
     skipWhitespace();
     if (!checkInc(rbnf_CLOSE_ANGLE)) {
         if (check(rbnf_OPEN_ANGLE)) {
-            ERROR("Missing close angle bracket in inner array");
+            rbnf_ERROR("Missing close angle bracket in inner array");
         } else {
-            ERROR("Missing comma in inner array");
+            rbnf_ERROR("Missing comma in inner array");
         }
     }
 
@@ -512,12 +512,12 @@ LocDataParser::nextArray(int32_t& requiredLength) {
             requiredLength = array.length() + 1;
         } else if (array.length() != requiredLength) {
             ec = U_ILLEGAL_ARGUMENT_ERROR;
-            ERROR("Array not of required length");
+            rbnf_ERROR("Array not of required length");
         }
 
         return (UChar**)array.release();
     }
-    ERROR("Unknown Error");
+    rbnf_ERROR("Unknown Error");
 }
 
 UChar*
@@ -538,7 +538,7 @@ LocDataParser::nextString() {
         UChar* start = p;
         while (p < e && !inList(*p, terminators)) ++p;
         if (p == e) {
-            ERROR("Unexpected end of data");
+            rbnf_ERROR("Unexpected end of data");
         }
 
         UChar x = *p;
@@ -549,13 +549,13 @@ LocDataParser::nextString() {
         }
         if (haveQuote) {
             if (x != c) {
-                ERROR("Missing matching quote");
+                rbnf_ERROR("Missing matching quote");
             } else if (p == start) {
-                ERROR("Empty string");
+                rbnf_ERROR("Empty string");
             }
             inc();
         } else if (x == rbnf_OPEN_ANGLE || x == rbnf_TICK || x == rbnf_QUOTE) {
-            ERROR("Unexpected character in string");
+            rbnf_ERROR("Unexpected character in string");
         }
     }
 

@@ -52,7 +52,7 @@ UOBJECT_DEFINE_RTTI_IMPLEMENTATION(Win32DateFormat)
 #define NEW_ARRAY(type,count) (type *) uprv_malloc((count) * sizeof(type))
 #define DELETE_ARRAY(array) uprv_free((void *) (array))
 
-#define STACK_BUFFER_SIZE 64
+#define windtfmt_STACK_BUFFER_SIZE 64
 
 UnicodeString* Win32DateFormat::getTimeDateFormat(const Calendar *cal, const Locale *locale, UErrorCode &status) const
 {
@@ -307,7 +307,7 @@ static const DWORD dfFlags[] = {DATE_LONGDATE, DATE_LONGDATE, DATE_SHORTDATE, DA
 void Win32DateFormat::formatDate(const SYSTEMTIME *st, UnicodeString &appendTo) const
 {
     int result=0;
-    wchar_t stackBuffer[STACK_BUFFER_SIZE];
+    wchar_t stackBuffer[windtfmt_STACK_BUFFER_SIZE];
     wchar_t *buffer = stackBuffer;
     const wchar_t *localeName = nullptr;
 
@@ -316,7 +316,7 @@ void Win32DateFormat::formatDate(const SYSTEMTIME *st, UnicodeString &appendTo) 
         localeName = reinterpret_cast<const wchar_t*>(toOldUCharPtr(fWindowsLocaleName->getTerminatedBuffer()));
     }
 
-    result = GetDateFormatEx(localeName, dfFlags[fDateStyle - kDateOffset], st, NULL, buffer, STACK_BUFFER_SIZE, NULL);
+    result = GetDateFormatEx(localeName, dfFlags[fDateStyle - kDateOffset], st, NULL, buffer, windtfmt_STACK_BUFFER_SIZE, NULL);
 
     if (result == 0) {
         if (GetLastError() == ERROR_INSUFFICIENT_BUFFER) {
@@ -340,7 +340,7 @@ static const DWORD tfFlags[] = {0, 0, 0, TIME_NOSECONDS};
 void Win32DateFormat::formatTime(const SYSTEMTIME *st, UnicodeString &appendTo) const
 {
     int result;
-    wchar_t stackBuffer[STACK_BUFFER_SIZE];
+    wchar_t stackBuffer[windtfmt_STACK_BUFFER_SIZE];
     wchar_t *buffer = stackBuffer;
     const wchar_t *localeName = nullptr;
 
@@ -349,7 +349,7 @@ void Win32DateFormat::formatTime(const SYSTEMTIME *st, UnicodeString &appendTo) 
         localeName = reinterpret_cast<const wchar_t*>(toOldUCharPtr(fWindowsLocaleName->getTerminatedBuffer()));
     }
 
-    result = GetTimeFormatEx(localeName, tfFlags[fTimeStyle], st, NULL, buffer, STACK_BUFFER_SIZE);
+    result = GetTimeFormatEx(localeName, tfFlags[fTimeStyle], st, NULL, buffer, windtfmt_STACK_BUFFER_SIZE);
 
     if (result == 0) {
         if (GetLastError() == ERROR_INSUFFICIENT_BUFFER) {

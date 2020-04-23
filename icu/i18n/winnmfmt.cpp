@@ -52,7 +52,7 @@ UOBJECT_DEFINE_RTTI_IMPLEMENTATION(Win32NumberFormat)
 #define NEW_ARRAY(type,count) (type *) uprv_malloc((count) * sizeof(type))
 #define DELETE_ARRAY(array) uprv_free((void *) (array))
 
-#define STACK_BUFFER_SIZE 32
+#define winnmfmt_STACK_BUFFER_SIZE 32
 
 /*
  * Turns a string of the form "3;2;0" into the grouping UINT
@@ -336,7 +336,7 @@ void Win32NumberFormat::setMinimumFractionDigits(int32_t newValue)
 
 UnicodeString &Win32NumberFormat::format(int32_t numDigits, UnicodeString &appendTo, const wchar_t *fmt, ...) const
 {
-    wchar_t nStackBuffer[STACK_BUFFER_SIZE];
+    wchar_t nStackBuffer[winnmfmt_STACK_BUFFER_SIZE];
     wchar_t *nBuffer = nStackBuffer;
     va_list args;
     int result;
@@ -346,7 +346,7 @@ UnicodeString &Win32NumberFormat::format(int32_t numDigits, UnicodeString &appen
     /* Due to the arguments causing a result to be <= 23 characters (+2 for NULL and minus),
     we don't need to reallocate the buffer. */
     va_start(args, fmt);
-    result = _vsnwprintf(nBuffer, STACK_BUFFER_SIZE, fmt, args);
+    result = _vsnwprintf(nBuffer, winnmfmt_STACK_BUFFER_SIZE, fmt, args);
     va_end(args);
 
     /* Just to make sure of the above statement, we add this assert */
@@ -382,7 +382,7 @@ UnicodeString &Win32NumberFormat::format(int32_t numDigits, UnicodeString &appen
         }
     }
 
-    wchar_t stackBuffer[STACK_BUFFER_SIZE];
+    wchar_t stackBuffer[winnmfmt_STACK_BUFFER_SIZE];
     wchar_t *buffer = stackBuffer;
     FormatInfo formatInfo;
 
@@ -405,7 +405,7 @@ UnicodeString &Win32NumberFormat::format(int32_t numDigits, UnicodeString &appen
             formatInfo.currency.Grouping = 0;
         }
 
-        result = GetCurrencyFormatEx(localeName, 0, nBuffer, &formatInfo.currency, buffer, STACK_BUFFER_SIZE);
+        result = GetCurrencyFormatEx(localeName, 0, nBuffer, &formatInfo.currency, buffer, winnmfmt_STACK_BUFFER_SIZE);
 
         if (result == 0) {
             DWORD lastError = GetLastError();
@@ -427,7 +427,7 @@ UnicodeString &Win32NumberFormat::format(int32_t numDigits, UnicodeString &appen
             formatInfo.number.Grouping = 0;
         }
 
-        result = GetNumberFormatEx(localeName, 0, nBuffer, &formatInfo.number, buffer, STACK_BUFFER_SIZE);
+        result = GetNumberFormatEx(localeName, 0, nBuffer, &formatInfo.number, buffer, winnmfmt_STACK_BUFFER_SIZE);
 
         if (result == 0) {
             if (GetLastError() == ERROR_INSUFFICIENT_BUFFER) {
