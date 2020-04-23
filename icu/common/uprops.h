@@ -311,72 +311,72 @@ U_CFUNC UBool
 u_isprintPOSIX(UChar32 c);
 
 /** Turn a bit index into a bit flag. @internal */
-#define FLAG(n) ((uint32_t)1<<(n))
+#define UPROPS_FLAG(n) ((uint32_t)1<<(n))
 
 /** Flags for general categories in the order of UCharCategory. @internal */
-#define _Cn     FLAG(U_GENERAL_OTHER_TYPES)
-#define _Lu     FLAG(U_UPPERCASE_LETTER)
-#define _Ll     FLAG(U_LOWERCASE_LETTER)
-#define _Lt     FLAG(U_TITLECASE_LETTER)
-#define _Lm     FLAG(U_MODIFIER_LETTER)
-/* #define _Lo     FLAG(U_OTHER_LETTER) -- conflicts with MS Visual Studio 9.0 xiosbase */
-#define _Mn     FLAG(U_NON_SPACING_MARK)
-#define _Me     FLAG(U_ENCLOSING_MARK)
-#define _Mc     FLAG(U_COMBINING_SPACING_MARK)
-#define _Nd     FLAG(U_DECIMAL_DIGIT_NUMBER)
-#define _Nl     FLAG(U_LETTER_NUMBER)
-#define _No     FLAG(U_OTHER_NUMBER)
-#define _Zs     FLAG(U_SPACE_SEPARATOR)
-#define _Zl     FLAG(U_LINE_SEPARATOR)
-#define _Zp     FLAG(U_PARAGRAPH_SEPARATOR)
-#define _Cc     FLAG(U_CONTROL_CHAR)
-#define _Cf     FLAG(U_FORMAT_CHAR)
-#define _Co     FLAG(U_PRIVATE_USE_CHAR)
-#define _Cs     FLAG(U_SURROGATE)
-#define _Pd     FLAG(U_DASH_PUNCTUATION)
-#define _Ps     FLAG(U_START_PUNCTUATION)
-/* #define _Pe     FLAG(U_END_PUNCTUATION) -- conflicts with MS Visual Studio 9.0 xlocnum */
-/* #define _Pc     FLAG(U_CONNECTOR_PUNCTUATION) -- conflicts with MS Visual Studio 9.0 streambuf */
-#define _Po     FLAG(U_OTHER_PUNCTUATION)
-#define _Sm     FLAG(U_MATH_SYMBOL)
-#define _Sc     FLAG(U_CURRENCY_SYMBOL)
-#define _Sk     FLAG(U_MODIFIER_SYMBOL)
-#define _So     FLAG(U_OTHER_SYMBOL)
-#define _Pi     FLAG(U_INITIAL_PUNCTUATION)
-/* #define _Pf     FLAG(U_FINAL_PUNCTUATION) -- conflicts with MS Visual Studio 9.0 streambuf */
+#define _Cn     UPROPS_FLAG(U_GENERAL_OTHER_TYPES)
+#define _Lu     UPROPS_FLAG(U_UPPERCASE_LETTER)
+#define _Ll     UPROPS_FLAG(U_LOWERCASE_LETTER)
+#define _Lt     UPROPS_FLAG(U_TITLECASE_LETTER)
+#define _Lm     UPROPS_FLAG(U_MODIFIER_LETTER)
+/* #define _Lo     UPROPS_FLAG(U_OTHER_LETTER) -- conflicts with MS Visual Studio 9.0 xiosbase */
+#define _Mn     UPROPS_FLAG(U_NON_SPACING_MARK)
+#define _Me     UPROPS_FLAG(U_ENCLOSING_MARK)
+#define _Mc     UPROPS_FLAG(U_COMBINING_SPACING_MARK)
+#define _Nd     UPROPS_FLAG(U_DECIMAL_DIGIT_NUMBER)
+#define _Nl     UPROPS_FLAG(U_LETTER_NUMBER)
+#define _No     UPROPS_FLAG(U_OTHER_NUMBER)
+#define _Zs     UPROPS_FLAG(U_SPACE_SEPARATOR)
+#define _Zl     UPROPS_FLAG(U_LINE_SEPARATOR)
+#define _Zp     UPROPS_FLAG(U_PARAGRAPH_SEPARATOR)
+#define _Cc     UPROPS_FLAG(U_CONTROL_CHAR)
+#define _Cf     UPROPS_FLAG(U_FORMAT_CHAR)
+#define _Co     UPROPS_FLAG(U_PRIVATE_USE_CHAR)
+#define _Cs     UPROPS_FLAG(U_SURROGATE)
+#define _Pd     UPROPS_FLAG(U_DASH_PUNCTUATION)
+#define _Ps     UPROPS_FLAG(U_START_PUNCTUATION)
+/* #define _Pe     UPROPS_FLAG(U_END_PUNCTUATION) -- conflicts with MS Visual Studio 9.0 xlocnum */
+/* #define _Pc     UPROPS_FLAG(U_CONNECTOR_PUNCTUATION) -- conflicts with MS Visual Studio 9.0 streambuf */
+#define _Po     UPROPS_FLAG(U_OTHER_PUNCTUATION)
+#define _Sm     UPROPS_FLAG(U_MATH_SYMBOL)
+#define _Sc     UPROPS_FLAG(U_CURRENCY_SYMBOL)
+#define _Sk     UPROPS_FLAG(U_MODIFIER_SYMBOL)
+#define _So     UPROPS_FLAG(U_OTHER_SYMBOL)
+#define _Pi     UPROPS_FLAG(U_INITIAL_PUNCTUATION)
+/* #define _Pf     UPROPS_FLAG(U_FINAL_PUNCTUATION) -- conflicts with MS Visual Studio 9.0 streambuf */
 
 /** Some code points. @internal */
 enum {
-    TAB     =0x0009,
-    LF      =0x000a,
-    FF      =0x000c,
-    CR      =0x000d,
-    U_A     =0x0041,
-    U_F     =0x0046,
-    U_Z     =0x005a,
-    U_a     =0x0061,
-    U_f     =0x0066,
-    U_z     =0x007a,
-    DEL     =0x007f,
-    NL      =0x0085,
-    NBSP    =0x00a0,
-    CGJ     =0x034f,
-    FIGURESP=0x2007,
-    HAIRSP  =0x200a,
-    ZWNJ    =0x200c,
-    ZWJ     =0x200d,
-    RLM     =0x200f,
-    NNBSP   =0x202f,
-    WJ      =0x2060,
-    INHSWAP =0x206a,
-    NOMDIG  =0x206f,
-    U_FW_A  =0xff21,
-    U_FW_F  =0xff26,
-    U_FW_Z  =0xff3a,
-    U_FW_a  =0xff41,
-    U_FW_f  =0xff46,
-    U_FW_z  =0xff5a,
-    ZWNBSP  =0xfeff
+    uprops_TAB     =0x0009,
+    uprops_LF      =0x000a,
+    uprops_FF      =0x000c,
+    uprops_CR      =0x000d,
+    uprops_U_A     =0x0041,
+    uprops_U_F     =0x0046,
+    uprops_U_Z     =0x005a,
+    uprops_U_a     =0x0061,
+    uprops_U_f     =0x0066,
+    uprops_U_z     =0x007a,
+    uprops_DEL     =0x007f,
+    uprops_NL      =0x0085,
+    uprops_NBSP    =0x00a0,
+    uprops_CGJ     =0x034f,
+    uprops_FIGURESP=0x2007,
+    uprops_HAIRSP  =0x200a,
+    uprops_ZWNJ    =0x200c,
+    uprops_ZWJ     =0x200d,
+    uprops_RLM     =0x200f,
+    uprops_NNBSP   =0x202f,
+    uprops_WJ      =0x2060,
+    uprops_INHSWAP =0x206a,
+    uprops_NOMDIG  =0x206f,
+    uprops_U_FW_A  =0xff21,
+    uprops_U_FW_F  =0xff26,
+    uprops_U_FW_Z  =0xff3a,
+    uprops_U_FW_a  =0xff41,
+    uprops_U_FW_f  =0xff46,
+    uprops_U_FW_z  =0xff5a,
+    uprops_ZWNBSP  =0xfeff
 };
 
 /**

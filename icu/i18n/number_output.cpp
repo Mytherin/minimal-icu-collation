@@ -31,7 +31,7 @@ void FormattedNumber::getAllFieldPositions(FieldPositionIterator& iterator, UErr
 
 void FormattedNumber::toDecimalNumber(ByteSink& sink, UErrorCode& status) const {
     UPRV_FORMATTED_VALUE_METHOD_GUARD(UPRV_NOARG)
-    impl::DecNum decnum;
+    number::impl::DecNum decnum;
     fData->quantity.toDecNum(decnum, status);
     decnum.toString(sink, status);
 }
@@ -42,7 +42,7 @@ void FormattedNumber::getAllFieldPositionsImpl(FieldPositionIteratorHandler& fpi
     fData->getAllFieldPositions(fpih, status);
 }
 
-void FormattedNumber::getDecimalQuantity(impl::DecimalQuantity& output, UErrorCode& status) const {
+void FormattedNumber::getDecimalQuantity(number::impl::DecimalQuantity& output, UErrorCode& status) const {
     UPRV_FORMATTED_VALUE_METHOD_GUARD(UPRV_NOARG)
     output = fData->quantity;
 }

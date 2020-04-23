@@ -779,7 +779,7 @@ UBool AlphabeticIndex::addChineseIndexCharacters(UErrorCode &errorCode) {
 /*
  * Return the string with interspersed CGJs. Input must have more than 2 codepoints.
  */
-static const UChar CGJ = 0x034F;
+static const UChar alphaindex_CGJ = 0x034F;
 UnicodeString AlphabeticIndex::separated(const UnicodeString &item) {
     UnicodeString result;
     if (item.length() == 0) {
@@ -793,7 +793,7 @@ UnicodeString AlphabeticIndex::separated(const UnicodeString &item) {
         if (i >= item.length()) {
             break;
         }
-        result.append(CGJ);
+        result.append(alphaindex_CGJ);
     }
     return result;
 }
@@ -1082,7 +1082,7 @@ AlphabeticIndex & AlphabeticIndex::addRecord(const UnicodeString &name, const vo
     clearBuckets();
     //std::string ss;
     //std::string ss2;
-    //std::cout << "added record: name = \"" << r->name_.toUTF8String(ss) << "\"" << 
+    //std::cout << "added record: name = \"" << r->name_.toUTF8String(ss) << "\"" <<
     //             "   sortingName = \"" << r->sortingName_.toUTF8String(ss2) << "\"" << std::endl;
     return *this;
 }

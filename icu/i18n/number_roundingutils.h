@@ -175,13 +175,13 @@ class RoundingImpl {
      * @return The number of orders of magnitude the input was adjusted by this method.
      */
     int32_t
-    chooseMultiplierAndApply(impl::DecimalQuantity &input, const impl::MultiplierProducer &producer,
+    chooseMultiplierAndApply(number::impl::DecimalQuantity &input, const number::impl::MultiplierProducer &producer,
                              UErrorCode &status);
 
-    void apply(impl::DecimalQuantity &value, UErrorCode &status) const;
+    void apply(number::impl::DecimalQuantity &value, UErrorCode &status) const;
 
     /** Version of {@link #apply} that obeys minInt constraints. Used for scientific notation compatibility mode. */
-    void apply(impl::DecimalQuantity &value, int32_t minInt, UErrorCode status);
+    void apply(number::impl::DecimalQuantity &value, int32_t minInt, UErrorCode status);
 
   private:
     Precision fPrecision;

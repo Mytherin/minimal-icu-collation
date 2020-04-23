@@ -130,7 +130,7 @@ Scale Scale::byDoubleAndPowerOfTen(double multiplicand, int32_t power) {
     return {power, decnum.orphan()};
 }
 
-void Scale::applyTo(impl::DecimalQuantity& quantity) const {
+void Scale::applyTo(number::impl::DecimalQuantity& quantity) const {
     quantity.adjustMagnitude(fMagnitude);
     if (fArbitrary != nullptr) {
         UErrorCode localStatus = U_ZERO_ERROR;
@@ -138,7 +138,7 @@ void Scale::applyTo(impl::DecimalQuantity& quantity) const {
     }
 }
 
-void Scale::applyReciprocalTo(impl::DecimalQuantity& quantity) const {
+void Scale::applyReciprocalTo(number::impl::DecimalQuantity& quantity) const {
     quantity.adjustMagnitude(-fMagnitude);
     if (fArbitrary != nullptr) {
         UErrorCode localStatus = U_ZERO_ERROR;

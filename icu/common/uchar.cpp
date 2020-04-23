@@ -194,11 +194,11 @@ u_isISOControl(UChar32 c) {
 
 /* Some control characters that are used as space. */
 #define IS_THAT_CONTROL_SPACE(c) \
-    (c<=0x9f && ((c>=TAB && c<=CR) || (c>=0x1c && c <=0x1f) || c==NL))
+    (c<=0x9f && ((c>=uprops_TAB && c<=uprops_CR) || (c>=0x1c && c <=0x1f) || c==uprops_NL))
 
 /* Java has decided that U+0085 New Line is not whitespace any more. */
 #define IS_THAT_ASCII_CONTROL_SPACE(c) \
-    (c<=0x1f && c>=TAB && (c<=CR || c>=0x1c))
+    (c<=0x1f && c>=uprops_TAB && (c<=uprops_CR || c>=0x1c))
 
 /* Checks if the Unicode character is a space character.*/
 U_CAPI UBool U_EXPORT2
@@ -222,7 +222,7 @@ u_isWhitespace(UChar32 c) {
     GET_PROPS(c, props);
     return (UBool)(
                 ((CAT_MASK(props)&U_GC_Z_MASK)!=0 &&
-                    c!=NBSP && c!=FIGURESP && c!=NNBSP) || /* exclude no-break spaces */
+                    c!=uprops_NBSP && c!=uprops_FIGURESP && c!=uprops_NNBSP) || /* exclude no-break spaces */
                 IS_THAT_ASCII_CONTROL_SPACE(c)
            );
 }
@@ -230,7 +230,7 @@ u_isWhitespace(UChar32 c) {
 U_CAPI UBool U_EXPORT2
 u_isblank(UChar32 c) {
     if((uint32_t)c<=0x9f) {
-        return c==9 || c==0x20; /* TAB or SPACE */
+        return c==9 || c==0x20; /* uprops_TAB or SPACE */
     } else {
         /* Zs */
         uint32_t props;
@@ -263,8 +263,8 @@ u_isprintPOSIX(UChar32 c) {
     uint32_t props;
     GET_PROPS(c, props);
     /*
-     * The only cntrl character in graph+blank is TAB (in blank).
-     * Here we implement (blank-TAB)=Zs instead of calling u_isblank().
+     * The only cntrl character in graph+blank is uprops_TAB (in blank).
+     * Here we implement (blank-uprops_TAB)=Zs instead of calling u_isblank().
      */
     return (UBool)((GET_CATEGORY(props)==U_SPACE_SEPARATOR) || u_isgraphPOSIX(c));
 }
@@ -671,52 +671,52 @@ uchar_addPropertyStarts(const USetAdder *sa, UErrorCode *pErrorCode) {
     /* add code points with hardcoded properties, plus the ones following them */
 
     /* add for u_isblank() */
-    USET_ADD_CP_AND_NEXT(sa, TAB);
+    USET_ADD_CP_AND_NEXT(sa, uprops_TAB);
 
     /* add for IS_THAT_CONTROL_SPACE() */
-    sa->add(sa->set, CR+1); /* range TAB..CR */
+    sa->add(sa->set, uprops_CR+1); /* range uprops_TAB..uprops_CR */
     sa->add(sa->set, 0x1c);
     sa->add(sa->set, 0x1f+1);
-    USET_ADD_CP_AND_NEXT(sa, NL);
+    USET_ADD_CP_AND_NEXT(sa, uprops_NL);
 
     /* add for u_isIDIgnorable() what was not added above */
-    sa->add(sa->set, DEL); /* range DEL..NBSP-1, NBSP added below */
-    sa->add(sa->set, HAIRSP);
-    sa->add(sa->set, RLM+1);
-    sa->add(sa->set, INHSWAP);
-    sa->add(sa->set, NOMDIG+1);
-    USET_ADD_CP_AND_NEXT(sa, ZWNBSP);
+    sa->add(sa->set, uprops_DEL); /* range uprops_DEL..uprops_NBSP-1, uprops_NBSP added below */
+    sa->add(sa->set, uprops_HAIRSP);
+    sa->add(sa->set, uprops_RLM+1);
+    sa->add(sa->set, uprops_INHSWAP);
+    sa->add(sa->set, uprops_NOMDIG+1);
+    USET_ADD_CP_AND_NEXT(sa, uprops_ZWNBSP);
 
     /* add no-break spaces for u_isWhitespace() what was not added above */
-    USET_ADD_CP_AND_NEXT(sa, NBSP);
-    USET_ADD_CP_AND_NEXT(sa, FIGURESP);
-    USET_ADD_CP_AND_NEXT(sa, NNBSP);
+    USET_ADD_CP_AND_NEXT(sa, uprops_NBSP);
+    USET_ADD_CP_AND_NEXT(sa, uprops_FIGURESP);
+    USET_ADD_CP_AND_NEXT(sa, uprops_NNBSP);
 
     /* add for u_digit() */
-    sa->add(sa->set, U_a);
-    sa->add(sa->set, U_z+1);
-    sa->add(sa->set, U_A);
-    sa->add(sa->set, U_Z+1);
-    sa->add(sa->set, U_FW_a);
-    sa->add(sa->set, U_FW_z+1);
-    sa->add(sa->set, U_FW_A);
-    sa->add(sa->set, U_FW_Z+1);
+    sa->add(sa->set, uprops_U_a);
+    sa->add(sa->set, uprops_U_z+1);
+    sa->add(sa->set, uprops_U_A);
+    sa->add(sa->set, uprops_U_Z+1);
+    sa->add(sa->set, uprops_U_FW_a);
+    sa->add(sa->set, uprops_U_FW_z+1);
+    sa->add(sa->set, uprops_U_FW_A);
+    sa->add(sa->set, uprops_U_FW_Z+1);
 
     /* add for u_isxdigit() */
-    sa->add(sa->set, U_f+1);
-    sa->add(sa->set, U_F+1);
-    sa->add(sa->set, U_FW_f+1);
-    sa->add(sa->set, U_FW_F+1);
+    sa->add(sa->set, uprops_U_f+1);
+    sa->add(sa->set, uprops_U_F+1);
+    sa->add(sa->set, uprops_U_FW_f+1);
+    sa->add(sa->set, uprops_U_FW_F+1);
 
     /* add for UCHAR_DEFAULT_IGNORABLE_CODE_POINT what was not added above */
-    sa->add(sa->set, WJ); /* range WJ..NOMDIG */
+    sa->add(sa->set, uprops_WJ); /* range uprops_WJ..uprops_NOMDIG */
     sa->add(sa->set, 0xfff0);
     sa->add(sa->set, 0xfffb+1);
     sa->add(sa->set, 0xe0000);
     sa->add(sa->set, 0xe0fff+1);
 
     /* add for UCHAR_GRAPHEME_BASE and others */
-    USET_ADD_CP_AND_NEXT(sa, CGJ);
+    USET_ADD_CP_AND_NEXT(sa, uprops_CGJ);
 }
 
 U_CFUNC void U_EXPORT2

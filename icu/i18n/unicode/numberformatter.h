@@ -344,7 +344,7 @@ class U_I18N_API Notation : public UMemory {
             /** @internal */
             bool fRequireMinInt;
             /** @internal */
-            impl::digits_t fMinExponentDigits;
+            number::impl::digits_t fMinExponentDigits;
             /** @internal */
             UNumberSignDisplay fExponentSignDisplay;
         } scientific;
@@ -375,16 +375,16 @@ class U_I18N_API Notation : public UMemory {
     }
 
     // To allow MacroProps to initialize empty instances:
-    friend struct impl::MacroProps;
+    friend struct number::impl::MacroProps;
     friend class ScientificNotation;
 
     // To allow implementation to access internal types:
-    friend class impl::NumberFormatterImpl;
-    friend class impl::ScientificModifier;
-    friend class impl::ScientificHandler;
+    friend class number::impl::NumberFormatterImpl;
+    friend class number::impl::ScientificModifier;
+    friend class number::impl::ScientificHandler;
 
     // To allow access to the skeleton generation code:
-    friend class impl::GeneratorHelpers;
+    friend class number::impl::GeneratorHelpers;
 };
 
 /**
@@ -432,13 +432,13 @@ class U_I18N_API ScientificNotation : public Notation {
     using Notation::Notation;
 
     // Raw constructor for NumberPropertyMapper
-    ScientificNotation(int8_t fEngineeringInterval, bool fRequireMinInt, impl::digits_t fMinExponentDigits,
+    ScientificNotation(int8_t fEngineeringInterval, bool fRequireMinInt, number::impl::digits_t fMinExponentDigits,
                        UNumberSignDisplay fExponentSignDisplay);
 
     friend class Notation;
 
     // So that NumberPropertyMapper can create instances
-    friend class impl::NumberPropertyMapper;
+    friend class number::impl::NumberPropertyMapper;
 };
 
 /**
@@ -678,13 +678,13 @@ class U_I18N_API Precision : public UMemory {
         struct FractionSignificantSettings {
             // For RND_FRACTION, RND_SIGNIFICANT, and RND_FRACTION_SIGNIFICANT
             /** @internal */
-            impl::digits_t fMinFrac;
+            number::impl::digits_t fMinFrac;
             /** @internal */
-            impl::digits_t fMaxFrac;
+            number::impl::digits_t fMaxFrac;
             /** @internal */
-            impl::digits_t fMinSig;
+            number::impl::digits_t fMinSig;
             /** @internal */
-            impl::digits_t fMaxSig;
+            number::impl::digits_t fMaxSig;
         } fracSig;
         /** @internal */
         struct IncrementSettings {
@@ -692,9 +692,9 @@ class U_I18N_API Precision : public UMemory {
             /** @internal */
             double fIncrement;
             /** @internal */
-            impl::digits_t fMinFrac;
+            number::impl::digits_t fMinFrac;
             /** @internal */
-            impl::digits_t fMaxFrac;
+            number::impl::digits_t fMaxFrac;
         } increment;
         UCurrencyUsage currencyUsage; // For RND_CURRENCY
         UErrorCode errorCode; // For RND_ERROR
@@ -745,17 +745,17 @@ class U_I18N_API Precision : public UMemory {
     static Precision constructPassThrough();
 
     // To allow MacroProps/MicroProps to initialize bogus instances:
-    friend struct impl::MacroProps;
-    friend struct impl::MicroProps;
+    friend struct number::impl::MacroProps;
+    friend struct number::impl::MicroProps;
 
     // To allow NumberFormatterImpl to access isBogus() and other internal methods:
-    friend class impl::NumberFormatterImpl;
+    friend class number::impl::NumberFormatterImpl;
 
     // To allow NumberPropertyMapper to create instances from DecimalFormatProperties:
-    friend class impl::NumberPropertyMapper;
+    friend class number::impl::NumberPropertyMapper;
 
     // To allow access to the main implementation class:
-    friend class impl::RoundingImpl;
+    friend class number::impl::RoundingImpl;
 
     // To allow child classes to call private methods:
     friend class FractionPrecision;
@@ -763,7 +763,7 @@ class U_I18N_API Precision : public UMemory {
     friend class IncrementPrecision;
 
     // To allow access to the skeleton generation code:
-    friend class impl::GeneratorHelpers;
+    friend class number::impl::GeneratorHelpers;
 };
 
 /**
@@ -936,15 +936,15 @@ class U_I18N_API IntegerWidth : public UMemory {
   private:
     union {
         struct {
-            impl::digits_t fMinInt;
-            impl::digits_t fMaxInt;
+            number::impl::digits_t fMinInt;
+            number::impl::digits_t fMaxInt;
             bool fFormatFailIfMoreThanMaxDigits;
         } minMaxInt;
         UErrorCode errorCode;
     } fUnion;
     bool fHasError = false;
 
-    IntegerWidth(impl::digits_t minInt, impl::digits_t maxInt, bool formatFailIfMoreThanMaxDigits);
+    IntegerWidth(impl::digits_t minInt, number::impl::digits_t maxInt, bool formatFailIfMoreThanMaxDigits);
 
     IntegerWidth(UErrorCode errorCode) { // NOLINT
         fUnion.errorCode = errorCode;
@@ -972,22 +972,22 @@ class U_I18N_API IntegerWidth : public UMemory {
         return FALSE;
     }
 
-    void apply(impl::DecimalQuantity &quantity, UErrorCode &status) const;
+    void apply(number::impl::DecimalQuantity &quantity, UErrorCode &status) const;
 
     bool operator==(const IntegerWidth& other) const;
 
     // To allow MacroProps/MicroProps to initialize empty instances:
-    friend struct impl::MacroProps;
-    friend struct impl::MicroProps;
+    friend struct number::impl::MacroProps;
+    friend struct number::impl::MicroProps;
 
     // To allow NumberFormatterImpl to access isBogus() and perform other operations:
-    friend class impl::NumberFormatterImpl;
+    friend class number::impl::NumberFormatterImpl;
 
     // So that NumberPropertyMapper can create instances
-    friend class impl::NumberPropertyMapper;
+    friend class number::impl::NumberPropertyMapper;
 
     // To allow access to the skeleton generation code:
-    friend class impl::GeneratorHelpers;
+    friend class number::impl::GeneratorHelpers;
 };
 
 /**
@@ -1072,12 +1072,12 @@ class U_I18N_API Scale : public UMemory {
 
 #ifndef U_HIDE_INTERNAL_API
     /** @internal */
-    Scale(int32_t magnitude, impl::DecNum* arbitraryToAdopt);
+    Scale(int32_t magnitude, number::impl::DecNum* arbitraryToAdopt);
 #endif  /* U_HIDE_INTERNAL_API */
 
   private:
     int32_t fMagnitude;
-    impl::DecNum* fArbitrary;
+    number::impl::DecNum* fArbitrary;
     UErrorCode fError;
 
     Scale(UErrorCode error) : fMagnitude(0), fArbitrary(nullptr), fError(error) {}
@@ -1101,17 +1101,17 @@ class U_I18N_API Scale : public UMemory {
     void applyReciprocalTo(impl::DecimalQuantity& quantity) const;
 
     // To allow MacroProps/MicroProps to initialize empty instances:
-    friend struct impl::MacroProps;
-    friend struct impl::MicroProps;
+    friend struct number::impl::MacroProps;
+    friend struct number::impl::MicroProps;
 
     // To allow NumberFormatterImpl to access isBogus() and perform other operations:
-    friend class impl::NumberFormatterImpl;
+    friend class number::impl::NumberFormatterImpl;
 
     // To allow the helper class MultiplierFormatHandler access to private fields:
-    friend class impl::MultiplierFormatHandler;
+    friend class number::impl::MultiplierFormatHandler;
 
     // To allow access to the skeleton generation code:
-    friend class impl::GeneratorHelpers;
+    friend class number::impl::GeneratorHelpers;
 
     // To allow access to parsing code:
     friend class ::icu::numparse::impl::NumberParserImpl;
@@ -1275,9 +1275,9 @@ class U_I18N_API Grouper : public UMemory {
     }
 
     /** NON-CONST: mutates the current instance. */
-    void setLocaleData(const impl::ParsedPatternInfo &patternInfo, const Locale& locale);
+    void setLocaleData(const number::impl::ParsedPatternInfo &patternInfo, const Locale& locale);
 
-    bool groupAtPosition(int32_t position, const impl::DecimalQuantity &value) const;
+    bool groupAtPosition(int32_t position, const number::impl::DecimalQuantity &value) const;
 
     // To allow MacroProps/MicroProps to initialize empty instances:
     friend struct MacroProps;
@@ -1290,7 +1290,7 @@ class U_I18N_API Grouper : public UMemory {
     friend class ::icu::numparse::impl::NumberParserImpl;
 
     // To allow access to the skeleton generation code:
-    friend class impl::GeneratorHelpers;
+    friend class number::impl::GeneratorHelpers;
 };
 
 // Do not enclose entire Padder with #ifndef U_HIDE_INTERNAL_API, needed for a protected field
@@ -1344,7 +1344,7 @@ class U_I18N_API Padder : public UMemory {
         return fWidth > 0;
     }
 
-    int32_t padAndApply(const impl::Modifier &mod1, const impl::Modifier &mod2,
+    int32_t padAndApply(const number::impl::Modifier &mod1, const number::impl::Modifier &mod2,
                         FormattedStringBuilder &string, int32_t leftIndex, int32_t rightIndex,
                         UErrorCode &status) const;
 
@@ -1353,10 +1353,10 @@ class U_I18N_API Padder : public UMemory {
     friend struct MicroProps;
 
     // To allow NumberFormatterImpl to access isBogus() and perform other operations:
-    friend class impl::NumberFormatterImpl;
+    friend class number::impl::NumberFormatterImpl;
 
     // To allow access to the skeleton generation code:
-    friend class impl::GeneratorHelpers;
+    friend class number::impl::GeneratorHelpers;
 };
 
 // Do not enclose entire MacroProps with #ifndef U_HIDE_INTERNAL_API, needed for a protected field
@@ -2032,10 +2032,10 @@ class U_I18N_API NumberFormatterSettings {
      *
      * @internal ICU 60: This API is ICU internal only.
      */
-    Derived padding(const impl::Padder &padder) const &;
+    Derived padding(const number::impl::Padder &padder) const &;
 
     /** @internal */
-    Derived padding(const impl::Padder &padder) &&;
+    Derived padding(const number::impl::Padder &padder) &&;
 
     /**
      * Internal fluent setter to support a custom regulation threshold. A threshold of 1 causes the data structures to
@@ -2053,10 +2053,10 @@ class U_I18N_API NumberFormatterSettings {
      *
      * @internal ICU 60: This API is ICU internal only.
      */
-    Derived macros(const impl::MacroProps& macros) const &;
+    Derived macros(const number::impl::MacroProps& macros) const &;
 
     /** @internal */
-    Derived macros(const impl::MacroProps& macros) &&;
+    Derived macros(const number::impl::MacroProps& macros) &&;
 
     /** @internal */
     Derived macros(impl::MacroProps&& macros) const &;
@@ -2124,7 +2124,7 @@ class U_I18N_API NumberFormatterSettings {
     // NOTE: Uses default copy and move constructors.
 
   private:
-    impl::MacroProps fMacros;
+    number::impl::MacroProps fMacros;
 
     // Don't construct me directly!  Use (Un)LocalizedNumberFormatter.
     NumberFormatterSettings() = default;
@@ -2133,8 +2133,8 @@ class U_I18N_API NumberFormatterSettings {
     friend class UnlocalizedNumberFormatter;
 
     // Give NumberRangeFormatter access to the MacroProps
-    friend void impl::touchRangeLocales(impl::RangeMacroProps& macros);
-    friend class impl::NumberRangeFormatterImpl;
+    friend void number::impl::touchRangeLocales(impl::RangeMacroProps& macros);
+    friend class number::impl::NumberRangeFormatterImpl;
 };
 
 /**
@@ -2275,7 +2275,7 @@ class U_I18N_API LocalizedNumberFormatter
     /** Internal method.
      * @internal
      */
-    FormattedNumber formatDecimalQuantity(const impl::DecimalQuantity& dq, UErrorCode& status) const;
+    FormattedNumber formatDecimalQuantity(const number::impl::DecimalQuantity& dq, UErrorCode& status) const;
 
     /** Internal method for DecimalFormat compatibility.
      * @internal
@@ -2286,7 +2286,7 @@ class U_I18N_API LocalizedNumberFormatter
      * Internal method for testing.
      * @internal
      */
-    const impl::NumberFormatterImpl* getCompiled() const;
+    const number::impl::NumberFormatterImpl* getCompiled() const;
 
     /**
      * Internal method for testing.
@@ -2369,16 +2369,16 @@ class U_I18N_API LocalizedNumberFormatter
     ~LocalizedNumberFormatter();
 
   private:
-    // Note: fCompiled can't be a LocalPointer because impl::NumberFormatterImpl is defined in an internal
+    // Note: fCompiled can't be a LocalPointer because number::impl::NumberFormatterImpl is defined in an internal
     // header, and LocalPointer needs the full class definition in order to delete the instance.
-    const impl::NumberFormatterImpl* fCompiled {nullptr};
+    const number::impl::NumberFormatterImpl* fCompiled {nullptr};
     char fUnsafeCallCount[8] {};  // internally cast to u_atomic_int32_t
 
     explicit LocalizedNumberFormatter(const NumberFormatterSettings<LocalizedNumberFormatter>& other);
 
     explicit LocalizedNumberFormatter(NumberFormatterSettings<LocalizedNumberFormatter>&& src) U_NOEXCEPT;
 
-    LocalizedNumberFormatter(const impl::MacroProps &macros, const Locale &locale);
+    LocalizedNumberFormatter(const number::impl::MacroProps &macros, const Locale &locale);
 
     LocalizedNumberFormatter(impl::MacroProps &&macros, const Locale &locale);
 
@@ -2555,7 +2555,7 @@ class U_I18N_API FormattedNumber : public UMemory, public FormattedValue {
      *  Gets the raw DecimalQuantity for plural rule selection.
      *  @internal
      */
-    void getDecimalQuantity(impl::DecimalQuantity& output, UErrorCode& status) const;
+    void getDecimalQuantity(number::impl::DecimalQuantity& output, UErrorCode& status) const;
 
     /**
      * Populates the mutable builder type FieldPositionIteratorHandler.
@@ -2567,7 +2567,7 @@ class U_I18N_API FormattedNumber : public UMemory, public FormattedValue {
 
   private:
     // Can't use LocalPointer because UFormattedNumberData is forward-declared
-    const impl::UFormattedNumberData *fData;
+    const number::impl::UFormattedNumberData *fData;
 
     // Error code for the terminal methods
     UErrorCode fErrorCode;
@@ -2589,7 +2589,7 @@ class U_I18N_API FormattedNumber : public UMemory, public FormattedValue {
     friend class LocalizedNumberFormatter;
 
     // To give C API access to internals
-    friend struct impl::UFormattedNumberImpl;
+    friend struct number::impl::UFormattedNumberImpl;
 };
 
 #ifndef U_HIDE_DRAFT_API

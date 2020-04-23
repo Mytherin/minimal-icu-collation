@@ -304,7 +304,7 @@ bool RoundingImpl::isSignificantDigits() const {
 }
 
 int32_t
-RoundingImpl::chooseMultiplierAndApply(impl::DecimalQuantity &input, const impl::MultiplierProducer &producer,
+RoundingImpl::chooseMultiplierAndApply(number::impl::DecimalQuantity &input, const number::impl::MultiplierProducer &producer,
                                   UErrorCode &status) {
     // Do not call this method with zero, NaN, or infinity.
     U_ASSERT(!input.isZeroish());
@@ -342,7 +342,7 @@ RoundingImpl::chooseMultiplierAndApply(impl::DecimalQuantity &input, const impl:
 }
 
 /** This is the method that contains the actual rounding logic. */
-void RoundingImpl::apply(impl::DecimalQuantity &value, UErrorCode& status) const {
+void RoundingImpl::apply(number::impl::DecimalQuantity &value, UErrorCode& status) const {
     if (fPassThrough) {
         return;
     }
@@ -433,7 +433,7 @@ void RoundingImpl::apply(impl::DecimalQuantity &value, UErrorCode& status) const
     }
 }
 
-void RoundingImpl::apply(impl::DecimalQuantity &value, int32_t minInt, UErrorCode /*status*/) {
+void RoundingImpl::apply(number::impl::DecimalQuantity &value, int32_t minInt, UErrorCode /*status*/) {
     // This method is intended for the one specific purpose of helping print "00.000E0".
     U_ASSERT(isSignificantDigits());
     U_ASSERT(value.isZeroish());

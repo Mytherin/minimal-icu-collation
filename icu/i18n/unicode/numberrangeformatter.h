@@ -491,7 +491,7 @@ class U_I18N_API NumberRangeFormatterSettings {
     // NOTE: Uses default copy and move constructors.
 
   private:
-    impl::RangeMacroProps fMacros;
+    number::impl::RangeMacroProps fMacros;
 
     // Don't construct me directly!  Use (Un)LocalizedNumberFormatter.
     NumberRangeFormatterSettings() = default;
@@ -667,7 +667,7 @@ class U_I18N_API LocalizedNumberRangeFormatter
   private:
     std::atomic<impl::NumberRangeFormatterImpl*> fAtomicFormatter = {};
 
-    const impl::NumberRangeFormatterImpl* getFormatter(UErrorCode& stauts) const;
+    const number::impl::NumberRangeFormatterImpl* getFormatter(UErrorCode& stauts) const;
 
     explicit LocalizedNumberRangeFormatter(
         const NumberRangeFormatterSettings<LocalizedNumberRangeFormatter>& other);
@@ -675,7 +675,7 @@ class U_I18N_API LocalizedNumberRangeFormatter
     explicit LocalizedNumberRangeFormatter(
         NumberRangeFormatterSettings<LocalizedNumberRangeFormatter>&& src) U_NOEXCEPT;
 
-    LocalizedNumberRangeFormatter(const impl::RangeMacroProps &macros, const Locale &locale);
+    LocalizedNumberRangeFormatter(const number::impl::RangeMacroProps &macros, const Locale &locale);
 
     LocalizedNumberRangeFormatter(impl::RangeMacroProps &&macros, const Locale &locale);
 
@@ -778,7 +778,7 @@ class U_I18N_API FormattedNumberRange : public UMemory, public FormattedValue {
      * Export the first formatted number as a decimal number. This endpoint
      * is useful for obtaining the exact number being printed after scaling
      * and rounding have been applied by the number range formatting pipeline.
-     * 
+     *
      * The syntax of the unformatted number is a "numeric string"
      * as defined in the Decimal Arithmetic Specification, available at
      * http://speleotrove.com/decimal
@@ -794,7 +794,7 @@ class U_I18N_API FormattedNumberRange : public UMemory, public FormattedValue {
      * Export the second formatted number as a decimal number. This endpoint
      * is useful for obtaining the exact number being printed after scaling
      * and rounding have been applied by the number range formatting pipeline.
-     * 
+     *
      * The syntax of the unformatted number is a "numeric string"
      * as defined in the Decimal Arithmetic Specification, available at
      * http://speleotrove.com/decimal
@@ -850,7 +850,7 @@ class U_I18N_API FormattedNumberRange : public UMemory, public FormattedValue {
 
   private:
     // Can't use LocalPointer because UFormattedNumberRangeData is forward-declared
-    const impl::UFormattedNumberRangeData *fData;
+    const number::impl::UFormattedNumberRangeData *fData;
 
     // Error code for the terminal methods
     UErrorCode fErrorCode;
