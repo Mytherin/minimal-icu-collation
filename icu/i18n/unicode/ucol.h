@@ -1269,7 +1269,7 @@ ucol_getMaxVariable(const UCollator *coll);
  * @see ucol_restoreVariableTop
  * @deprecated ICU 53 Call ucol_setMaxVariable() instead.
  */
-U_DEPRECATED uint32_t U_EXPORT2
+U_CAPI uint32_t U_EXPORT2
 ucol_setVariableTop(UCollator *coll,
                     const UChar *varTop, int32_t len,
                     UErrorCode *status);
@@ -1303,7 +1303,7 @@ U_STABLE uint32_t U_EXPORT2 ucol_getVariableTop(const UCollator *coll, UErrorCod
  * @see ucol_setVariableTop
  * @deprecated ICU 53 Call ucol_setMaxVariable() instead.
  */
-U_DEPRECATED void U_EXPORT2
+U_CAPI void U_EXPORT2
 ucol_restoreVariableTop(UCollator *coll, const uint32_t varTop, UErrorCode *status);
 #endif  /* U_HIDE_DEPRECATED_API */
 

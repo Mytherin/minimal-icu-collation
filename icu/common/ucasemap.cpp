@@ -162,8 +162,8 @@ appendResult(int32_t cpLength, int32_t result, const UChar *s,
 }
 
 // See unicode/utf8.h U8_APPEND_UNSAFE().
-inline uint8_t getTwoByteLead(UChar32 c) { return (uint8_t)((c >> 6) | 0xc0); }
-inline uint8_t getTwoByteTrail(UChar32 c) { return (uint8_t)((c & 0x3f) | 0x80); }
+uint8_t getTwoByteLead(UChar32 c) { return (uint8_t)((c >> 6) | 0xc0); }
+uint8_t getTwoByteTrail(UChar32 c) { return (uint8_t)((c & 0x3f) | 0x80); }
 
 UChar32 U_CALLCONV
 utf8_caseContextIterator(void *context, int8_t dir) {

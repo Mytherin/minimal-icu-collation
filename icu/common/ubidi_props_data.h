@@ -11,7 +11,7 @@
 
 #ifdef INCLUDED_FROM_UBIDI_PROPS_C
 
-static const UVersionInfo ubidi_props_dataVersion={0xd,0,0,0};
+// static const UVersionInfo ubidi_props_dataVersion={0xd,0,0,0};
 
 static const int32_t ubidi_props_indexes[UBIDI_IX_TOP]={0x10,0x67ec,0x6200,0x28,0x620,0x8c8,0x10ac0,0x10d24,0,0,0,0,0,0,0,0x6502b6};
 

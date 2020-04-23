@@ -24,8 +24,6 @@
 
 U_NAMESPACE_BEGIN
 
-namespace {
-
 struct DayPeriodRulesData : public UMemory {
     DayPeriodRulesData() : localeToRuleSetNumMap(NULL), rules(NULL), maxRuleSetNum(0) {}
 
@@ -33,6 +31,8 @@ struct DayPeriodRulesData : public UMemory {
     DayPeriodRules *rules;
     int32_t maxRuleSetNum;
 } *data = NULL;
+
+namespace {
 
 enum CutoffType {
     CUTOFF_TYPE_UNKNOWN = -1,

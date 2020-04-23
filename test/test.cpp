@@ -33,6 +33,7 @@ TEST_CASE("List supported collations", "[collation]") {
 	int32_t count;
 	auto locales = Collator::getAvailableLocales(count);
 	REQUIRE(count > 100);
+	(void) locales;
 	// fprintf(stdout, "Available collation locales:\n");
 	// for(int32_t i = 0; i < count; i++) {
 	// 		fprintf(stdout, "Language: %s, Country: %s\n", locales[i].getLanguage(), locales[i].getCountry());

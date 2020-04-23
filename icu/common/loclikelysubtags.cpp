@@ -31,6 +31,8 @@ constexpr char PSEUDO_ACCENTS_PREFIX = '\'';  // -XA, -PSACCENT
 constexpr char PSEUDO_BIDI_PREFIX = '+';  // -XB, -PSBIDI
 constexpr char PSEUDO_CRACKED_PREFIX = ',';  // -XC, -PSCRACK
 
+}  // namespace
+
 /**
  * Stores NUL-terminated strings with duplicate elimination.
  * Checks for unique UTF-16 string pointers and converts to invariant characters.
@@ -95,8 +97,6 @@ private:
     CharString *strings;
     bool isFrozen = false;
 };
-
-}  // namespace
 
 LocaleDistanceData::LocaleDistanceData(LocaleDistanceData &&data) :
         distanceTrieBytes(data.distanceTrieBytes),

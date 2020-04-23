@@ -10,8 +10,39 @@ matrix:
     - os: linux
       name: Linux
       dist: xenial
-
     - os: osx
       osx_image: xcode11
       name: OSX
+
+
+    - os: linux
+      name: Clang 6
+      dist: xenial
+      addons:
+          packages:
+            - clang-6.0
+      env:
+        - MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0"
+
+    - os: linux
+      name: GCC 4.9
+      dist: xenial
+      addons:
+          packages:
+            - g++-4.9 binutils-2.26
+      env:
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+
+    - os: linux
+      name: GCC 9 32 Bit
+      dist: xenial
+      addons:
+          packages:
+            - g++-9 libc6-dev-i386 g++-9-multilib gcc-9-multilib gcc-multilib g++-multilib lib32readline6-dev lib32readline6
+      env:
+        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
+      script:
+        - mkdir -p build/release
+        - (cd build/release && cmake -DFORCE_32_BIT=1 -DCMAKE_BUILD_TYPE=Release ../.. && cmake --build .)
+        - build/release/test/unittest
 
