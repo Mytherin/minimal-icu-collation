@@ -41,7 +41,7 @@ TEST_CASE("Test timezone", "[tz]") {
 	REQUIRE(tz_us);
 	REQUIRE(tz_eu);
 
-	Calendar* calendar = Calendar::createInstance(success);
+	auto calendar = std::unique_ptr<Calendar>(Calendar::createInstance(success));
 	REQUIRE(!U_FAILURE(success));
 
 	auto curDate = calendar->getNow();
