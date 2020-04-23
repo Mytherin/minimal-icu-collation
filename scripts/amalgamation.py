@@ -72,7 +72,7 @@ def write_file(current_file, ignore_excluded = False):
     written_files[current_file] = True
 
     # first read this file
-    with open(current_file, 'r') as f:
+    with open(current_file, 'r', encoding='utf8') as f:
         text = f.read()
 
     # remove include guards
@@ -135,7 +135,7 @@ def write_dir(dir, sfile):
 print("-----------------------")
 print("-- Writing " + header_file + " --")
 print("-----------------------")
-with open(header_file, 'w+') as hfile:
+with open(header_file, 'w+', encoding='utf8') as hfile:
     hfile.write("""#pragma once
 
 #ifndef U_COMMON_IMPLEMENTATION
@@ -185,7 +185,7 @@ print("-- Writing " + source_file + " --")
 print("------------------------")
 
 # scan all the .cpp files
-with open(source_file, 'w+') as sfile:
+with open(source_file, 'w+', encoding='utf8') as sfile:
     header_file_name = header_file.split(os.sep)[-1]
     sfile.write('#include "' + header_file_name + '"\n\n')
     for compile_dir in compile_directories:
