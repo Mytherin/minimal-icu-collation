@@ -471,8 +471,9 @@ void CurrencyPluralInfoAffixProvider::setTo(const CurrencyPluralInfo& cpi,
     DecimalFormatProperties pluralProperties(properties);
     for (int32_t plural = 0; plural < StandardPlural::COUNT; plural++) {
         const char* keyword = StandardPlural::getKeyword(static_cast<StandardPlural::Form>(plural));
+		UnicodeString kwstr = UnicodeString::fromUTF8(StringPiece(keyword));
         UnicodeString patternString;
-        patternString = cpi.getCurrencyPluralPattern(keyword, patternString);
+        patternString = cpi.getCurrencyPluralPattern(kwstr, patternString);
         PatternParser::parseToExistingProperties(
                 patternString,
                 pluralProperties,

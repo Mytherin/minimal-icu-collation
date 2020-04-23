@@ -7,7 +7,7 @@ source_file = os.path.join(amal_dir, "icu-collate.cpp")
 src_dir = 'icu'
 
 # files included in the amalgamated "icu-collate.hpp" file
-main_header_files = [os.path.join(src_dir, 'i18n', 'unicode', 'coll.h'), 'icu/i18n/unicode/sortkey.h', 'icu/i18n/unicode/timezone.h', 'icu/i18n/unicode/calendar.h']
+main_header_files = [os.path.join(src_dir, 'i18n', 'unicode', 'coll.h'), os.path.join(src_dir, 'i18n', 'unicode', 'sortkey.h'), os.path.join(src_dir, 'i18n', 'unicode', 'timezone.h'), os.path.join(src_dir, 'i18n', 'unicode', 'calendar.h')]
 
 # include paths for where to search for include files during amalgamation
 include_paths = [os.path.join(src_dir, 'common'), os.path.join(src_dir, 'common', 'unicode'), os.path.join(src_dir, 'i18n'), os.path.join(src_dir, 'i18n', 'unicode')]
@@ -15,7 +15,7 @@ include_paths = [os.path.join(src_dir, 'common'), os.path.join(src_dir, 'common'
 compile_directories = include_paths + [os.path.join(src_dir, 'stubdata')]
 # files that are ignored
 ignored_includes = ['uconfig_local.h', 'ucln_local_hook.c', 'stdio.h']
-
+headers_without_include_guards = [os.path.join(*x.split('/')) for x in ['icu/common/bytesinkutil.h', 'icu/common/norm2_nfc_data.h', 'icu/common/propname_data.h', 'icu/common/ubidi_props_data.h', 'icu/common/ucase_props_data.h', 'icu/common/uchar_props_data.h', 'icu/common/unicode/urename.h', 'icu/common/unicode/brkiter.h', 'icu/common/unicode/ubrk.h', 'icu/i18n/unicode/ureldatefmt.h', 'icu/i18n/unicode/search.h', 'icu/i18n/unicode/stsearch.h', 'icu/i18n/brktrans.h', 'icu/i18n/unicode/usearch.h', 'icu/common/locutil.h', 'icu/common/unicode/ucnv_err.h', 'icu/common/ucnv_io.h', 'icu/common/ustr_cnv.h']]
 
 
 linenumbers = False
@@ -44,7 +44,7 @@ def get_includes(fpath, text):
     include_files = []
     # figure out where they are located
     for included_file in [x[1] for x in include_statements]:
-        included_file = os.sep.join(included_file.split('/'))
+        included_file = os.path.join(*included_file.split('/'))
 
         if file_is_ignored(included_file):
             continue
@@ -89,7 +89,7 @@ def write_file(current_file, ignore_excluded = False):
 
 
     if current_file.endswith(".h") and match == None:
-        if current_file not in ['icu/common/bytesinkutil.h', 'icu/common/norm2_nfc_data.h', 'icu/common/propname_data.h', 'icu/common/ubidi_props_data.h', 'icu/common/ucase_props_data.h', 'icu/common/uchar_props_data.h', 'icu/common/unicode/urename.h', 'icu/common/unicode/brkiter.h', 'icu/common/unicode/ubrk.h', 'icu/i18n/unicode/ureldatefmt.h', 'icu/i18n/unicode/search.h', 'icu/i18n/unicode/stsearch.h', 'icu/i18n/brktrans.h', 'icu/i18n/unicode/usearch.h', 'icu/common/locutil.h', 'icu/common/unicode/ucnv_err.h', 'icu/common/ucnv_io.h', 'icu/common/ustr_cnv.h']:
+        if current_file not in headers_without_include_guards:
             print(current_file)
             exit(1)
 

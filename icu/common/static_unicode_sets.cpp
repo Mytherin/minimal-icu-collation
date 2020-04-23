@@ -103,19 +103,19 @@ class ParseDataSink : public ResourceSink {
                             saveSet(UNISET_KEY_MINUS_SIGN, str, status);
                         } else if (str.indexOf(u'$') != -1) {
                             saveSet(UNISET_KEY_DOLLAR_SIGN, str, status);
-                        } else if (str.indexOf(u'£') != -1) {
+                        } else if (str.indexOf(u'\xa3') != -1) {
                             saveSet(UNISET_KEY_POUND_SIGN, str, status);
-                        } else if (str.indexOf(u'₹') != -1) {
+                        } else if (str.indexOf(u'\x20b9') != -1) {
                             saveSet(UNISET_KEY_RUPEE_SIGN, str, status);
-                        } else if (str.indexOf(u'¥') != -1) {
+                        } else if (str.indexOf(u'\xa5') != -1) {
                             saveSet(UNISET_KEY_YEN_SIGN, str, status);
-                        } else if (str.indexOf(u'₩') != -1) {
+                        } else if (str.indexOf(u'\x20a9') != -1) {
                             saveSet(UNISET_KEY_WON_SIGN, str, status);
                         } else if (str.indexOf(u'%') != -1) {
                             saveSet(UNISET_KEY_PERCENT_SIGN, str, status);
-                        } else if (str.indexOf(u'‰') != -1) {
+                        } else if (str.indexOf(u'\x2030') != -1) {
                             saveSet(UNISET_KEY_PERMILLE_SIGN, str, status);
-                        } else if (str.indexOf(u'’') != -1) {
+                        } else if (str.indexOf(u'\x2019') != -1) {
                             saveSet(UNISET_KEY_APOSTROPHE_SIGN, str, status);
                         } else {
                             // Unknown class of parse lenients

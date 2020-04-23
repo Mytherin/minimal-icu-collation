@@ -393,7 +393,7 @@ UnicodeString FormattedStringBuilder::toDebugString() const {
                     c = u'%';
                     break;
                 case UNUM_PERMILL_FIELD:
-                    c = u'‰';
+                    c = u'\x2030';
                     break;
                 case UNUM_CURRENCY_FIELD:
                     c = u'$';
