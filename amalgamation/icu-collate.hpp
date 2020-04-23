@@ -36,8 +36,6 @@
 #define U_SHOW_CPLUSPLUS_API 1
 #endif
 
-
-#line 1 "icu/i18n/unicode/coll.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -90,8 +88,6 @@
 */
 
 
-
-#line 1 "icu/common/unicode/utypes.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -127,8 +123,6 @@
 
 
 
-
-#line 1 "icu/common/unicode/umachine.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -172,8 +166,6 @@
 /* which are contained in the platform-specific file platform.h             */
 /*==========================================================================*/
 
-
-#line 1 "icu/common/unicode/ptypes.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -223,8 +215,6 @@
  */
 
 /* Find out if we have stdint.h etc. */
-
-#line 1 "icu/common/unicode/platform.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -246,8 +236,6 @@
 */
 
 
-
-#line 1 "icu/common/unicode/uconfig.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -702,8 +690,6 @@
 #endif
 
 
-
-#line 1 "icu/common/unicode/uvernum.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -899,8 +885,6 @@
 #define UCOL_TAILORINGS_VERSION 1
 #endif  /* U_HIDE_DEPRECATED_API */
 
-
-#line 23 "icu/common/unicode/platform.h"
 
 
 /**
@@ -1762,8 +1746,6 @@ namespace std {
 /* @} */
 
 
-#line 50 "icu/common/unicode/ptypes.h"
-
 
 /*===========================================================================*/
 /* Generic data types                                                        */
@@ -2242,8 +2224,6 @@ typedef int32_t UChar32;
  */
 #define U_SENTINEL (-1)
 
-
-#line 1 "icu/common/unicode/urename.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -4140,12 +4120,8 @@ typedef int32_t UChar32;
 // #endif /* !(defined(_MSC_VER) && defined(__INTELLISENSE__)) */
 // #endif /* U_DISABLE_RENAMING */
 
-#line 445 "icu/common/unicode/umachine.h"
 
 
-
-
-#line 1 "icu/common/unicode/uversion.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -4176,8 +4152,6 @@ typedef int32_t UChar32;
 
 
 /* Actual version info lives in uvernum.h */
-
-#line 31 "icu/common/unicode/uversion.h"
 
 
 /** Maximum length of the copyright string.
@@ -4336,8 +4310,6 @@ u_getVersion(UVersionInfo versionArray);
 
 #include <float.h>
 
-
-#line 1 "icu/common/unicode/utf.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -4552,8 +4524,6 @@ u_getVersion(UVersionInfo versionArray);
 
 // #if !U_NO_DEFAULT_INCLUDE_UTF_HEADERS
 
-
-#line 1 "icu/common/unicode/utf8.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -4590,8 +4560,6 @@ u_getVersion(UVersionInfo versionArray);
 
 
 #ifndef __UTF_H__
-
-#line 37 "icu/common/unicode/utf8.h"
 
 #endif
 
@@ -5435,8 +5403,6 @@ utf8_back1SafeBody(const uint8_t *s, int32_t start, int32_t i);
 } UPRV_BLOCK_MACRO_END
 
 
-
-#line 1 "icu/common/unicode/utf16.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -5473,8 +5439,6 @@ utf8_back1SafeBody(const uint8_t *s, int32_t start, int32_t i);
 
 
 #ifndef __UTF_H__
-
-#line 37 "icu/common/unicode/utf16.h"
 
 #endif
 
@@ -6172,8 +6136,6 @@ utf8_back1SafeBody(const uint8_t *s, int32_t start, int32_t i);
 
 
 /* utf_old.h contains deprecated, pre-ICU 2.4 definitions */
-
-#line 1 "icu/common/unicode/utf_old.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -6318,8 +6280,6 @@ utf8_back1SafeBody(const uint8_t *s, int32_t start, int32_t i);
 
 
 
-
-#line 145 "icu/common/unicode/utf_old.h"
 
 
 /**
@@ -7375,13 +7335,9 @@ U_CFUNC U_IMPORT const uint8_t utf8_countTrailBytes[];    /* U_IMPORT2? */ /*U_I
 #endif  // !U_HIDE_DEPRECATED_API && !U_HIDE_OBSOLETE_UTF_OLD_H
 
 
-#line 219 "icu/common/unicode/utf.h"
-
 
 // #endif  /* !U_NO_DEFAULT_INCLUDE_UTF_HEADERS */
 
-
-#line 41 "icu/common/unicode/utypes.h"
 
 
 /*!
@@ -8063,8 +8019,6 @@ u_errorName(UErrorCode code);
 
 #if !UCONFIG_NO_COLLATION
 
-
-#line 1 "icu/common/unicode/uobject.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -8088,8 +8042,6 @@ u_errorName(UErrorCode code);
 
 #if U_SHOW_CPLUSPLUS_API
 
-
-#line 24 "icu/common/unicode/uobject.h"
 
 
 /**
@@ -8389,8 +8341,6 @@ U_NAMESPACE_END
 #endif /* U_SHOW_CPLUSPLUS_API */
 
 
-
-#line 1 "icu/i18n/unicode/ucol.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -8405,8 +8355,6 @@ U_NAMESPACE_END
 
 #if !UCONFIG_NO_COLLATION
 
-
-#line 1 "icu/common/unicode/unorm.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -8428,8 +8376,6 @@ U_NAMESPACE_END
 
 #if !UCONFIG_NO_NORMALIZATION
 
-
-#line 1 "icu/common/unicode/uiter.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -8456,8 +8402,6 @@ U_NAMESPACE_END
  * @see UCharIterator
  */
 
-
-#line 27 "icu/common/unicode/uiter.h"
 
 
 #if U_SHOW_CPLUSPLUS_API
@@ -9139,8 +9083,6 @@ uiter_setReplaceable(UCharIterator *iter, const icu::Replaceable *rep);
 U_CDECL_END
 
 
-
-#line 1 "icu/common/unicode/unorm2.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -9172,8 +9114,6 @@ U_CDECL_END
  */
 
 
-
-#line 1 "icu/common/unicode/localpointer.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -9212,8 +9152,6 @@ U_CDECL_END
  * For details see http://site.icu-project.org/design/cpp/scoped_ptr
  */
 
-
-#line 39 "icu/common/unicode/localpointer.h"
 
 
 #if U_SHOW_CPLUSPLUS_API
@@ -9778,8 +9716,6 @@ U_NAMESPACE_END
 
 #endif  /* U_SHOW_CPLUSPLUS_API */
 
-
-#line 1 "icu/common/unicode/stringoptions.h"
 // © 2017 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 
@@ -9787,8 +9723,6 @@ U_NAMESPACE_END
 // created: 2017jun08 Markus W. Scherer
 
 
-
-#line 8 "icu/common/unicode/stringoptions.h"
 
 
 /**
@@ -9970,8 +9904,6 @@ U_NAMESPACE_END
 // unormcmp.cpp #define _COMPARE_EQUIV 0x80000
 
 
-
-#line 1 "icu/common/unicode/uset.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -10002,8 +9934,6 @@ U_NAMESPACE_END
 
 
 
-
-#line 1 "icu/common/unicode/uchar.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -10031,8 +9961,6 @@ U_NAMESPACE_END
 
 
 
-
-#line 1 "icu/common/unicode/ucpmap.h"
 // © 2018 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 
@@ -10040,8 +9968,6 @@ U_NAMESPACE_END
 // created: 2018sep03 Markus W. Scherer
 
 
-
-#line 8 "icu/common/unicode/ucpmap.h"
 
 
 U_CDECL_BEGIN
@@ -10191,8 +10117,6 @@ ucpmap_getRange(const UCPMap *map, UChar32 start,
 
 U_CDECL_END
 
-
-#line 28 "icu/common/unicode/uchar.h"
 
 
 #if !defined(USET_DEFINED) && !defined(U_IN_DOXYGEN)
@@ -14220,8 +14144,6 @@ U_CDECL_END
 
 
 
-#line 32 "icu/common/unicode/uset.h"
-
 
 #ifndef USET_DEFINED
 
@@ -15322,8 +15244,6 @@ uset_getSerializedRange(const USerializedSet* set, int32_t rangeIndex,
                         UChar32* pStart, UChar32* pEnd);
 
 
-#line 34 "icu/common/unicode/unorm2.h"
-
 
 /**
  * Constants for normalization modes.
@@ -15891,8 +15811,6 @@ unorm_compare(const UChar *s1, int32_t length1,
 
 #endif  /* !UCONFIG_NO_NORMALIZATION */
 
-#line 23 "icu/common/unicode/unorm.h"
-
 
 /**
  * \file
@@ -16345,8 +16263,6 @@ unorm_concatenate(const UChar *left, int32_t leftLength,
 #endif /* #if !UCONFIG_NO_NORMALIZATION */
 
 
-
-#line 1 "icu/common/unicode/parseerr.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -16360,8 +16276,6 @@ unorm_concatenate(const UChar *left, int32_t leftLength,
 **********************************************************************
 */
 
-
-#line 14 "icu/common/unicode/parseerr.h"
 
 
 
@@ -16441,8 +16355,6 @@ typedef struct UParseError {
 } UParseError;
 
 
-
-#line 1 "icu/common/unicode/uloc.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -16467,8 +16379,6 @@ typedef struct UParseError {
 
 
 
-
-#line 1 "icu/common/unicode/uenum.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -16489,8 +16399,6 @@ typedef struct UParseError {
 
 
 
-
-#line 21 "icu/common/unicode/uenum.h"
 
 
 #if U_SHOW_CPLUSPLUS_API
@@ -16676,8 +16584,6 @@ U_STABLE UEnumeration* U_EXPORT2
 uenum_openCharStringsEnumeration(const char* const strings[], int32_t count,
                                  UErrorCode* ec);
 
-
-#line 25 "icu/common/unicode/uloc.h"
 
 
 /**    
@@ -17997,8 +17903,6 @@ uloc_toLegacyType(const char* keyword, const char* value);
 
 
 
-
-#line 1 "icu/common/unicode/uscript.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -18016,8 +17920,6 @@ uloc_toLegacyType(const char* keyword, const char* value);
  ******************************************************************************
  */
 
-
-#line 18 "icu/common/unicode/uscript.h"
 
 
 /**
@@ -18706,8 +18608,6 @@ uscript_breaksBetweenLetters(UScriptCode script);
 U_STABLE UBool U_EXPORT2
 uscript_isCased(UScriptCode script);
 
-
-#line 20 "icu/i18n/unicode/ucol.h"
 
 
 /**
@@ -19958,7 +19858,7 @@ ucol_getMaxVariable(const UCollator *coll);
  * @see ucol_restoreVariableTop
  * @deprecated ICU 53 Call ucol_setMaxVariable() instead.
  */
-U_DEPRECATED uint32_t U_EXPORT2
+U_CAPI uint32_t U_EXPORT2
 ucol_setVariableTop(UCollator *coll,
                     const UChar *varTop, int32_t len,
                     UErrorCode *status);
@@ -19992,7 +19892,7 @@ U_STABLE uint32_t U_EXPORT2 ucol_getVariableTop(const UCollator *coll, UErrorCod
  * @see ucol_setVariableTop
  * @deprecated ICU 53 Call ucol_setMaxVariable() instead.
  */
-U_DEPRECATED void U_EXPORT2
+U_CAPI void U_EXPORT2
 ucol_restoreVariableTop(UCollator *coll, const uint32_t varTop, UErrorCode *status);
 #endif  /* U_HIDE_DEPRECATED_API */
 
@@ -20188,8 +20088,6 @@ ucol_openBinary(const uint8_t *bin, int32_t length,
 
 
 
-
-#line 1 "icu/common/unicode/locid.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -20225,8 +20123,6 @@ ucol_openBinary(const uint8_t *bin, int32_t length,
 
 #if U_SHOW_CPLUSPLUS_API
 
-
-#line 1 "icu/common/unicode/bytestream.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 // Copyright (C) 2009-2012, International Business Machines
@@ -20269,8 +20165,6 @@ ucol_openBinary(const uint8_t *bin, int32_t length,
 #if U_SHOW_CPLUSPLUS_API
 
 
-
-#line 1 "icu/common/unicode/std_string.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -20297,8 +20191,6 @@ ucol_openBinary(const uint8_t *bin, int32_t length,
  */
 
 
-#line 26 "icu/common/unicode/std_string.h"
-
 
 #if U_SHOW_CPLUSPLUS_API
 
@@ -20311,8 +20203,6 @@ namespace std { class type_info; }
 
 #endif /* U_SHOW_CPLUSPLUS_API */
 
-
-#line 43 "icu/common/unicode/bytestream.h"
 
 
 U_NAMESPACE_BEGIN
@@ -20545,8 +20435,6 @@ U_NAMESPACE_END
 
 
 
-
-#line 1 "icu/common/unicode/strenum.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -20564,8 +20452,6 @@ U_NAMESPACE_END
 #if U_SHOW_CPLUSPLUS_API
 
 
-
-#line 1 "icu/common/unicode/unistr.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -20599,8 +20485,6 @@ U_NAMESPACE_END
 #if U_SHOW_CPLUSPLUS_API
 
 #include <cstddef>
-
-#line 1 "icu/common/unicode/char16ptr.h"
 // © 2017 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 
@@ -20608,8 +20492,6 @@ U_NAMESPACE_END
 // created: 2017feb28 Markus W. Scherer
 
 
-
-#line 8 "icu/common/unicode/char16ptr.h"
 
 
 #if U_SHOW_CPLUSPLUS_API
@@ -20914,8 +20796,6 @@ U_NAMESPACE_END
 #endif /* U_SHOW_CPLUSPLUS_API */
 
 
-
-#line 1 "icu/common/unicode/rep.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -20936,8 +20816,6 @@ U_NAMESPACE_END
 
 #if U_SHOW_CPLUSPLUS_API
 
-
-#line 21 "icu/common/unicode/rep.h"
 
 
 /**
@@ -21183,8 +21061,6 @@ U_NAMESPACE_END
 
 
 
-
-#line 1 "icu/common/unicode/stringpiece.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 // Copyright (C) 2009-2013, International Business Machines
@@ -21220,8 +21096,6 @@ U_NAMESPACE_END
 #include <type_traits>
 
 
-
-#line 36 "icu/common/unicode/stringpiece.h"
 
 
 // Arghh!  I wish C++ literals were "string".
@@ -21444,8 +21318,6 @@ U_NAMESPACE_END
 #endif /* U_SHOW_CPLUSPLUS_API */
 
 
-
-#line 38 "icu/common/unicode/unistr.h"
 
 
 struct UConverter;          // unicode/ucnv.h
@@ -26164,8 +26036,6 @@ U_NAMESPACE_END
 #endif /* U_SHOW_CPLUSPLUS_API */
 
 
-#line 18 "icu/common/unicode/strenum.h"
-
 
 /**
  * \file 
@@ -26429,8 +26299,6 @@ U_NAMESPACE_END
 
 
 
-
-#line 1 "icu/common/unicode/putil.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -26457,8 +26325,6 @@ U_NAMESPACE_END
 */
 
 
-
-#line 27 "icu/common/unicode/putil.h"
 
  /**
   * \file
@@ -26614,8 +26480,6 @@ U_STABLE void U_EXPORT2
 u_UCharsToChars(const UChar *us, char *cs, int32_t length);
 
 
-
-#line 42 "icu/common/unicode/locid.h"
 
 
 /**
@@ -27835,8 +27699,6 @@ U_NAMESPACE_END
 #endif /* U_SHOW_CPLUSPLUS_API */
 
 
-
-#line 1 "icu/common/unicode/uniset.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -27855,8 +27717,6 @@ U_NAMESPACE_END
 #if U_SHOW_CPLUSPLUS_API
 
 
-
-#line 1 "icu/common/unicode/unifilt.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -27873,8 +27733,6 @@ U_NAMESPACE_END
 
 #if U_SHOW_CPLUSPLUS_API
 
-
-#line 1 "icu/common/unicode/unifunct.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -27891,8 +27749,6 @@ U_NAMESPACE_END
 
 #if U_SHOW_CPLUSPLUS_API
 
-
-#line 17 "icu/common/unicode/unifunct.h"
 
 
 /**
@@ -28007,8 +27863,6 @@ U_NAMESPACE_END
 #endif /* U_SHOW_CPLUSPLUS_API */
 
 
-
-#line 1 "icu/common/unicode/unimatch.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -28019,8 +27873,6 @@ U_NAMESPACE_END
 **********************************************************************
 */
 
-
-#line 11 "icu/common/unicode/unimatch.h"
 
 
 /**
@@ -28177,8 +28029,6 @@ U_NAMESPACE_END
 #endif /* U_SHOW_CPLUSPLUS_API */
 
 
-#line 18 "icu/common/unicode/unifilt.h"
-
 
 /**
  * \file 
@@ -28296,8 +28146,6 @@ U_NAMESPACE_END
 
 
 
-
-#line 21 "icu/common/unicode/uniset.h"
 
 
 /**
@@ -30020,8 +29868,6 @@ U_NAMESPACE_END
 #endif /* U_SHOW_CPLUSPLUS_API */
 
 
-
-#line 1 "icu/common/unicode/umisc.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -30039,8 +29885,6 @@ U_NAMESPACE_END
 */
 
 
-
-#line 18 "icu/common/unicode/umisc.h"
 
 
 /**
@@ -30085,8 +29929,6 @@ U_CDECL_END
 
 
 
-
-#line 64 "icu/i18n/unicode/coll.h"
 
 
 U_NAMESPACE_BEGIN
@@ -31311,8 +31153,6 @@ U_NAMESPACE_END
 
 #endif /* #if !UCONFIG_NO_COLLATION */
 
-
-#line 1 "icu/i18n/unicode/sortkey.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -31349,8 +31189,6 @@ U_NAMESPACE_END
 
 
 
-
-#line 37 "icu/i18n/unicode/sortkey.h"
 
 
 U_NAMESPACE_BEGIN
@@ -31656,8 +31494,6 @@ U_NAMESPACE_END
 
 #endif /* U_SHOW_CPLUSPLUS_API */
 
-
-#line 1 "icu/i18n/unicode/timezone.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*************************************************************************
@@ -31700,8 +31536,6 @@ U_NAMESPACE_END
 
 
 
-
-#line 1 "icu/common/unicode/ures.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -32494,8 +32328,6 @@ ures_getUTF8StringByKey(const UResourceBundle *resB,
 
 #if U_SHOW_CPLUSPLUS_API
 
-#line 792 "icu/common/unicode/ures.h"
-
 
 U_NAMESPACE_BEGIN
 /**
@@ -32609,8 +32441,6 @@ ures_openAvailableLocales(const char *packageName, UErrorCode *status);
 
 
 
-
-#line 1 "icu/i18n/unicode/ucal.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -32624,8 +32454,6 @@ ures_openAvailableLocales(const char *packageName, UErrorCode *status);
 
 
 
-
-#line 14 "icu/i18n/unicode/ucal.h"
 
 
 #if !UCONFIG_NO_FORMATTING
@@ -34234,8 +34062,6 @@ ucal_getTimeZoneIDForWindowsID(const UChar* winid, int32_t len, const char* regi
 #endif /* #if !UCONFIG_NO_FORMATTING */
 
 
-#line 44 "icu/i18n/unicode/timezone.h"
-
 
 U_NAMESPACE_BEGIN
 
@@ -35164,8 +34990,6 @@ U_NAMESPACE_END
 
 #endif /* U_SHOW_CPLUSPLUS_API */
 
-
-#line 1 "icu/i18n/unicode/calendar.h"
 // © 2016 and later: Unicode, Inc. and others.
 // License & terms of use: http://www.unicode.org/copyright.html
 /*
@@ -35207,8 +35031,6 @@ U_NAMESPACE_END
 
 
 
-
-#line 42 "icu/i18n/unicode/calendar.h"
 
 
 U_NAMESPACE_BEGIN
