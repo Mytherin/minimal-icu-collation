@@ -1988,6 +1988,8 @@ SimpleDateFormat::subFormat(UnicodeString &appendTo,
             delete mutableCapitalizationBrkIter;
         }
     }
+#else
+    (void) capContextUsageType;
 #endif
 
     handler.addAttribute(fgPatternIndexToDateFormatField[patternCharIndex], beginOffset, appendTo.length());

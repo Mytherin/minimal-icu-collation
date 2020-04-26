@@ -32,8 +32,6 @@ struct DayPeriodRulesData : public UMemory {
     int32_t maxRuleSetNum;
 } *data = NULL;
 
-namespace {
-
 enum CutoffType {
     CUTOFF_TYPE_UNKNOWN = -1,
     CUTOFF_TYPE_BEFORE,
@@ -41,8 +39,6 @@ enum CutoffType {
     CUTOFF_TYPE_FROM,
     CUTOFF_TYPE_AT
 };
-
-} // namespace
 
 struct DayPeriodRulesDataSink : public ResourceSink {
     DayPeriodRulesDataSink() {
