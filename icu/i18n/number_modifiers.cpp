@@ -17,7 +17,7 @@ using namespace icu::number::impl;
 namespace {
 
 // TODO: This is copied from simpleformatter.cpp
-const int32_t ARG_NUM_LIMIT = 0x100;
+const int32_t NUMBER_MODIFIERS_ARG_NUM_LIMIT = 0x100;
 
 // These are the default currency spacing UnicodeSets in CLDR.
 // Pre-compute them for performance.
@@ -124,7 +124,7 @@ SimpleModifier::SimpleModifier(const SimpleFormatter &simpleFormatter, Field fie
             fCompiledPattern.getBuffer(), fCompiledPattern.length());
     if (argLimit == 0) {
         // No arguments in compiled pattern
-        fPrefixLength = fCompiledPattern.charAt(1) - ARG_NUM_LIMIT;
+        fPrefixLength = fCompiledPattern.charAt(1) - NUMBER_MODIFIERS_ARG_NUM_LIMIT;
         U_ASSERT(2 + fPrefixLength == fCompiledPattern.length());
         // Set suffixOffset = -1 to indicate no arguments in compiled pattern.
         fSuffixOffset = -1;
@@ -133,7 +133,7 @@ SimpleModifier::SimpleModifier(const SimpleFormatter &simpleFormatter, Field fie
         U_ASSERT(argLimit == 1);
         if (fCompiledPattern.charAt(1) != 0) {
             // Found prefix
-            fPrefixLength = fCompiledPattern.charAt(1) - ARG_NUM_LIMIT;
+            fPrefixLength = fCompiledPattern.charAt(1) - NUMBER_MODIFIERS_ARG_NUM_LIMIT;
             fSuffixOffset = 3 + fPrefixLength;
         } else {
             // No prefix
@@ -142,7 +142,7 @@ SimpleModifier::SimpleModifier(const SimpleFormatter &simpleFormatter, Field fie
         }
         if (3 + fPrefixLength < fCompiledPattern.length()) {
             // Found suffix
-            fSuffixLength = fCompiledPattern.charAt(fSuffixOffset) - ARG_NUM_LIMIT;
+            fSuffixLength = fCompiledPattern.charAt(fSuffixOffset) - NUMBER_MODIFIERS_ARG_NUM_LIMIT;
         } else {
             // No suffix
             fSuffixLength = 0;
@@ -242,11 +242,11 @@ SimpleModifier::formatTwoArgPattern(const SimpleFormatter& compiled, FormattedSt
 
     int32_t prefixLength = compiledPattern.charAt(offset);
     offset++;
-    if (prefixLength < ARG_NUM_LIMIT) {
+    if (prefixLength < NUMBER_MODIFIERS_ARG_NUM_LIMIT) {
         // No prefix
         prefixLength = 0;
     } else {
-        prefixLength -= ARG_NUM_LIMIT;
+        prefixLength -= NUMBER_MODIFIERS_ARG_NUM_LIMIT;
         result.insert(index + length, compiledPattern, offset, offset + prefixLength, field, status);
         offset += prefixLength;
         length += prefixLength;
@@ -255,11 +255,11 @@ SimpleModifier::formatTwoArgPattern(const SimpleFormatter& compiled, FormattedSt
 
     int32_t infixLength = compiledPattern.charAt(offset);
     offset++;
-    if (infixLength < ARG_NUM_LIMIT) {
+    if (infixLength < NUMBER_MODIFIERS_ARG_NUM_LIMIT) {
         // No infix
         infixLength = 0;
     } else {
-        infixLength -= ARG_NUM_LIMIT;
+        infixLength -= NUMBER_MODIFIERS_ARG_NUM_LIMIT;
         result.insert(index + length, compiledPattern, offset, offset + infixLength, field, status);
         offset += infixLength;
         length += infixLength;
@@ -271,7 +271,7 @@ SimpleModifier::formatTwoArgPattern(const SimpleFormatter& compiled, FormattedSt
         // No suffix
         suffixLength = 0;
     } else {
-        suffixLength = compiledPattern.charAt(offset) -  ARG_NUM_LIMIT;
+        suffixLength = compiledPattern.charAt(offset) -  NUMBER_MODIFIERS_ARG_NUM_LIMIT;
         offset++;
         result.insert(index + length, compiledPattern, offset, offset + suffixLength, field, status);
         length += suffixLength;

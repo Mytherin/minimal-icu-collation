@@ -162,8 +162,8 @@ appendResult(int32_t cpLength, int32_t result, const UChar *s,
 }
 
 // See unicode/utf8.h U8_APPEND_UNSAFE().
-uint8_t getTwoByteLead(UChar32 c) { return (uint8_t)((c >> 6) | 0xc0); }
-uint8_t getTwoByteTrail(UChar32 c) { return (uint8_t)((c & 0x3f) | 0x80); }
+uint8_t ucasemap_getTwoByteLead(UChar32 c) { return (uint8_t)((c >> 6) | 0xc0); }
+uint8_t ucasemap_getTwoByteTrail(UChar32 c) { return (uint8_t)((c & 0x3f) | 0x80); }
 
 UChar32 U_CALLCONV
 utf8_caseContextIterator(void *context, int8_t dir) {
@@ -653,7 +653,7 @@ void toUpper(uint32_t options,
                 // Find out first whether we are changing the text.
                 U_ASSERT(0x370 <= upper && upper <= 0x3ff);  // 2-byte UTF-8, main Greek block
                 change = (i + 2) > nextIndex ||
-                        src[i] != getTwoByteLead(upper) || src[i + 1] != getTwoByteTrail(upper) ||
+                        src[i] != ucasemap_getTwoByteLead(upper) || src[i + 1] != ucasemap_getTwoByteTrail(upper) ||
                         numYpogegrammeni > 0;
                 int32_t i2 = i + 2;
                 if ((data & HAS_EITHER_DIALYTIKA) != 0) {

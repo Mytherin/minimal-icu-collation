@@ -118,17 +118,17 @@ util_lcm(int64_t x, int64_t y)
 }
 #endif
 
-static const UChar gPercent = 0x0025;
-static const UChar gColon = 0x003a;
-static const UChar gSemicolon = 0x003b;
-static const UChar gLineFeed = 0x000a;
+static const UChar nfrs_gPercent = 0x0025;
+static const UChar nfrs_gColon = 0x003a;
+static const UChar nfrs_gSemicolon = 0x003b;
+static const UChar nfrs_gLineFeed = 0x000a;
 
-static const UChar gPercentPercent[] =
+static const UChar nfrs_gPercentPercent[] =
 {
     0x25, 0x25, 0
 }; /* "%%" */
 
-static const UChar gNoparse[] =
+static const UChar nfrs_gNoparse[] =
 {
     0x40, 0x6E, 0x6F, 0x70, 0x61, 0x72, 0x73, 0x65, 0
 }; /* "@noparse" */
@@ -162,8 +162,8 @@ NFRuleSet::NFRuleSet(RuleBasedNumberFormat *_owner, UnicodeString* descriptions,
     // name can be omitted in formatter descriptions that consist
     // of only one rule set), copy it out into our "name" member
     // and delete it from the description
-    if (description.charAt(0) == gPercent) {
-        int32_t pos = description.indexOf(gColon);
+    if (description.charAt(0) == nfrs_gPercent) {
+        int32_t pos = description.indexOf(nfrs_gColon);
         if (pos == -1) {
             // throw new IllegalArgumentException("Rule set name doesn't end in colon");
             status = U_PARSE_ERROR;
@@ -182,9 +182,9 @@ NFRuleSet::NFRuleSet(RuleBasedNumberFormat *_owner, UnicodeString* descriptions,
         status = U_PARSE_ERROR;
     }
 
-    fIsPublic = name.indexOf(gPercentPercent, 2, 0) != 0;
+    fIsPublic = name.indexOf(nfrs_gPercentPercent, 2, 0) != 0;
 
-    if ( name.endsWith(gNoparse,8) ) {
+    if ( name.endsWith(nfrs_gNoparse,8) ) {
         fIsParseable = FALSE;
         name.truncate(name.length()-8); // remove the @noparse from the name
     }
@@ -214,7 +214,7 @@ NFRuleSet::parseRules(UnicodeString& description, UErrorCode& status)
     UnicodeString currentDescription;
     int32_t oldP = 0;
     while (oldP < description.length()) {
-        int32_t p = description.indexOf(gSemicolon, oldP);
+        int32_t p = description.indexOf(nfrs_gSemicolon, oldP);
         if (p == -1) {
             p = description.length();
         }
@@ -777,13 +777,13 @@ NFRuleSet::appendRules(UnicodeString& result) const
 
     // the rule set name goes first...
     result.append(name);
-    result.append(gColon);
-    result.append(gLineFeed);
+    result.append(nfrs_gColon);
+    result.append(nfrs_gLineFeed);
 
     // followed by the regular rules...
     for (i = 0; i < rules.size(); i++) {
         rules[i]->_appendRuleText(result);
-        result.append(gLineFeed);
+        result.append(nfrs_gLineFeed);
     }
 
     // followed by the special rules (if they exist)
@@ -798,13 +798,13 @@ NFRuleSet::appendRules(UnicodeString& result) const
                     NFRule *fractionRule = fractionRules[fIdx];
                     if (fractionRule->getBaseValue() == rule->getBaseValue()) {
                         fractionRule->_appendRuleText(result);
-                        result.append(gLineFeed);
+                        result.append(nfrs_gLineFeed);
                     }
                 }
             }
             else {
                 rule->_appendRuleText(result);
-                result.append(gLineFeed);
+                result.append(nfrs_gLineFeed);
             }
         }
     }
@@ -821,7 +821,7 @@ int64_t util64_fromDouble(double d) {
         } else if (d > mant) {
             d = mant;
         }
-        UBool neg = d < 0; 
+        UBool neg = d < 0;
         if (neg) {
             d = -d;
         }
@@ -852,12 +852,12 @@ uint64_t util64_pow(uint32_t base, uint16_t exponent)  {
     return result;
 }
 
-static const uint8_t asciiDigits[] = { 
+static const uint8_t asciiDigits[] = {
     0x30u, 0x31u, 0x32u, 0x33u, 0x34u, 0x35u, 0x36u, 0x37u,
     0x38u, 0x39u, 0x61u, 0x62u, 0x63u, 0x64u, 0x65u, 0x66u,
     0x67u, 0x68u, 0x69u, 0x6au, 0x6bu, 0x6cu, 0x6du, 0x6eu,
     0x6fu, 0x70u, 0x71u, 0x72u, 0x73u, 0x74u, 0x75u, 0x76u,
-    0x77u, 0x78u, 0x79u, 0x7au,  
+    0x77u, 0x78u, 0x79u, 0x7au,
 };
 
 static const UChar kUMinus = (UChar)0x002d;
@@ -938,7 +938,7 @@ int64_t util64_utoi(const UChar* str, uint32_t radix)
 }
 
 uint32_t util64_toa(int64_t w, char* buf, uint32_t len, uint32_t radix, UBool raw)
-{    
+{
     if (radix > 36) {
         radix = 36;
     } else if (radix < 2) {
@@ -984,7 +984,7 @@ uint32_t util64_toa(int64_t w, char* buf, uint32_t len, uint32_t radix, UBool ra
 #endif
 
 uint32_t util64_tou(int64_t w, UChar* buf, uint32_t len, uint32_t radix, UBool raw)
-{    
+{
     if (radix > 36) {
         radix = 36;
     } else if (radix < 2) {

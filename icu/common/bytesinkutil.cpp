@@ -78,18 +78,14 @@ ByteSinkUtil::appendCodePoint(int32_t length, UChar32 c, ByteSink &sink, Edits *
     sink.Append(s8, s8Length);
 }
 
-namespace {
-
 // See unicode/utf8.h U8_APPEND_UNSAFE().
-inline uint8_t getTwoByteLead(UChar32 c) { return (uint8_t)((c >> 6) | 0xc0); }
-inline uint8_t getTwoByteTrail(UChar32 c) { return (uint8_t)((c & 0x3f) | 0x80); }
-
-}  // namespace
+inline uint8_t bytesinkutil_getTwoByteLead(UChar32 c) { return (uint8_t)((c >> 6) | 0xc0); }
+inline uint8_t bytesinkutil_getTwoByteTrail(UChar32 c) { return (uint8_t)((c & 0x3f) | 0x80); }
 
 void
 ByteSinkUtil::appendTwoBytes(UChar32 c, ByteSink &sink) {
     U_ASSERT(0x80 <= c && c <= 0x7ff);  // 2-byte UTF-8
-    char s8[2] = { (char)getTwoByteLead(c), (char)getTwoByteTrail(c) };
+    char s8[2] = { (char)bytesinkutil_getTwoByteLead(c), (char)bytesinkutil_getTwoByteTrail(c) };
     sink.Append(s8, 2);
 }
 

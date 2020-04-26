@@ -45,19 +45,19 @@
 
 #define U_ICUDATA_RBNF U_ICUDATA_NAME U_TREE_SEPARATOR_STRING "rbnf"
 
-static const UChar gPercentPercent[] =
+static const UChar rbnf_gPercentPercent[] =
 {
     0x25, 0x25, 0
 }; /* "%%" */
 
 // All urbnf objects are created through openRules, so we init all of the
 // Unicode string constants required by rbnf, nfrs, or nfr here.
-static const UChar gLenientParse[] =
+static const UChar rbnf_gLenientParse[] =
 {
     0x25, 0x25, 0x6C, 0x65, 0x6E, 0x69, 0x65, 0x6E, 0x74, 0x2D, 0x70, 0x61, 0x72, 0x73, 0x65, 0x3A, 0
 }; /* "%%lenient-parse:" */
-static const UChar gSemiColon = 0x003B;
-static const UChar gSemiPercent[] =
+static const UChar rbnf_gSemiColon = 0x003B;
+static const UChar rbnf_gSemiPercent[] =
 {
     0x3B, 0x25, 0
 }; /* ";%" */
@@ -1208,7 +1208,7 @@ RuleBasedNumberFormat::format(int64_t number,
                               UErrorCode& status) const
 {
     if (U_SUCCESS(status)) {
-        if (ruleSetName.indexOf(gPercentPercent, 2, 0) == 0) {
+        if (ruleSetName.indexOf(rbnf_gPercentPercent, 2, 0) == 0) {
             // throw new IllegalArgumentException("Can't use internal rule set");
             status = U_ILLEGAL_ARGUMENT_ERROR;
         } else {
@@ -1230,7 +1230,7 @@ RuleBasedNumberFormat::format(double number,
                               UErrorCode& status) const
 {
     if (U_SUCCESS(status)) {
-        if (ruleSetName.indexOf(gPercentPercent, 2, 0) == 0) {
+        if (ruleSetName.indexOf(rbnf_gPercentPercent, 2, 0) == 0) {
             // throw new IllegalArgumentException("Can't use internal rule set");
             status = U_ILLEGAL_ARGUMENT_ERROR;
         } else {
@@ -1511,21 +1511,21 @@ RuleBasedNumberFormat::init(const UnicodeString& rules, LocalizationInfo* locali
     // is, pull them out into our temporary holding place for them,
     // and delete them from the description before the real desciption-
     // parsing code sees them
-    int32_t lp = description.indexOf(gLenientParse, -1, 0);
+    int32_t lp = description.indexOf(rbnf_gLenientParse, -1, 0);
     if (lp != -1) {
         // we've got to make sure we're not in the middle of a rule
         // (where "%%lenient-parse" would actually get treated as
         // rule text)
-        if (lp == 0 || description.charAt(lp - 1) == gSemiColon) {
+        if (lp == 0 || description.charAt(lp - 1) == rbnf_gSemiColon) {
             // locate the beginning and end of the actual collation
             // rules (there may be whitespace between the name and
             // the first token in the description)
-            int lpEnd = description.indexOf(gSemiPercent, 2, lp);
+            int lpEnd = description.indexOf(rbnf_gSemiPercent, 2, lp);
 
             if (lpEnd == -1) {
                 lpEnd = description.length() - 1;
             }
-            int lpStart = lp + u_strlen(gLenientParse);
+            int lpStart = lp + u_strlen(rbnf_gLenientParse);
             while (PatternProps::isWhiteSpace(description.charAt(lpStart))) {
                 ++lpStart;
             }
@@ -1548,7 +1548,7 @@ RuleBasedNumberFormat::init(const UnicodeString& rules, LocalizationInfo* locali
     // rule sets (";%" marks the end of one rule set and the beginning
     // of the next)
     numRuleSets = 0;
-    for (int32_t p = description.indexOf(gSemiPercent, 2, 0); p != -1; p = description.indexOf(gSemiPercent, 2, p)) {
+    for (int32_t p = description.indexOf(rbnf_gSemiPercent, 2, 0); p != -1; p = description.indexOf(rbnf_gSemiPercent, 2, p)) {
         ++numRuleSets;
         ++p;
     }
@@ -1587,7 +1587,7 @@ RuleBasedNumberFormat::init(const UnicodeString& rules, LocalizationInfo* locali
     {
         int curRuleSet = 0;
         int32_t start = 0;
-        for (int32_t p = description.indexOf(gSemiPercent, 2, 0); p != -1; p = description.indexOf(gSemiPercent, 2, start)) {
+        for (int32_t p = description.indexOf(rbnf_gSemiPercent, 2, 0); p != -1; p = description.indexOf(rbnf_gSemiPercent, 2, start)) {
             ruleSetDescriptions[curRuleSet].setTo(description, start, p + 1 - start);
             fRuleSets[curRuleSet] = new NFRuleSet(this, ruleSetDescriptions, curRuleSet, status);
             if (fRuleSets[curRuleSet] == nullptr) {
@@ -1715,7 +1715,7 @@ RuleBasedNumberFormat::stripWhitespace(UnicodeString& description)
 
         // locate the next semicolon in the text and copy the text from
         // our current position up to that semicolon into the result
-        int32_t p = description.indexOf(gSemiColon, start);
+        int32_t p = description.indexOf(rbnf_gSemiColon, start);
         if (p == -1) {
             // or if we don't find a semicolon, just copy the rest of
             // the string into the result

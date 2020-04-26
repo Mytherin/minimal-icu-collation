@@ -281,11 +281,13 @@ class LocaleDisplayNamesImpl : public LocaleDisplayNames {
     SimpleFormatter format;
     SimpleFormatter keyTypeFormat;
     UDisplayContext capitalizationContext;
+public:
 #if !UCONFIG_NO_BREAK_ITERATION
     BreakIterator* capitalizationBrkIter;
 #else
     UObject* capitalizationBrkIter;
 #endif
+private:
     UnicodeString formatOpenParen;
     UnicodeString formatReplaceOpenParen;
     UnicodeString formatCloseParen;

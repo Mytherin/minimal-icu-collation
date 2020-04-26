@@ -23,17 +23,17 @@ namespace {
  * This is currently the only unused char value in compiled patterns,
  * except it is the maximum value of the first unit (max arg +1).
  */
-const int32_t ARG_NUM_LIMIT = 0x100;
+const int32_t SIMPLE_FORMATTER_ARG_NUM_LIMIT = 0x100;
 /**
  * Initial and maximum char/UChar value set for a text segment.
- * Segment length char values are from ARG_NUM_LIMIT+1 to this value here.
- * Normally 0xffff, but can be as small as ARG_NUM_LIMIT+1 for testing.
+ * Segment length char values are from SIMPLE_FORMATTER_ARG_NUM_LIMIT+1 to this value here.
+ * Normally 0xffff, but can be as small as SIMPLE_FORMATTER_ARG_NUM_LIMIT+1 for testing.
  */
 const UChar SEGMENT_LENGTH_PLACEHOLDER_CHAR = 0xffff;
 /**
  * Maximum length of a text segment. Longer segments are split into shorter ones.
  */
-const int32_t MAX_SEGMENT_LENGTH = SEGMENT_LENGTH_PLACEHOLDER_CHAR - ARG_NUM_LIMIT;
+const int32_t MAX_SEGMENT_LENGTH = SEGMENT_LENGTH_PLACEHOLDER_CHAR - SIMPLE_FORMATTER_ARG_NUM_LIMIT;
 
 enum {
     APOS = 0x27,
@@ -98,7 +98,7 @@ UBool SimpleFormatter::applyPatternMinMaxArguments(
         } else if (!inQuote && c == OPEN_BRACE) {
             if (textLength > 0) {
                 compiledPattern.setCharAt(compiledPattern.length() - textLength - 1,
-                                          (UChar)(ARG_NUM_LIMIT + textLength));
+                                          (UChar)(SIMPLE_FORMATTER_ARG_NUM_LIMIT + textLength));
                 textLength = 0;
             }
             int32_t argNumber;
@@ -116,7 +116,7 @@ UBool SimpleFormatter::applyPatternMinMaxArguments(
                     while (i < patternLength &&
                             DIGIT_ZERO <= (c = patternBuffer[i++]) && c <= DIGIT_NINE) {
                         argNumber = argNumber * 10 + (c - DIGIT_ZERO);
-                        if (argNumber >= ARG_NUM_LIMIT) {
+                        if (argNumber >= SIMPLE_FORMATTER_ARG_NUM_LIMIT) {
                             break;
                         }
                     }
@@ -144,7 +144,7 @@ UBool SimpleFormatter::applyPatternMinMaxArguments(
     }
     if (textLength > 0) {
         compiledPattern.setCharAt(compiledPattern.length() - textLength - 1,
-                                  (UChar)(ARG_NUM_LIMIT + textLength));
+                                  (UChar)(SIMPLE_FORMATTER_ARG_NUM_LIMIT + textLength));
     }
     int32_t argCount = maxArg + 1;
     if (argCount < min || max < argCount) {
@@ -224,7 +224,7 @@ UnicodeString &SimpleFormatter::formatAndReplace(
     if (getArgumentLimit(cp, cpLength) > 0) {
         for (int32_t i = 1; i < cpLength;) {
             int32_t n = cp[i++];
-            if (n < ARG_NUM_LIMIT) {
+            if (n < SIMPLE_FORMATTER_ARG_NUM_LIMIT) {
                 if (values[n] == &result) {
                     if (i == 2) {
                         firstArg = n;
@@ -233,7 +233,7 @@ UnicodeString &SimpleFormatter::formatAndReplace(
                     }
                 }
             } else {
-                i += n - ARG_NUM_LIMIT;
+                i += n - SIMPLE_FORMATTER_ARG_NUM_LIMIT;
             }
         }
     }
@@ -258,8 +258,8 @@ UnicodeString SimpleFormatter::getTextWithNoArguments(
     UnicodeString sb(capacity, 0, 0);  // Java: StringBuilder
     for (int32_t i = 1; i < compiledPatternLength;) {
         int32_t n = compiledPattern[i++];
-        if (n > ARG_NUM_LIMIT) {
-            n -= ARG_NUM_LIMIT;
+        if (n > SIMPLE_FORMATTER_ARG_NUM_LIMIT) {
+            n -= SIMPLE_FORMATTER_ARG_NUM_LIMIT;
             sb.append(compiledPattern + i, n);
             i += n;
         } else if (n < offsetsLength) {
@@ -283,7 +283,7 @@ UnicodeString &SimpleFormatter::format(
     }
     for (int32_t i = 1; i < compiledPatternLength;) {
         int32_t n = compiledPattern[i++];
-        if (n < ARG_NUM_LIMIT) {
+        if (n < SIMPLE_FORMATTER_ARG_NUM_LIMIT) {
             const UnicodeString *value = values[n];
             if (value == NULL) {
                 errorCode = U_ILLEGAL_ARGUMENT_ERROR;
@@ -312,7 +312,7 @@ UnicodeString &SimpleFormatter::format(
                 result.append(*value);
             }
         } else {
-            int32_t length = n - ARG_NUM_LIMIT;
+            int32_t length = n - SIMPLE_FORMATTER_ARG_NUM_LIMIT;
             result.append(compiledPattern + i, length);
             i += length;
         }
