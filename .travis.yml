@@ -24,6 +24,7 @@ matrix:
             - clang-6.0
       env:
         - MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0"
+        - TREAT_WARNINGS_AS_ERRORS=1
 
     - os: linux
       name: GCC 4.9
