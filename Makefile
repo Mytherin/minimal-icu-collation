@@ -30,7 +30,7 @@ release:
 	cmake --build .
 
 amal:
-	python3 scripts/amalgamation.py --linenumbers
+	python3 scripts/amalgamation.py
 
 unit: amal debug
 	build/debug/test/unittest
