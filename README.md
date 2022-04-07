@@ -182,3 +182,35 @@ make
 
 In the default configuration, only `misc`, `"coll_tree"` and `"coll_ucadata"` are included, which are the parts required for collation and basic time zone support. However, all locales are included. The size of the data can be significantly reduced by stripping certain locales. The linked page describes how to do that. After re-packaging the data, you can run `scripts/inline-data.py` to inline a smaller segment of the data.
 
+
+### Generating new data
+
+As this ICU version is based on ICU 66, it is recommended to generate the data using ICU 66. However, since you might still want to use the data of newer versions of ICU, you can generate updated data by copying it over from a new ICU repository.
+
+Here is the commands we used to generate a new data file with data from ICU 71:
+
+```sh
+# download ICU 66
+wget https://github.com/unicode-org/icu/archive/refs/tags/release-66-1.zip
+unzip release-66-1.zip
+
+# download ICU 71 (replace with latest version)
+wget https://github.com/unicode-org/icu/archive/refs/tags/release-71-1.zip
+unzip release-71-1.zip
+
+# copy over the data
+find icu-release-71-1/icu4c/source/data -type f ! -iname "*.txt" -delete
+cp -r icu-release-71-1/icu4c/source/data icu-release-66-1/icu4c/source
+
+# build the data, make sure to create "filters.json" first, see above
+cd icu-release-66-1/icu4c/source
+ICU_DATA_FILTER_FILE=filters.json ./runConfigureICU Linux --with-data-packaging=archive
+make
+
+# the data file will be located in icu-release-66-1/icu4c/source/data/out/icudt66l.dat
+# copy over the data to the minimal-icu-collation data repository
+# then run the following two commands:
+python3 scripts/inline-data.py
+python3 scripts/amalgamation.py
+```
+
